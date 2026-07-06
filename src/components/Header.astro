@@ -1,0 +1,105 @@
+---
+const nav = [
+  { label: 'Vender mi propiedad', href: '/#vender' },
+  { label: 'Propiedades', href: '/propiedades' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contacto', href: '/#contacto' },
+];
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="logo" aria-label="Malek Inmobiliaria - Inicio">
+      <img src="/images/logo-malek.png" alt="Malek Inmobiliaria" height="34" />
+    </a>
+    <nav aria-label="Navegación principal" class="nav-desktop">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a href="/#vender" class="btn btn-primary cta-desktop">Tasá tu propiedad</a>
+
+    <details class="nav-mobile">
+      <summary aria-label="Abrir menú">☰</summary>
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+        <li><a href="/#vender" class="btn btn-primary" style="margin-top: 0.5rem;">Tasá tu propiedad</a></li>
+      </ul>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
+  }
+  nav ul {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    font-weight: 700;
+    font-size: 0.9rem;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--blue);
+    transition: width 0.2s ease;
+  }
+  nav a:hover::after { width: 100%; }
+
+  .nav-mobile { display: none; position: relative; }
+  .nav-mobile summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+  }
+  .nav-mobile summary::-webkit-details-marker { display: none; }
+  .nav-mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-2);
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 220px;
+    z-index: 50;
+  }
+
+  @media (max-width: 780px) {
+    .nav-desktop, .cta-desktop { display: none; }
+    .nav-mobile { display: block; }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const properties = (await getCollection('properties'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const steps = [
+  { label: 'Tasación real', text: 'Analizamos tu propiedad y el mercado de tu zona para llegar a un precio de venta competitivo, no optimista.' },
+  { label: 'Plan de difusión', text: 'Fotos, video y publicación en los portales donde realmente están los compradores, más redes propias.' },
+  { label: 'Gestión de visitas', text: 'Filtramos y coordinamos cada visita para no exponerte a curiosos ni pérdidas de tiempo.' },
+  { label: 'Cierre acompañado', text: 'Te acompañamos en la negociación y en el papeleo hasta la firma de la escritura.' },
+];
+---
+
+<BaseLayout title="Vendé tu casa al mayor valor, en el menor tiempo" description="Malek Inmobiliaria te ayuda a vender tu propiedad al mejor precio, con gestión profesional de principio a fin.">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Malek Inmobiliaria</p>
+        <h1>
+          Vendé tu casa<br />
+          <span class="hero-accent">al mayor valor,</span><br />
+          en el menor tiempo.
+        </h1>
+        <p class="hero-sub">
+          Nos ocupamos de la tasación, la difusión y las visitas para que tu propiedad se venda
+          rápido y al precio que merece &mdash; sin que pierdas tiempo vos.
+        </p>
+        <div class="hero-actions">
+          <a href="#vender" class="btn btn-primary">Quiero tasar mi propiedad</a>
+          <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <span class="accent-bar" style="height: 100%;"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="section" id="vender">
+    <div class="container">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2 class="section-title">Un proceso claro, de principio a fin</h2>
+      <div class="steps">
+        {steps.map((step, i) => (
+          <div class="step">
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.label}</h3>
+            <p>{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM DE TASACION -->
+  <section class="section section-form">
+    <div class="container form-grid">
+      <div>
+        <p class="eyebrow" style="color: var(--blue-tint-3);">Empecemos</p>
+        <h2 class="section-title" style="color: var(--white);">Contanos sobre tu propiedad</h2>
+        <p style="color: var(--gray-400); max-width: 42ch;">
+          Completá tus datos y te contactamos en menos de 24hs con una primera valuación orientativa.
+        </p>
+      </div>
+      <form class="tasacion-form" action={`https://wa.me/5491122540182`} method="get" target="_blank">
+        <label>
+          Nombre
+          <input type="text" name="nombre" required />
+        </label>
+        <label>
+          Teléfono
+          <input type="tel" name="telefono" required />
+        </label>
+        <label>
+          Dirección de la propiedad
+          <input type="text" name="direccion" required />
+        </label>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Quiero mi tasación
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PROPIEDADES DESTACADAS -->
+  {properties.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Portfolio</p>
+        <h2 class="section-title">Propiedades en venta</h2>
+        <div class="prop-grid">
+          {properties.map((p) => (
+            <a class="prop-card" href={`/propiedades/${p.id}`}>
+              <img src={p.data.coverImage} alt={p.data.title} loading="lazy" />
+              <div class="prop-card-body">
+                <p class="prop-barrio">{p.data.barrio}</p>
+                <h3>{p.data.title}</h3>
+                <p class="prop-price">USD {p.data.price.toLocaleString('es-AR')}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style="margin-top: var(--space-4);">
+          <a href="/propiedades" class="btn btn-dark">Ver todas las propiedades</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section-tight" id="contacto">
+    <div class="container contact-band">
+      <div>
+        <h2 class="section-title" style="font-size: 1.8rem;">¿Tenés dudas sobre el proceso de venta?</h2>
+      </div>
+      <a href="https://wa.me/5491122540182" class="btn btn-primary" target="_blank" rel="noopener">Escribinos ahora</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-6); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+  .hero-accent { font-style: italic; color: var(--blue); }
+  .hero-sub { margin-top: var(--space-3); max-width: 46ch; color: var(--gray-900); font-size: 1.05rem; }
+  .hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; }
+  .hero-visual {
+    height: 380px;
+    background: linear-gradient(160deg, var(--blue-tint-1), var(--blue-tint-2));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: var(--space-4);
+  }
+
+  .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-block: var(--space-2) var(--space-4); }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
+  .step { border-top: 3px solid var(--blue); padding-top: var(--space-2); }
+  .step-num { font-family: var(--font-display); font-size: 1.4rem; color: var(--blue-tint-3); }
+  .step h3 { font-size: 1.1rem; margin-block: 0.4rem 0.5rem; }
+  .step p { color: var(--gray-900); font-size: 0.92rem; }
+
+  .section-form { background: var(--black); color: var(--white); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: center; }
+  .tasacion-form { display: grid; gap: var(--space-2); background: rgba(255,255,255,0.04); padding: var(--space-3); border: 1px solid rgba(255,255,255,0.15); }
+  .tasacion-form label { display: grid; gap: 0.4rem; font-size: 0.85rem; color: var(--gray-400); }
+  .tasacion-form input {
+    font-family: var(--font-body);
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: transparent;
+    color: var(--white);
+    border-radius: var(--radius);
+  }
+  .tasacion-form input:focus-visible { outline: 2px solid var(--blue); }
+
+  .prop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .prop-card { border: 1px solid var(--gray-100); display: block; }
+  .prop-card img { aspect-ratio: 4/3; object-fit: cover; }
+  .prop-card-body { padding: var(--space-2); }
+  .prop-barrio { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 0.3rem; }
+  .prop-card h3 { font-size: 1.15rem; }
+  .prop-price { font-weight: 700; margin-top: 0.4rem; }
+
+  .contact-band {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    background: var(--blue-tint-1);
+    padding: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid, .form-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .prop-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const properties = await getCollection('properties');
+  return properties.map((p) => ({
+    params: { slug: p.id },
+    props: { property: p },
+  }));
+}
+
+const { property } = Astro.props;
+const { data } = property;
+const { Content } = await render(property);
+
+const waHref = `https://wa.me/${data.whatsappNumber}?text=${encodeURIComponent(data.whatsappMessage)}`;
+
+const stats = [
+  { label: 'Ambientes', value: data.ambientes },
+  { label: 'Baños', value: data.banos },
+  { label: 'Superficie', value: `${data.m2} m²` },
+  { label: 'Orientación', value: data.orientacion ?? '—' },
+  { label: 'Ubicación', value: data.ubicacion ?? '—' },
+  { label: 'Antigüedad', value: data.antiguedad ? `${data.antiguedad} años` : '—' },
+  { label: 'Expensas', value: data.expensas ? `$${data.expensas.toLocaleString('es-AR')}` : '—' },
+  { label: 'ABL', value: data.abl ? `$${data.abl.toLocaleString('es-AR')}` : '—' },
+];
+---
+
+<BaseLayout title={data.title} description={`${data.title} — ${data.barrio}. ${data.ambientes} ambientes, ${data.m2} m².`} ogImage={data.coverImage}>
+
+  <section class="prop-hero">
+    <img src={data.coverImage} alt={data.title} />
+    <div class="prop-hero-overlay container">
+      <p class="eyebrow" style="color: var(--blue-tint-3);">{data.barrio}</p>
+      <h1>{data.title}</h1>
+      <p class="price">USD {data.price.toLocaleString('es-AR')}</p>
+    </div>
+  </section>
+
+  <section class="section container prop-body">
+    <div class="prop-main">
+      <h2>Sobre esta propiedad</h2>
+      <div class="prose"><Content /></div>
+
+      {data.gallery.length > 0 && (
+        <>
+          <h2 style="margin-top: var(--space-4);">Fotos</h2>
+          <div class="gallery">
+            {data.gallery.map((src) => <img src={src} alt={data.title} loading="lazy" />)}
+          </div>
+        </>
+      )}
+
+      {data.virtualTourUrl && (
+        <>
+          <h2 style="margin-top: var(--space-4);">Recorrido virtual</h2>
+          <div class="tour-embed">
+            <iframe
+              src={data.virtualTourUrl}
+              allow="xr-spatial-tracking; gyroscope; accelerometer"
+              allowfullscreen
+              loading="lazy"
+              title={`Tour virtual — ${data.title}`}
+            ></iframe>
+          </div>
+        </>
+      )}
+    </div>
+
+    <aside class="prop-sidebar">
+      <div class="stats-card">
+        <h3>Detalles</h3>
+        <dl>
+          {stats.map((s) => (
+            <div class="stat-row">
+              <dt>{s.label}</dt>
+              <dd>{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <a href={waHref} class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: var(--space-2);" target="_blank" rel="noopener">
+          Agendar visita por WhatsApp
+        </a>
+      </div>
+    </aside>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .prop-hero { position: relative; height: min(60vh, 520px); overflow: hidden; }
+  .prop-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .prop-hero-overlay {
+    position: absolute;
+    inset: 0;
+    top: auto;
+    padding-block: var(--space-4);
+    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent 70%);
+    color: var(--white);
+  }
+  .prop-hero-overlay h1 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--white); }
+  .prop-hero-overlay .price { font-weight: 700; font-size: 1.3rem; margin-top: 0.4rem; color: var(--white); }
+
+  .prop-body { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-5); align-items: start; }
+  .prop-main h2 { font-size: 1.4rem; margin-bottom: var(--space-2); }
+  .prose { color: var(--gray-900); line-height: 1.7; }
+
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
+  .gallery img { aspect-ratio: 4/3; object-fit: cover; }
+
+  .tour-embed { aspect-ratio: 16/9; }
+  .tour-embed iframe { width: 100%; height: 100%; border: 0; }
+
+  .stats-card {
+    position: sticky;
+    top: calc(var(--space-3) + 60px);
+    border: 1px solid var(--gray-100);
+    padding: var(--space-3);
+  }
+  .stats-card h3 { font-size: 1.1rem; margin-bottom: var(--space-2); }
+  .stat-row { display: flex; justify-content: space-between; padding-block: 0.5rem; border-bottom: 1px solid var(--gray-100); font-size: 0.92rem; }
+  .stat-row dt { color: var(--gray-900); }
+  .stat-row dd { margin: 0; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .prop-body { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .stats-card { position: static; }
+  }
+</style>

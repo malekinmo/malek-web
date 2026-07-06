@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const properties = (await getCollection('properties')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Propiedades en venta" description="Conocé todas las propiedades disponibles de Malek Inmobiliaria.">
+  <section class="section container">
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="page-title">Propiedades en venta</h1>
+    <div class="grid">
+      {properties.map((p) => (
+        <a class="card" href={`/propiedades/${p.id}`}>
+          <img src={p.data.coverImage} alt={p.data.title} loading="lazy" />
+          <div class="card-body">
+            <p class="barrio">{p.data.barrio}</p>
+            <h2>{p.data.title}</h2>
+            <p class="meta">{p.data.ambientes} amb · {p.data.m2} m² · {p.data.banos} baño{p.data.banos > 1 ? 's' : ''}</p>
+            <p class="price">USD {p.data.price.toLocaleString('es-AR')}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: var(--space-2) var(--space-4); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .card { border: 1px solid var(--gray-100); display: block; }
+  .card img { aspect-ratio: 4/3; object-fit: cover; }
+  .card-body { padding: var(--space-2); }
+  .barrio { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 0.3rem; }
+  .card h2 { font-size: 1.15rem; }
+  .meta { color: var(--gray-900); font-size: 0.9rem; margin-top: 0.3rem; }
+  .price { font-weight: 700; margin-top: 0.4rem; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

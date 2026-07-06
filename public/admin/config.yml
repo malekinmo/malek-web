@@ -1,0 +1,53 @@
+backend:
+  name: github
+  repo: malekinmo/malek-web   # usuario/repositorio de GitHub
+  branch: main
+
+# Con esto, Cloudflare Pages hace un build nuevo cada vez que se guarda contenido.
+publish_mode: simple
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "properties"
+    label: "Propiedades"
+    folder: "src/content/properties"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    fields:
+      - { label: "Título / Dirección", name: "title", widget: "string" }
+      - { label: "Barrio", name: "barrio", widget: "string" }
+      - { label: "Precio (USD)", name: "price", widget: "number" }
+      - { label: "Moneda", name: "currency", widget: "string", default: "USD" }
+      - { label: "Metros cuadrados", name: "m2", widget: "number" }
+      - { label: "Ambientes", name: "ambientes", widget: "number" }
+      - { label: "Baños", name: "banos", widget: "number" }
+      - { label: "Orientación", name: "orientacion", widget: "string", required: false }
+      - { label: "Ubicación (Frente/Lateral/Interno)", name: "ubicacion", widget: "string", required: false }
+      - { label: "Expensas", name: "expensas", widget: "number", required: false }
+      - { label: "ABL", name: "abl", widget: "number", required: false }
+      - { label: "Antigüedad (años)", name: "antiguedad", widget: "number", required: false }
+      - { label: "Foto de portada", name: "coverImage", widget: "image" }
+      - { label: "Galería de fotos", name: "gallery", widget: "list", field: { label: "Foto", name: "image", widget: "image" } }
+      - { label: "Link video (Youtube/Vimeo)", name: "videoUrl", widget: "string", required: false }
+      - { label: "Link tour virtual (Kuula, etc)", name: "virtualTourUrl", widget: "string", required: false }
+      - { label: "Número de WhatsApp", name: "whatsappNumber", widget: "string", default: "5491122540182" }
+      - { label: "Mensaje de WhatsApp", name: "whatsappMessage", widget: "string", default: "Hola! Quiero saber más sobre esta propiedad." }
+      - { label: "Destacada en portada", name: "featured", widget: "boolean", default: true }
+      - { label: "Orden", name: "order", widget: "number", default: 0 }
+      - { label: "Descripción", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Resumen (para la lista de blog)", name: "excerpt", widget: "text" }
+      - { label: "Foto de portada", name: "coverImage", widget: "image", required: false }
+      - { label: "Fecha de publicación", name: "publishDate", widget: "datetime" }
+      - { label: "Autor", name: "author", widget: "string", default: "Malek Inmobiliaria" }
+      - { label: "Contenido", name: "body", widget: "markdown" }

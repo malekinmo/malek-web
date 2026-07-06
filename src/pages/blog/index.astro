@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+<BaseLayout title="Blog" description="Consejos y novedades sobre el mercado inmobiliario de Malek Inmobiliaria.">
+  <section class="section container">
+    <p class="eyebrow">Blog</p>
+    <h1 class="page-title">Notas de Malek Inmobiliaria</h1>
+    <div class="grid">
+      {posts.map((post) => (
+        <a class="card" href={`/blog/${post.id}`}>
+          {post.data.coverImage && <img src={post.data.coverImage} alt={post.data.title} loading="lazy" />}
+          <div class="card-body">
+            <p class="date">{post.data.publishDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <h2>{post.data.title}</h2>
+            <p class="excerpt">{post.data.excerpt}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+    {posts.length === 0 && <p style="color: var(--gray-900);">Todavía no hay artículos publicados.</p>}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: var(--space-2) var(--space-4); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .card { border: 1px solid var(--gray-100); display: block; }
+  .card img { aspect-ratio: 16/9; object-fit: cover; }
+  .card-body { padding: var(--space-2); }
+  .date { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue); margin-bottom: 0.3rem; }
+  .card h2 { font-size: 1.15rem; }
+  .excerpt { color: var(--gray-900); font-size: 0.92rem; margin-top: 0.4rem; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>

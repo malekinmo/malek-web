@@ -1,0 +1,180 @@
+/* ==========================================================================
+   MALEK INMOBILIARIA — Design tokens
+   Fuente: manual de marca (Pantone P 112-7C / RGB 0,151,217)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Blacker Sans Display';
+  src: url('/fonts/BlackerSansDisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Blacker Sans Display';
+  src: url('/fonts/BlackerSansDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Blacker Sans Display';
+  src: url('/fonts/BlackerSansDisplay-ExtraBoldItalic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Brittany';
+  src: url('/fonts/Brittany.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Marca — primario */
+  --blue: #0097D9;
+  --blue-dark: #006E9E;
+  --blue-deep: #004A6B;
+
+  /* Marca — neutros */
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --gray-900: #58595B;
+  --gray-400: #C7C8CA;
+  --gray-100: #F4F5F6;
+
+  /* Marca — tintes celestes secundarios */
+  --blue-tint-1: #E8F4FA;
+  --blue-tint-2: #CFE7F5;
+  --blue-tint-3: #A9D6EC;
+  --blue-mid: #6BAEDB;
+  --blue-mid-2: #4F86C6;
+
+  /* Tipografía */
+  --font-display: 'Blacker Sans Display', Georgia, serif;
+  --font-body: 'Gotham', 'Helvetica Neue', Arial, sans-serif;
+  --font-accent: 'Brittany', cursive;
+
+  /* Layout */
+  --max-width: 1240px;
+  --radius: 2px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* Motivo de marca: el acento celeste único sobre negro (como la "I" del isologo) */
+.accent-bar {
+  display: inline-block;
+  width: 3px;
+  background: var(--blue);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: var(--blue);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.btn-primary {
+  background: var(--blue);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--blue-dark); }
+
+.btn-dark {
+  background: var(--black);
+  color: var(--white);
+}
+.btn-dark:hover { background: #222; }
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--black);
+  color: var(--black);
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+.section { padding-block: var(--space-6); }
+.section-tight { padding-block: var(--space-4); }
+
+@media (max-width: 720px) {
+  .section { padding-block: var(--space-5); }
+}
