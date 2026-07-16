@@ -7,10 +7,10 @@ const properties = (await getCollection('properties'))
   .slice(0, 3);
 
 const steps = [
-  { label: 'Tasación real', text: 'Analizamos tu propiedad y el mercado de tu zona para llegar a un precio de venta competitivo, no optimista.' },
-  { label: 'Plan de difusión', text: 'Fotos, video y publicación en los portales donde realmente están los compradores, más redes propias.' },
-  { label: 'Gestión de visitas', text: 'Filtramos y coordinamos cada visita para no exponerte a curiosos ni pérdidas de tiempo.' },
-  { label: 'Cierre acompañado', text: 'Te acompañamos en la negociación y en el papeleo hasta la firma de la escritura.' },
+  { label: 'Tasación real', text: 'Nada de precios inflados para "ver si alguien pica". Analizamos comparables reales de tu zona y llegamos a un valor que se vende.' },
+  { label: 'Plan de difusión', text: 'Fotos y video profesionales, publicación en los portales donde de verdad buscan los compradores, y difusión en redes propias.' },
+  { label: 'Gestión de visitas', text: 'Filtramos consultas, coordinamos horarios y mostramos la propiedad nosotros. Vos no perdés un solo fin de semana.' },
+  { label: 'Cierre acompañado', text: 'Te acompañamos en la negociación, la documentación y la firma, hasta que la propiedad esté vendida.' },
 ];
 ---
 
@@ -18,25 +18,20 @@ const steps = [
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <p class="eyebrow">Malek Inmobiliaria</p>
-        <h1>
-          Vendé tu casa<br />
-          <span class="hero-accent">al mayor valor,</span><br />
-          en el menor tiempo.
-        </h1>
-        <p class="hero-sub">
-          Nos ocupamos de la tasación, la difusión y las visitas para que tu propiedad se venda
-          rápido y al precio que merece &mdash; sin que pierdas tiempo vos.
-        </p>
-        <div class="hero-actions">
-          <a href="#vender" class="btn btn-primary">Quiero tasar mi propiedad</a>
-          <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <span class="accent-bar" style="height: 100%;"></span>
+    <div class="container hero-inner">
+      <p class="eyebrow">Malek Inmobiliaria</p>
+      <h1>
+        Vendé tu casa<br />
+        <span class="hero-accent">al mayor valor,</span><br />
+        en el menor tiempo.
+      </h1>
+      <p class="hero-sub">
+        Nos ocupamos de la tasación, la difusión y las visitas para que tu propiedad se venda
+        rápido y al precio que merece &mdash; sin que pierdas tiempo vos.
+      </p>
+      <div class="hero-actions">
+        <a href="#vender" class="btn btn-primary">Quiero tasar mi propiedad</a>
+        <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
       </div>
     </div>
   </section>
@@ -125,25 +120,12 @@ const steps = [
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--space-6); }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: var(--space-4);
-    align-items: center;
-  }
+  .hero { padding-block: var(--space-6); border-bottom: 3px solid var(--blue); }
+  .hero-inner { max-width: 780px; }
   h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
   .hero-accent { font-style: italic; color: var(--blue); }
   .hero-sub { margin-top: var(--space-3); max-width: 46ch; color: var(--gray-900); font-size: 1.05rem; }
   .hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; }
-  .hero-visual {
-    height: 380px;
-    background: linear-gradient(160deg, var(--blue-tint-1), var(--blue-tint-2));
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: var(--space-4);
-  }
 
   .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-block: var(--space-2) var(--space-4); }
 
@@ -186,8 +168,7 @@ const steps = [
   }
 
   @media (max-width: 900px) {
-    .hero-grid, .form-grid { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
     .steps { grid-template-columns: repeat(2, 1fr); }
     .prop-grid { grid-template-columns: 1fr; }
   }
