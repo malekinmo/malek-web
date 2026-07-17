@@ -3,10 +3,8 @@ logo_url: "/images/logo-malek.png"
 
 backend:
   name: github
-  repo: malekinmo/malek-web   # usuario/repositorio de GitHub
+  repo: malekinmo/malek-web
   branch: main
-  # Sin base_url: el login es con un Personal Access Token de GitHub,
-  # no hace falta ningún servidor intermedio.
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
@@ -33,7 +31,7 @@ collections:
       - { label: "Antigüedad (años)", name: "antiguedad", widget: "number", required: false }
       - { label: "Foto de portada", name: "coverImage", widget: "image" }
       - { label: "Galería de fotos", name: "gallery", widget: "list", field: { label: "Foto", name: "image", widget: "image" } }
-      - { label: "Link video (Youtube/Vimeo)", name: "videoUrl", widget: "string", required: false }
+      - { label: "Link video (Youtube/Vimeo)", name: "videoUrl", widget: "string", required: false, hint: "Pegá el link normal, ej https://www.youtube.com/watch?v=XXXX" }
       - { label: "Link tour virtual (Kuula, etc)", name: "virtualTourUrl", widget: "string", required: false }
       - { label: "Número de WhatsApp", name: "whatsappNumber", widget: "string", default: "5491122540182" }
       - { label: "Mensaje de WhatsApp", name: "whatsappMessage", widget: "string", default: "Hola! Quiero saber más sobre esta propiedad." }

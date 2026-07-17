@@ -16,7 +16,6 @@ const steps = [
 
 <BaseLayout title="Vendé tu casa al mayor valor, en el menor tiempo" description="Malek Inmobiliaria te ayuda a vender tu propiedad al mejor precio, con gestión profesional de principio a fin.">
 
-  <!-- HERO -->
   <section class="hero">
     <div class="container hero-inner">
       <p class="eyebrow">Malek Inmobiliaria</p>
@@ -36,7 +35,6 @@ const steps = [
     </div>
   </section>
 
-  <!-- PROCESO -->
   <section class="section" id="vender">
     <div class="container">
       <p class="eyebrow">Cómo trabajamos</p>
@@ -53,7 +51,6 @@ const steps = [
     </div>
   </section>
 
-  <!-- FORM DE TASACION -->
   <section class="section section-form">
     <div class="container form-grid">
       <div>
@@ -63,7 +60,7 @@ const steps = [
           Completá tus datos y te contactamos en menos de 24hs con una primera valuación orientativa.
         </p>
       </div>
-      <form class="tasacion-form" action={`https://wa.me/5491122540182`} method="get" target="_blank">
+      <form class="tasacion-form" action="https://wa.me/5491122540182" method="get" target="_blank">
         <label>
           Nombre
           <input type="text" name="nombre" required />
@@ -83,7 +80,6 @@ const steps = [
     </div>
   </section>
 
-  <!-- PROPIEDADES DESTACADAS -->
   {properties.length > 0 && (
     <section class="section">
       <div class="container">

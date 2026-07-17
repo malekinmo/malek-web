@@ -34,8 +34,5 @@ const properties = (await getCollection('properties')).sort((a, b) => a.data.ord
   .card h2 { font-size: 1.15rem; }
   .meta { color: var(--gray-900); font-size: 0.9rem; margin-top: 0.3rem; }
   .price { font-weight: 700; margin-top: 0.4rem; }
-
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 </style>

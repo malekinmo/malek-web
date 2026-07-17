@@ -10,8 +10,9 @@ const nav = [
 <header class="site-header">
   <div class="container bar">
     <a href="/" class="logo" aria-label="Malek Inmobiliaria - Inicio">
-      <img src="/images/logo-malek.png" alt="Malek Inmobiliaria" height="52" />
+      <img src="/images/logo-malek.png" alt="Malek Inmobiliaria" />
     </a>
+
     <nav aria-label="Navegación principal" class="nav-desktop">
       <ul>
         {nav.map((item) => (
@@ -47,6 +48,10 @@ const nav = [
     justify-content: space-between;
     gap: var(--space-3);
     padding-block: var(--space-2);
+  }
+  .logo img {
+    height: 44px;
+    width: auto;
   }
   nav ul {
     display: flex;
@@ -101,5 +106,6 @@ const nav = [
   @media (max-width: 780px) {
     .nav-desktop, .cta-desktop { display: none; }
     .nav-mobile { display: block; }
+    .logo img { height: 36px; }
   }
 </style>

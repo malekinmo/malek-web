@@ -4,18 +4,18 @@ import { glob } from 'astro/loaders';
 const properties = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/properties' }),
   schema: z.object({
-    title: z.string(),          // "AV. La Plata 164"
-    barrio: z.string(),         // "Caballito / Almagro"
-    price: z.number(),          // 108000
+    title: z.string(),
+    barrio: z.string(),
+    price: z.number(),
     currency: z.string().default('USD'),
     m2: z.number(),
     ambientes: z.number(),
     banos: z.number(),
-    orientacion: z.string().optional(),      // "Norte"
-    ubicacion: z.string().optional(),        // "Lateral" | "Interno" | "Frente"
+    orientacion: z.string().optional(),
+    ubicacion: z.string().optional(),
     expensas: z.number().optional(),
     abl: z.number().optional(),
-    antiguedad: z.number().optional(),       // años
+    antiguedad: z.number().optional(),
     coverImage: z.string(),
     gallery: z.array(z.string()).default([]),
     videoUrl: z.string().optional(),

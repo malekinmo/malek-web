@@ -35,8 +35,5 @@ const posts = (await getCollection('blog')).sort(
   .date { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue); margin-bottom: 0.3rem; }
   .card h2 { font-size: 1.15rem; }
   .excerpt { color: var(--gray-900); font-size: 0.92rem; margin-top: 0.4rem; }
-
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 </style>
