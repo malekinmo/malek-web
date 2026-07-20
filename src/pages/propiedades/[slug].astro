@@ -241,9 +241,12 @@ const stats = [
     inset: 0;
     background: rgba(10,10,10,0.95);
     z-index: 100;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+  }
+  .lightbox:not([hidden]) {
+    display: flex;
   }
   .lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
   .lightbox-close, .lightbox-nav {
