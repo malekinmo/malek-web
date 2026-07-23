@@ -30,7 +30,7 @@ collections:
       - { label: "ABL", name: "abl", widget: "number", required: false }
       - { label: "Antigüedad (años)", name: "antiguedad", widget: "number", required: false }
       - { label: "Foto de portada", name: "coverImage", widget: "image" }
-      - { label: "Galería de fotos", name: "gallery", widget: "list", field: { label: "Foto", name: "image", widget: "image" } }
+      - { label: "Galería de fotos", name: "gallery", widget: "image", multiple: true, hint: "Podés seleccionar o arrastrar varias fotos a la vez. Arrastrá para reordenar." }
       - { label: "Link video (Youtube/Vimeo)", name: "videoUrl", widget: "string", required: false, hint: "Pegá el link normal, ej https://www.youtube.com/watch?v=XXXX" }
       - { label: "Link tour virtual (Kuula, etc)", name: "virtualTourUrl", widget: "string", required: false }
       - { label: "Número de WhatsApp", name: "whatsappNumber", widget: "string", default: "5491122540182" }
