@@ -1,85 +1,141 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
 import { getCollection } from 'astro:content';
 
 const properties = (await getCollection('properties'))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
+const waPdfHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Quiero el PDF completo del proceso de venta.')}`;
+const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Tengo dudas sobre cómo vender mi propiedad.')}`;
+
 const steps = [
-  { label: 'Tasación real', text: 'Nada de precios inflados para "ver si alguien pica". Analizamos comparables reales de tu zona y llegamos a un valor que se vende.' },
-  { label: 'Plan de difusión', text: 'Fotos y video profesionales, publicación en los portales donde de verdad buscan los compradores, y difusión en redes propias.' },
-  { label: 'Gestión de visitas', text: 'Filtramos consultas, coordinamos horarios y mostramos la propiedad nosotros. Vos no perdés un solo fin de semana.' },
-  { label: 'Cierre acompañado', text: 'Te acompañamos en la negociación, la documentación y la firma, hasta que la propiedad esté vendida.' },
+  {
+    title: 'Tasación y análisis de mercado personalizado',
+    text: 'Armo un informe evaluando ubicación, estado y tendencias del mercado, para llegar a un precio competitivo que maximice el interés de los compradores.',
+  },
+  {
+    title: 'Servicio personalizado, con foco en vos',
+    text: 'Desde el primer contacto hasta la firma, recibís asesoramiento experto y un trato que prioriza tus intereses en cada decisión.',
+  },
+  {
+    title: 'Revisión completa de documentación',
+    text: 'Títulos, impuestos, reglamentos: reviso todo antes de publicar para evitar sorpresas y demoras.',
+  },
+  {
+    title: 'Preparación de la propiedad',
+    text: 'Fotos HDR, video estabilizado, recorrido virtual 360° y plano comercial, para que se vea en su mejor versión.',
+  },
+  {
+    title: 'Máxima visibilidad en portales',
+    text: 'Anunciante Premier en Zonaprop, Tienda Oficial en Mercado Libre, y presencia en Argenprop, Inmuebles Clarín y más.',
+  },
+  {
+    title: 'Comunicación constante',
+    text: 'Reportes periódicos con métricas de desempeño e interés generado, para que siempre sepas cómo va tu venta.',
+  },
+  {
+    title: 'Negociación y gestión de contratos',
+    text: 'Lidero la negociación y preparo la documentación para conseguir las mejores condiciones.',
+  },
+  {
+    title: 'Acompañamiento hasta la escritura',
+    text: 'Estoy con vos desde el cierre hasta la firma y la entrega.',
+  },
 ];
 ---
 
-<BaseLayout title="Vendé tu casa al mayor valor, en el menor tiempo" description="Malek Inmobiliaria te ayuda a vender tu propiedad al mejor precio, con gestión profesional de principio a fin.">
+<BaseLayout title="Vendé tu propiedad al mayor valor, en el menor tiempo" description="Malek Inmobiliaria: venta residencial en CABA, con dedicación exclusiva a pocos clientes a la vez.">
 
+  <!-- HERO -->
   <section class="hero">
     <div class="container hero-inner">
       <p class="eyebrow">Malek Inmobiliaria</p>
       <h1>
-        Vendé tu casa<br />
-        <span class="hero-accent">al mayor valor,</span><br />
-        en el menor tiempo.
+        Mudarte puede ser una buena<br />
+        <span class="hero-script">Experiencia</span>
       </h1>
       <p class="hero-sub">
-        Nos ocupamos de la tasación, la difusión y las visitas para que tu propiedad se venda
-        rápido y al precio que merece &mdash; sin que pierdas tiempo vos.
+        &mdash; cuando tu casa se vende al mayor valor, en el menor tiempo.
       </p>
       <div class="hero-actions">
-        <a href="#vender" class="btn btn-primary">Quiero tasar mi propiedad</a>
+        <a href="#vender" class="btn btn-primary">Quiero mudarme</a>
         <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
       </div>
     </div>
   </section>
 
+  <!-- FOCO -->
+  <section class="section-tight foco">
+    <div class="container foco-inner">
+      <h2>Solo venta. Solo CABA. <span class="hero-script foco-script">Solo residencial.</span></h2>
+      <p>Nada de alquileres, nada de dispersión. Todo el tiempo y el criterio puestos en una sola cosa: vender tu propiedad bien.</p>
+    </div>
+  </section>
+
+  <!-- POR QUÉ ME ELIGEN -->
   <section class="section" id="vender">
+    <div class="container why-grid">
+      <div>
+        <p class="eyebrow">Por qué trabajar conmigo</p>
+        <h2 class="section-title">Sabemos que tu hogar es lo más importante</h2>
+        <p class="why-text">
+          Por eso trabajo con hasta 10 propiedades a la vez — nunca más — para poder dedicarle a la tuya
+          más tiempo, más dinero y más energía de lo que puede una inmobiliaria tradicional.
+        </p>
+        <p class="why-text">
+          Mientras otros reparten su atención entre decenas de fichas, tu casa tiene foco exclusivo
+          hasta el día que se vende.
+        </p>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <p class="stat-num">90</p>
+          <p class="stat-label">días en promedio, de la publicación a la escritura</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num">Top 1%</p>
+          <p class="stat-label">de las publicaciones mejor posicionadas de CABA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA INTERMEDIO 1 -->
+  <section class="cta-band">
+    <div class="container cta-band-inner">
+      <p>¿Tenés dudas sobre cómo vender tu propiedad? Hablemos.</p>
+      <a href={waDudasHref} class="btn btn-primary" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="section" id="proceso">
     <div class="container">
-      <p class="eyebrow">Cómo trabajamos</p>
+      <p class="eyebrow">Cómo lo hago</p>
       <h2 class="section-title">Un proceso claro, de principio a fin</h2>
       <div class="steps">
         {steps.map((step, i) => (
           <div class="step">
             <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{step.label}</h3>
+            <h3>{step.title}</h3>
             <p>{step.text}</p>
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <section class="section section-form">
-    <div class="container form-grid">
-      <div>
-        <p class="eyebrow" style="color: var(--blue-tint-3);">Empecemos</p>
-        <h2 class="section-title" style="color: var(--white);">Contanos sobre tu propiedad</h2>
-        <p style="color: var(--gray-400); max-width: 42ch;">
-          Completá tus datos y te contactamos en menos de 24hs con una primera valuación orientativa.
-        </p>
+      <div class="proceso-cta">
+        <p>¿Querés ver el proceso completo, con todos los detalles?</p>
+        <a href={waPdfHref} class="btn btn-dark" target="_blank" rel="noopener">Pedir el PDF del proceso</a>
       </div>
-      <form class="tasacion-form" action="https://wa.me/5491122540182" method="get" target="_blank">
-        <label>
-          Nombre
-          <input type="text" name="nombre" required />
-        </label>
-        <label>
-          Teléfono
-          <input type="tel" name="telefono" required />
-        </label>
-        <label>
-          Dirección de la propiedad
-          <input type="text" name="direccion" required />
-        </label>
-        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-          Quiero mi tasación
-        </button>
-      </form>
     </div>
   </section>
 
+  <Testimonials />
+  <Faq />
+
+  <!-- PROPIEDADES DESTACADAS -->
   {properties.length > 0 && (
     <section class="section">
       <div class="container">
@@ -104,12 +160,33 @@ const steps = [
     </section>
   )}
 
-  <section class="section-tight" id="contacto">
-    <div class="container contact-band">
+  <!-- FORM DE TASACION -->
+  <section class="section section-form" id="contacto">
+    <div class="container form-grid">
       <div>
-        <h2 class="section-title" style="font-size: 1.8rem;">¿Tenés dudas sobre el proceso de venta?</h2>
+        <p class="eyebrow" style="color: var(--blue-tint-3);">Empecemos</p>
+        <h2 class="section-title" style="color: var(--white);">Contanos sobre tu propiedad</h2>
+        <p style="color: var(--gray-400); max-width: 42ch;">
+          Completá tus datos y te contacto en menos de 24hs con una primera valuación orientativa.
+        </p>
       </div>
-      <a href="https://wa.me/5491122540182" class="btn btn-primary" target="_blank" rel="noopener">Escribinos ahora</a>
+      <form class="tasacion-form" action="https://wa.me/5491122540182" method="get" target="_blank">
+        <label>
+          Nombre
+          <input type="text" name="nombre" required />
+        </label>
+        <label>
+          Teléfono
+          <input type="tel" name="telefono" required />
+        </label>
+        <label>
+          Dirección de la propiedad
+          <input type="text" name="direccion" required />
+        </label>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Quiero mi tasación
+        </button>
+      </form>
     </div>
   </section>
 
@@ -118,18 +195,60 @@ const steps = [
 <style>
   .hero { padding-block: var(--space-6); border-bottom: 3px solid var(--blue); }
   .hero-inner { max-width: 780px; }
-  h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
-  .hero-accent { font-style: italic; color: var(--blue); }
-  .hero-sub { margin-top: var(--space-3); max-width: 46ch; color: var(--gray-900); font-size: 1.05rem; }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .hero-script {
+    font-family: var(--font-accent);
+    font-weight: 400;
+    color: var(--blue);
+    font-size: 1.7em;
+    line-height: 1;
+    display: inline-block;
+  }
+  .hero-sub { margin-top: var(--space-3); max-width: 46ch; color: var(--gray-900); font-size: 1.1rem; }
   .hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; }
+
+  .foco { background: var(--black); color: var(--white); }
+  .foco-inner { max-width: 680px; }
+  .foco h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--white); }
+  .foco-script { font-size: 1.3em; }
+  .foco p { color: var(--gray-400); margin-top: var(--space-2); font-size: 1rem; }
 
   .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-block: var(--space-2) var(--space-4); }
 
+  .why-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-5); align-items: start; }
+  .why-text { color: var(--gray-900); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-2); }
+  .stat-cards { display: grid; gap: var(--space-2); }
+  .stat-card { border: 1px solid var(--gray-100); padding: var(--space-3); }
+  .stat-num { font-family: var(--font-display); font-size: 2.4rem; color: var(--blue); line-height: 1; }
+  .stat-label { color: var(--gray-900); font-size: 0.9rem; margin-top: 0.4rem; }
+
+  .cta-band { background: var(--blue-tint-1); padding-block: var(--space-4); }
+  .cta-band-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .cta-band-inner p { margin: 0; font-family: var(--font-display); font-size: 1.3rem; }
+
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
   .step { border-top: 3px solid var(--blue); padding-top: var(--space-2); }
-  .step-num { font-family: var(--font-display); font-size: 1.4rem; color: var(--blue-tint-3); }
-  .step h3 { font-size: 1.1rem; margin-block: 0.4rem 0.5rem; }
-  .step p { color: var(--gray-900); font-size: 0.92rem; }
+  .step-num { font-family: var(--font-display); font-size: 1.6rem; color: var(--blue-tint-3); }
+  .step h3 { font-size: 1.05rem; margin-block: 0.4rem 0.5rem; }
+  .step p { color: var(--gray-900); font-size: 0.9rem; }
+
+  .proceso-cta {
+    margin-top: var(--space-5);
+    padding: var(--space-3);
+    background: var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .proceso-cta p { margin: 0; font-weight: 700; }
 
   .section-form { background: var(--black); color: var(--white); }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: center; }
@@ -153,17 +272,8 @@ const steps = [
   .prop-card h3 { font-size: 1.15rem; }
   .prop-price { font-weight: 700; margin-top: 0.4rem; }
 
-  .contact-band {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-    background: var(--blue-tint-1);
-    padding: var(--space-4);
-    flex-wrap: wrap;
-  }
-
   @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
     .steps { grid-template-columns: repeat(2, 1fr); }
     .prop-grid { grid-template-columns: 1fr; }

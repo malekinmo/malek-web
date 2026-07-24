@@ -1,0 +1,83 @@
+---
+const items = [
+  {
+    q: '¿Cuánto tarda en venderse mi propiedad?',
+    a: 'En base a mi cartera, el promedio es de 90 días desde la publicación hasta la escritura, siempre que el precio de salida sea acorde al mercado.',
+  },
+  {
+    q: '¿Cuándo pago la comisión?',
+    a: 'Solo si la propiedad se vende. Sin venta, no hay costo para vos.',
+  },
+  {
+    q: '¿Me comprometo a algo por pedir la tasación?',
+    a: 'No, la tasación inicial no tiene costo ni compromiso.',
+  },
+  {
+    q: '¿En qué zonas trabajás?',
+    a: 'Solo CABA, solo venta, solo propiedades residenciales.',
+  },
+  {
+    q: '¿Trabajás con muchas propiedades a la vez?',
+    a: 'No, trabajo con hasta 10 al mismo tiempo, para poder dedicarle a cada una el tiempo que necesita.',
+  },
+  {
+    q: '¿Qué pasa si mi propiedad no recibe consultas?',
+    a: 'Reviso las métricas cada semana (impresiones, clics, consultas, visitas) y, si hace falta, ajusto la estrategia. A los 60 días hago una revisión más profunda del enfoque.',
+  },
+  {
+    q: '¿Tengo que estar presente en las visitas?',
+    a: 'No es obligatorio, la decisión es tuya. Mi recomendación, basada en la experiencia, es no estar presente: así el comprador se siente más cómodo para hablar abiertamente de la propiedad y de valores. Pero si preferís estar en las visitas, lo organizamos igual, sin problema.',
+  },
+  {
+    q: '¿Qué documentación necesito para vender?',
+    a: 'Escritura, reglamento de copropiedad, planos, DNI e informes de dominio. Te guío en todo el proceso para tenerla lista antes de publicar.',
+  },
+  {
+    q: '¿Hay algún compromiso de exclusividad?',
+    a: 'Sí, autorización de venta exclusiva por 120 días. Es un compromiso mutuo, con objetivos y plazos claros, para poder trabajar en equipo de verdad.',
+  },
+];
+---
+
+<section class="section" id="faq">
+  <div class="container faq-wrap">
+    <p class="eyebrow">Preguntas frecuentes</p>
+    <h2 class="section-title">Antes de que me escribas</h2>
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-wrap { max-width: 820px; }
+  .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-block: var(--space-2) var(--space-4); }
+  .faq-list { display: grid; gap: 0; border-top: 1px solid var(--gray-100); }
+  .faq-item { border-bottom: 1px solid var(--gray-100); padding-block: var(--space-2); }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.02rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--blue);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--gray-900); margin: var(--space-2) 0 0; line-height: 1.6; }
+</style>
