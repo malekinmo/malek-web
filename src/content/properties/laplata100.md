@@ -14,11 +14,24 @@ antiguedad: 59
 coverImage: https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/AVLaQ6kMv3TDpQg6/chatgpt-image-16-jun-2026-14_24_28-ur8ViRvKg4YLpRiK.png
 gallery:
   - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-3-Wq1h7Ohi3lXa0EdI.jpg
-  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-10-HnzQNHEwkPAbZCAv.jpg
-  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-22-NGnrxxnTXkS297rt.jpg
-  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-14-jgiSg6lkbZE6r7Vq.jpg
+  - /images/uploads/Av La Plata 164-2.jpg
   - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-1-Mdnr47p73JbuZwjP.jpg
   - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-4-875Gqy60EGN44AOA.jpg
+  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-10-HnzQNHEwkPAbZCAv.jpg
+  - /images/uploads/Av La Plata 164-8.jpg
+  - /images/uploads/Av La Plata 164-9.jpg
+  - /images/uploads/Av La Plata 164-11.jpg
+  - /images/uploads/Av La Plata 164-13.jpg
+  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-14-jgiSg6lkbZE6r7Vq.jpg
+  - /images/uploads/Av La Plata 164-16.jpg
+  - https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/AVLaQ6kMv3TDpQg6/av-la-plata-164-22-NGnrxxnTXkS297rt.jpg
+  - /images/uploads/Av La Plata 164-17.jpg
+  - /images/uploads/Av La Plata 164-18.jpg
+  - /images/uploads/Av La Plata 164-19.jpg
+  - /images/uploads/Av La Plata 164-20.jpg
+  - /images/uploads/Av La Plata 164-21.jpg
+  - /images/uploads/Av La Plata 164-22.jpg
+  - /images/uploads/Av La Plata 164-23.jpg
 videoUrl: https://youtu.be/FYuqeZtrjnA?si=0PvlDquDrF9DoBn0
 virtualTourUrl: https://kuula.co/share/collection/7T588
 whatsappNumber: '5491122540182'
