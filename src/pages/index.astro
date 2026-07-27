@@ -4,9 +4,9 @@ import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
 import { getCollection } from 'astro:content';
 
-const properties = (await getCollection('properties'))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+const properties = (await getCollection('properties')).sort((a, b) => a.data.order - b.data.order);
+const heroImage = properties[0]?.data.coverImage;
+const featuredProperties = properties.slice(0, 3);
 
 const waPdfHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Quiero el PDF completo del proceso de venta.')}`;
 const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Tengo dudas sobre cómo vender mi propiedad.')}`;
@@ -51,19 +51,27 @@ const steps = [
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container hero-inner">
-      <p class="eyebrow">Malek Inmobiliaria</p>
-      <h1>
-        Mudarte puede ser una buena<br />
-        <span class="hero-script">Experiencia</span>
-      </h1>
-      <p class="hero-sub">
-        &mdash; cuando tu casa se vende al mayor valor, en el menor tiempo.
-      </p>
-      <div class="hero-actions">
-        <a href="#vender" class="btn btn-primary">Quiero mudarme</a>
-        <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    <div class="container hero-grid">
+      <div class="hero-inner">
+        <p class="eyebrow">Malek Inmobiliaria</p>
+        <h1>
+          Mudarte puede ser<br />
+          una buena <span class="hero-script">Experiencia</span>
+        </h1>
+        <p class="hero-sub">
+          &mdash; cuando tu casa se vende al mayor valor, en el menor tiempo.
+        </p>
+        <div class="hero-actions">
+          <a href="#vender" class="btn btn-primary">Quiero mudarme</a>
+          <a href="https://wa.me/5491122540182" class="btn btn-outline" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+        </div>
       </div>
+      {heroImage && (
+        <div class="hero-visual">
+          <span class="hero-visual-bar" aria-hidden="true"></span>
+          <img src={heroImage} alt="Propiedad de Malek Inmobiliaria" />
+        </div>
+      )}
     </div>
   </section>
 
@@ -136,13 +144,13 @@ const steps = [
   <Faq />
 
   <!-- PROPIEDADES DESTACADAS -->
-  {properties.length > 0 && (
+  {featuredProperties.length > 0 && (
     <section class="section">
       <div class="container">
         <p class="eyebrow">Portfolio</p>
         <h2 class="section-title">Propiedades en venta</h2>
         <div class="prop-grid">
-          {properties.map((p) => (
+          {featuredProperties.map((p) => (
             <a class="prop-card" href={`/propiedades/${p.id}`}>
               <img src={p.data.coverImage} alt={p.data.title} loading="lazy" />
               <div class="prop-card-body">
@@ -194,18 +202,30 @@ const steps = [
 
 <style>
   .hero { padding-block: var(--space-6); border-bottom: 3px solid var(--blue); }
-  .hero-inner { max-width: 780px; }
-  h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-5); align-items: center; }
+  .hero-inner { max-width: 560px; }
+  h1 { font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.15; }
   .hero-script {
     font-family: var(--font-accent);
     font-weight: 400;
     color: var(--blue);
-    font-size: 1.7em;
+    font-size: 1.35em;
     line-height: 1;
     display: inline-block;
+    transform: translateY(0.08em);
   }
   .hero-sub { margin-top: var(--space-3); max-width: 46ch; color: var(--gray-900); font-size: 1.1rem; }
   .hero-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; }
+  .hero-visual { position: relative; height: 100%; min-height: 340px; }
+  .hero-visual img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-visual-bar {
+    position: absolute;
+    left: -1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--blue);
+  }
 
   .foco { background: var(--black); color: var(--white); }
   .foco-inner { max-width: 680px; }
@@ -219,7 +239,7 @@ const steps = [
   .why-text { color: var(--gray-900); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-2); }
   .stat-cards { display: grid; gap: var(--space-2); }
   .stat-card { border: 1px solid var(--gray-100); padding: var(--space-3); }
-  .stat-num { font-family: var(--font-display); font-size: 2.4rem; color: var(--blue); line-height: 1; }
+  .stat-num { font-family: var(--font-body); font-weight: 700; font-size: 2.4rem; color: var(--blue); line-height: 1; }
   .stat-label { color: var(--gray-900); font-size: 0.9rem; margin-top: 0.4rem; }
 
   .cta-band { background: var(--blue-tint-1); padding-block: var(--space-4); }
@@ -234,7 +254,7 @@ const steps = [
 
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
   .step { border-top: 3px solid var(--blue); padding-top: var(--space-2); }
-  .step-num { font-family: var(--font-display); font-size: 1.6rem; color: var(--blue-tint-3); }
+  .step-num { font-family: var(--font-body); font-weight: 700; font-size: 1.5rem; color: var(--blue-tint-3); }
   .step h3 { font-size: 1.05rem; margin-block: 0.4rem 0.5rem; }
   .step p { color: var(--gray-900); font-size: 0.9rem; }
 
@@ -273,6 +293,9 @@ const steps = [
   .prop-price { font-weight: 700; margin-top: 0.4rem; }
 
   @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { min-height: 240px; margin-top: var(--space-3); }
+    .hero-visual-bar { display: none; }
     .why-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
     .steps { grid-template-columns: repeat(2, 1fr); }
