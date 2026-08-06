@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-
 const properties = (await getCollection('properties')).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="Propiedades en venta" description="Conocé todas las propiedades disponibles de Malek Inmobiliaria.">
@@ -23,7 +22,6 @@ const properties = (await getCollection('properties')).sort((a, b) => a.data.ord
     </div>
   </section>
 </BaseLayout>
-
 <style>
   .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: var(--space-2) var(--space-4); }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }

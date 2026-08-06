@@ -1,10 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
-);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 <BaseLayout title="Blog" description="Consejos y novedades sobre el mercado inmobiliario de Malek Inmobiliaria.">
   <section class="section container">
@@ -25,7 +22,6 @@ const posts = (await getCollection('blog')).sort(
     {posts.length === 0 && <p style="color: var(--gray-900);">Todavía no hay artículos publicados.</p>}
   </section>
 </BaseLayout>
-
 <style>
   .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: var(--space-2) var(--space-4); }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
