@@ -1,35 +1,540 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { getCollection } from 'astro:content';
-const posts = (await getCollection('blog')).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const properties = (await getCollection('properties')).sort((a, b) => a.data.order - b.data.order);
+const primary = properties[0];
+
+const heroImg = primary?.data.coverImage ?? '/images/og-default.jpg';
+const planoImg = primary?.data.gallery?.[2] ?? primary?.data.gallery?.[0] ?? heroImg;
+const videoPanelImg = primary?.data.gallery?.[1] ?? primary?.data.gallery?.[0] ?? heroImg;
+const tourUrl = primary?.data.virtualTourUrl ?? '';
+const listingPriceText = primary ? `USD ${primary.data.price.toLocaleString('es-AR')}` : '';
+const listingSpecsText = primary
+  ? `${primary.data.title} · ${primary.data.ambientes} ambientes · ${primary.data.m2} m²`
+  : '';
+
+const waTasarHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Quiero tasar mi propiedad.')}`;
+const waGeneralHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Quiero más información.')}`;
+const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Tengo dudas sobre cómo vender mi propiedad.')}`;
 ---
-<BaseLayout title="Blog" description="Consejos y novedades sobre el mercado inmobiliario de Malek Inmobiliaria.">
-  <section class="section container">
-    <p class="eyebrow">Blog</p>
-    <h1 class="page-title">Notas de Malek Inmobiliaria</h1>
-    <div class="grid">
-      {posts.map((post) => (
-        <a class="card" href={`/blog/${post.id}`}>
-          {post.data.coverImage && <img src={post.data.coverImage} alt={post.data.title} loading="lazy" />}
-          <div class="card-body">
-            <p class="date">{post.data.publishDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-            <h2>{post.data.title}</h2>
-            <p class="excerpt">{post.data.excerpt}</p>
-          </div>
-        </a>
-      ))}
+
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <title>Malek Inmobiliaria — Vendé tu propiedad al mayor valor, en el menor tiempo</title>
+  <meta name="description" content="Venta residencial en CABA, con dedicación exclusiva a pocos clientes a la vez. Tasación sin cargo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Malek Inmobiliaria" />
+  <meta property="og:description" content="Venta residencial en CABA, con dedicación exclusiva a pocos clientes a la vez." />
+  <meta property="og:image" content={heroImg} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style is:global>
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-Regular.woff2") format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-Bold.woff2") format('woff2');font-weight:700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-ExtraBoldItalic.woff2") format('woff2');font-weight:800;font-style:italic;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/Gotham-Book.woff2") format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/Gotham-Bold.woff2") format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'Brittany';src:url("/fonts/Brittany.woff2") format('woff2');font-weight:400;font-display:swap}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#000}
+  #malek-home{margin:0;background:#000;color:#F5F2EC;font-family:'Gotham',sans-serif;-webkit-font-smoothing:antialiased}
+  #malek-home a{color:inherit;text-decoration:none}
+  #malek-home a:hover{color:#0097D9}
+  @keyframes malek-blink{0%,100%{opacity:1}50%{opacity:.15}}
+  @keyframes malek-scrolldot{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(26px);opacity:0}}
+  @keyframes malek-pan{0%{transform:translateX(0) scale(1.35)}50%{transform:translateX(-14%) scale(1.35)}100%{transform:translateX(0) scale(1.35)}}
+  @keyframes malek-progress{0%{width:6%}100%{width:96%}}
+  @keyframes malek-ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @keyframes malek-pulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.9);opacity:0}100%{transform:scale(1.9);opacity:0}}
+  @keyframes malek-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+  </style>
+</head>
+<body>
+
+<div id="malek-home" style="background:#000;overflow-x:clip;position:relative">
+
+  <div id="mh-progress" style="position:fixed;top:0;left:0;height:2px;width:0%;background:#0097D9;z-index:60"></div>
+
+  <div id="mh-intro" style="position:fixed;inset:0;background:#000;z-index:80;display:flex;align-items:center;justify-content:center">
+    <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:340px;height:auto;opacity:0;transition:opacity .7s ease">
+  </div>
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,4vw,56px);background:rgba(0,0,0,.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,242,236,.08)">
+    <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    <nav style="display:flex;gap:clamp(14px,2.2vw,38px);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9C5BE;font-weight:400">
+      <a href="#mh-proceso">Proceso</a>
+      <a href="#mh-material">Material</a>
+      <a href="#mh-jaco">Quién soy</a>
+      <a href="#mh-contacto">Contacto</a>
+    </nav>
+    <a href={waTasarHref} target="_blank" rel="noopener" style="border:1px solid #0097D9;color:#0097D9;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:13px 22px;white-space:nowrap;display:inline-flex;align-items:center;transition:background .4s cubic-bezier(.16,1,.3,1),color .4s ease" style-hover="background:#0097D9;color:#fff">Tasá tu propiedad</a>
+  </header>
+
+  <section style="position:relative;height:100vh;min-height:820px;overflow:hidden;margin-top:-79px">
+    <div id="mh-heroimg" style="position:absolute;inset:-8% 0;will-change:transform">
+      <img src={heroImg} alt="Interior a sangre — living con luz de tarde" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
     </div>
-    {posts.length === 0 && <p style="color: var(--gray-900);">Todavía no hay artículos publicados.</p>}
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.72) 38%,rgba(0,0,0,.15) 72%,rgba(0,0,0,.5) 100%);pointer-events:none"></div>
+    <div style="position:absolute;left:clamp(20px,4vw,56px);bottom:110px;max-width:820px;pointer-events:none">
+      <div data-reveal="up" data-delay="900" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:26px">Venta residencial · Ciudad de Buenos Aires</div>
+      <h1 style="margin:0;font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(44px,6.6vw,96px);line-height:.98;letter-spacing:-.03em;color:#F5F2EC">
+        <span data-reveal="mask" data-delay="1000" style="display:inline-block">Mudarte</span>
+        <span data-reveal="mask" data-delay="1080" style="display:inline-block">puede</span>
+        <span data-reveal="mask" data-delay="1160" style="display:inline-block">ser</span>
+        <span data-reveal="mask" data-delay="1240" style="display:inline-block">una</span>
+        <span data-reveal="mask" data-delay="1320" style="display:inline-block">buena</span>
+        <span data-reveal="mask" data-delay="1440" style="display:inline-block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(56px,8.4vw,120px);color:#0097D9;padding:0 .06em">Experiencia</span>
+      </h1>
+      <div data-reveal="up" data-delay="1600" style="margin-top:30px;font-size:19px;line-height:1.62;color:#C9C5BE;max-width:560px;font-weight:500">Me ocupo de vender tu casa con estrategia, tecnología, proceso claro y acompañamiento profesional. <b style="color:#F5F2EC;font-weight:700">Vos solo pensás en lo que viene.</b></div>
+      <div data-reveal="up" data-delay="1720" style="display:flex;gap:14px;margin-top:40px;pointer-events:auto">
+        <a href={waTasarHref} target="_blank" rel="noopener" style="background:#0097D9;color:#fff;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#00618C;color:#fff;transform:translateY(-3px)">Quiero mudarme</a>
+        <a href={waGeneralHref} target="_blank" rel="noopener" style="border:1px solid rgba(245,242,236,.35);color:#F5F2EC;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:background .45s cubic-bezier(.16,1,.3,1),color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)" style-hover="background:#F5F2EC;color:#000;transform:translateY(-3px)">Hablar por WhatsApp</a>
+      </div>
+    </div>
+    <div style="position:absolute;right:clamp(20px,4vw,56px);bottom:110px;display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none">
+      <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8C8A85;writing-mode:vertical-rl">Scroll</div>
+      <div style="width:1px;height:56px;background:rgba(245,242,236,.2);position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;width:1px;height:26px;background:#0097D9;animation:malek-scrolldot 1.8s ease-in-out infinite"></div>
+      </div>
+    </div>
   </section>
-</BaseLayout>
-<style>
-  .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: var(--space-2) var(--space-4); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
-  .card { border: 1px solid var(--gray-100); display: block; }
-  .card img { aspect-ratio: 16/9; object-fit: cover; }
-  .card-body { padding: var(--space-2); }
-  .date { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue); margin-bottom: 0.3rem; }
-  .card h2 { font-size: 1.15rem; }
-  .excerpt { color: var(--gray-900); font-size: 0.92rem; margin-top: 0.4rem; }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-</style>
+
+  <div style="background:#0097D9;overflow:hidden;padding:20px 0;position:relative">
+    <div style="display:flex;width:max-content;animation:malek-ticker 38s linear infinite">
+      <div style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+      </div>
+      <div aria-hidden="true" style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:clamp(90px,12vw,180px) clamp(20px,4vw,56px) clamp(80px,10vw,150px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,100px);align-items:start">
+    <div style="min-width:0">
+      <div data-reveal="up" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:34px">Por qué trabajar conmigo</div>
+      <div style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.06;letter-spacing:-.03em;font-weight:700;color:#F5F2EC">
+        <div data-reveal="mask" style="display:block">Tu hogar no es</div>
+        <div data-reveal="mask" data-delay="90" style="display:block">una ficha más</div>
+        <div data-reveal="mask" data-delay="180" style="display:block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(40px,5.8vw,78px);color:#0097D9;margin-top:6px">en una cartera</div>
+      </div>
+    </div>
+    <div style="min-width:0;display:flex;flex-direction:column;gap:30px;padding-top:78px">
+      <div data-reveal="up" style="font-size:20px;line-height:1.72;color:#C9C5BE;font-weight:500">Tomo <b style="color:#F5F2EC;font-weight:700">muy pocas propiedades a la vez</b>, y las elijo. Eso me deja dedicarle a la tuya más tiempo, más dinero y más energía de la que puede una inmobiliaria tradicional.</div>
+      <div data-reveal="up" data-delay="120" style="font-size:20px;line-height:1.72;color:#C9C5BE;font-weight:500">Mientras una inmobiliaria tradicional reparte su atención entre cientos de avisos, tu casa tiene foco exclusivo hasta el día que se vende.</div>
+      <div data-reveal="up" data-delay="220" style="height:1px;background:rgba(245,242,236,.14);margin-top:12px"></div>
+      <div data-reveal="up" data-delay="280" style="font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#F5F2EC;font-weight:700">Nada de alquileres. Nada de dispersión.</div>
+    </div>
+  </section>
+
+  <section style="padding:0 clamp(20px,4vw,56px) clamp(90px,11vw,170px);display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(245,242,236,.14)">
+    <div style="padding:70px 50px 0 0;min-width:0">
+      <div data-count-to="90" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">0</div>
+      <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
+      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">días en promedio, de la publicación a reserva.</div>
+    </div>
+    <div style="padding:70px 50px 0;border-left:1px solid rgba(245,242,236,.14);min-width:0">
+      <div style="display:flex;align-items:baseline"><span style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">Top </span><span data-count-to="1" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0097D9">0%</span></div>
+      <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
+      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">de las publicaciones mejor posicionadas de CABA.</div>
+    </div>
+    <div style="padding:70px 0 0 50px;border-left:1px solid rgba(245,242,236,.14);min-width:0">
+      <div data-count-to="70" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">0%</div>
+      <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
+      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">de éxito: vendo 7 de cada 10 propiedades que publico. El mercado vende solo 2 de cada 10.</div>
+    </div>
+  </section>
+
+  <section id="mh-premier" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px) clamp(60px,8vw,110px)">
+    <div style="display:grid;grid-template-columns:minmax(280px,1fr) 1.15fr;gap:clamp(32px,5vw,80px);align-items:center">
+      <div style="min-width:0;display:flex;flex-direction:column;gap:24px">
+        <div data-reveal="up" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:700">La pieza que decide todo</div>
+        <div data-reveal="mask" data-delay="80" style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#F5F2EC">Sin publicidad, no te ve nadie</div>
+        <div data-reveal="up" data-delay="160" style="font-size:18px;line-height:1.75;color:#C9C5BE;font-weight:500;max-width:520px">Tu casa puede tener el mejor material de CABA: si aparece en la página cuatro del portal, no existe. Por eso pago las dos categorías máximas que hay.</div>
+        <div data-reveal="up" data-delay="240" style="display:flex;flex-direction:column;gap:0;margin-top:8px">
+          <div style="display:flex;gap:18px;padding:20px 0;border-top:1px solid rgba(245,242,236,.16)">
+            <div style="font-family:'Gotham',sans-serif;font-size:12px;font-weight:700;color:#0097D9;width:24px">01</div>
+            <div><div style="font-family:'Gotham',sans-serif;font-size:16px;font-weight:700;color:#F5F2EC">Inmobiliaria Premier</div><div style="font-size:14px;line-height:1.6;color:#8C8A85;margin-top:6px;font-weight:500">La categoría de anunciante más alta de Zonaprop.</div></div>
+          </div>
+          <div style="display:flex;gap:18px;padding:20px 0;border-top:1px solid rgba(245,242,236,.16);border-bottom:1px solid rgba(245,242,236,.16)">
+            <div style="font-family:'Gotham',sans-serif;font-size:12px;font-weight:700;color:#0097D9;width:24px">02</div>
+            <div><div style="font-family:'Gotham',sans-serif;font-size:16px;font-weight:700;color:#F5F2EC">Aviso Superdestacado</div><div style="font-size:14px;line-height:1.6;color:#8C8A85;margin-top:6px;font-weight:500">El nivel máximo disponible para una publicación.</div></div>
+          </div>
+        </div>
+        <div data-reveal="up" data-delay="320" style="font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#8C8A85;font-weight:700">Más Tienda Oficial en Mercado Libre · Argenprop · Inmuebles</div>
+      </div>
+
+      <div style="min-width:0;background:#F5F2EC;padding:18px;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid #DCD6CB">
+          <div style="display:flex;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#DCD6CB"></div><div style="width:9px;height:9px;border-radius:50%;background:#DCD6CB"></div><div style="width:9px;height:9px;border-radius:50%;background:#DCD6CB"></div></div>
+          <div style="flex:1;background:#fff;border:1px solid #DCD6CB;padding:9px 14px;font-family:'Gotham',sans-serif;font-size:12px;font-weight:500;color:#4A4844;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Departamentos en venta · Ciudad de Buenos Aires</div>
+          <div style="background:#0097D9;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:9px 14px;white-space:nowrap">BUSCAR</div>
+        </div>
+        <div style="display:flex;gap:8px;padding:14px 0 16px;flex-wrap:wrap">
+          <div style="border:1px solid #DCD6CB;color:#4A4844;font-size:11px;font-weight:500;padding:6px 12px">3 ambientes</div>
+          <div style="border:1px solid #DCD6CB;color:#4A4844;font-size:11px;font-weight:500;padding:6px 12px">Hasta USD 250.000</div>
+          <div style="border:1px solid #DCD6CB;color:#4A4844;font-size:11px;font-weight:500;padding:6px 12px">Con balcón</div>
+        </div>
+        <div id="mh-listing" style="display:flex;flex-direction:column;gap:10px">
+          <div data-listing="malek" style="display:flex;gap:14px;background:#fff;border:2px solid #0097D9;padding:12px;height:132px;position:relative;will-change:transform">
+            <div style="position:absolute;left:-2px;top:-2px;background:#0097D9;color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;padding:5px 9px">SUPERDESTACADO</div>
+            <div style="width:150px;flex:0 0 150px;background:#E7DFD2;overflow:hidden;position:relative"><img src={heroImg} alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:5px;padding-top:10px">
+              <div style="font-family:'Gotham',sans-serif;font-size:17px;font-weight:700;color:#0A0A0A">{listingPriceText}</div>
+              <div style="font-family:'Gotham',sans-serif;font-size:12px;font-weight:500;color:#4A4844;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{listingSpecsText}</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><img src="/images/logo-malek.png" alt="Malek Inmobiliaria" style="width:76px;height:auto;display:block"><div style="background:#0A0A0A;color:#fff;font-size:8px;font-weight:700;letter-spacing:.12em;padding:3px 7px;white-space:nowrap">INMOBILIARIA PREMIER</div></div>
+            </div>
+          </div>
+          <div data-listing="otro" style="display:flex;gap:14px;background:#fff;border:1px solid #E4DFD6;padding:12px;height:112px;opacity:.55;will-change:transform">
+            <div style="width:120px;flex:0 0 120px;background:#E7E4DE"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px">
+              <div style="height:12px;width:110px;background:#E0DBD2"></div><div style="height:9px;width:75%;background:#EAE6DE"></div><div style="height:9px;width:45%;background:#EAE6DE"></div>
+            </div>
+          </div>
+          <div data-listing="otro" style="display:flex;gap:14px;background:#fff;border:1px solid #E4DFD6;padding:12px;height:112px;opacity:.55;will-change:transform">
+            <div style="width:120px;flex:0 0 120px;background:#E7E4DE"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px">
+              <div style="height:12px;width:96px;background:#E0DBD2"></div><div style="height:9px;width:68%;background:#EAE6DE"></div><div style="height:9px;width:52%;background:#EAE6DE"></div>
+            </div>
+          </div>
+          <div data-listing="otro" style="display:flex;gap:14px;background:#fff;border:1px solid #E4DFD6;padding:12px;height:112px;opacity:.55;will-change:transform">
+            <div style="width:120px;flex:0 0 120px;background:#E7E4DE"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px">
+              <div style="height:12px;width:124px;background:#E0DBD2"></div><div style="height:9px;width:72%;background:#EAE6DE"></div><div style="height:9px;width:40%;background:#EAE6DE"></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding-top:14px;font-family:'Gotham',sans-serif;font-size:11px;font-weight:500;color:#8C8A85">Simulación de resultados · así se ve tu propiedad publicada conmigo.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mh-material" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px) 0">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(24px,4vw,60px);margin-bottom:clamp(32px,5vw,60px)">
+      <div data-reveal="mask" style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#F5F2EC;max-width:720px">Cuatro piezas por propiedad, sin excepción</div>
+      <div data-reveal="up" data-delay="120" style="font-size:16px;line-height:1.7;color:#8C8A85;max-width:340px;font-weight:500">El material es la mitad del precio. Por eso está en el top 1% de CABA — y por eso lo hago yo con proveedores fijos.</div>
+    </div>
+    <div style="display:flex;gap:6px;height:clamp(340px,42vw,520px)">
+      <div style="flex:1;position:relative;overflow:hidden;transition:flex .8s cubic-bezier(.16,1,.3,1)" style-hover="flex:2.6">
+        <img src={heroImg} alt="Foto HDR" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.05) 58%);pointer-events:none"></div>
+        <div style="position:absolute;left:26px;bottom:26px;pointer-events:none"><div style="font-size:11px;letter-spacing:.24em;color:#0097D9;margin-bottom:10px;font-weight:700">01</div><div style="font-family:'Blacker Sans Display',serif;font-size:26px;font-weight:700;color:#F5F2EC">Fotos HDR</div><div style="font-size:13px;color:#C9C5BE;margin-top:8px;font-weight:500">Verticales rectas, luz real, sin deformar.</div></div>
+      </div>
+
+      <div style="flex:1;position:relative;overflow:hidden;background:#000;transition:flex .8s cubic-bezier(.16,1,.3,1)" style-hover="flex:2.6">
+        <img src={videoPanelImg} alt="Video estabilizado" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.12) 60%);pointer-events:none"></div>
+        <div style="position:absolute;left:26px;right:26px;bottom:26px;pointer-events:none">
+          <div style="font-size:11px;letter-spacing:.24em;color:#0097D9;margin-bottom:10px;font-weight:700">02</div>
+          <div style="font-family:'Blacker Sans Display',serif;font-size:26px;font-weight:700;color:#F5F2EC">Video estabilizado</div>
+          <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85;margin-top:12px;font-weight:700">Recorrido en movimiento</div>
+        </div>
+      </div>
+
+      <div style="flex:1;position:relative;overflow:hidden;background:#000;transition:flex .8s cubic-bezier(.16,1,.3,1)" style-hover="flex:2.6">
+        <iframe src={tourUrl} title="Recorrido virtual 360°" allow="fullscreen; xr-spatial-tracking" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:44%;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,0) 100%);pointer-events:none"></div>
+        <div style="position:absolute;left:0;top:0;width:100%;height:82px;background:linear-gradient(180deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.82) 46%,rgba(0,0,0,0) 100%);pointer-events:none"></div>
+        <div style="position:absolute;left:26px;right:26px;bottom:26px;pointer-events:none">
+          <div style="font-size:11px;letter-spacing:.24em;color:#0097D9;margin-bottom:10px;font-weight:700">03</div>
+          <div style="font-family:'Blacker Sans Display',serif;font-size:26px;font-weight:700;color:#F5F2EC">Recorrido <span style="font-family:'Gotham',sans-serif;font-weight:700">360°</span></div>
+          <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85;margin-top:12px;font-weight:700">Arrastrá para girar</div>
+        </div>
+      </div>
+
+      <div style="flex:1;position:relative;overflow:hidden;background:#F5F2EC;transition:flex .8s cubic-bezier(.16,1,.3,1)" style-hover="flex:2.6">
+        <div style="position:absolute;inset:0;overflow:hidden"><img src={planoImg} alt="Plano comercial" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:26px;background:linear-gradient(0deg,#F5F2EC 55%,rgba(245,242,236,0) 100%);pointer-events:none">
+          <div style="font-size:11px;letter-spacing:.24em;color:#0097D9;margin-bottom:10px;font-weight:700">04</div>
+          <div style="font-family:'Blacker Sans Display',serif;font-size:26px;font-weight:700;color:#0A0A0A">Plano comercial</div>
+          <div style="font-size:13px;color:#4A4844;margin-top:8px;font-weight:500">Metros claros, sin ambigüedad.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mh-proceso" style="background:#F5F2EC;color:#0A0A0A;padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px)">
+    <div style="display:grid;grid-template-columns:minmax(240px,460px) 1fr;gap:clamp(28px,5vw,90px);align-items:start">
+      <div style="position:sticky;top:120px;padding-top:140px;min-width:0">
+        <div style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:28px">Cómo lo hago</div>
+        <div style="font-family:'Blacker Sans Display',serif;font-size:clamp(30px,4vw,56px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#0A0A0A">Un proceso claro, de principio a fin</div>
+        <div id="mh-procnum" style="font-family:'Gotham',sans-serif;font-size:clamp(84px,12vw,190px);font-weight:200;line-height:.8;letter-spacing:-.06em;color:#0097D9;margin-top:54px;transition:opacity .3s ease">01</div>
+        <div style="height:2px;background:#DCD6CB;margin-top:34px;position:relative">
+          <div id="mh-procbar" style="position:absolute;left:0;top:0;height:2px;width:12.5%;background:#0A0A0A;transition:width .5s cubic-bezier(.16,1,.3,1)"></div>
+        </div>
+        <div style="margin-top:18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#8C8A85">Ocho etapas · de la tasación a la entrega</div>
+      </div>
+      <div style="min-width:0;padding-top:140px;display:flex;flex-direction:column">
+        <div data-step="1" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">01</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Tasación y análisis de mercado personalizado</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Armo un informe evaluando ubicación, estado y tendencias del mercado, para llegar a un precio competitivo que maximice el interés de los compradores.</div>
+        </div>
+        <div data-step="2" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">02</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Servicio personalizado, con foco en vos</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Desde el primer contacto hasta la firma, recibís asesoramiento experto y un trato que prioriza tus intereses en cada decisión.</div>
+        </div>
+        <div data-step="3" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">03</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Revisión completa de documentación</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Títulos, impuestos, reglamentos: reviso todo antes de publicar para evitar sorpresas y demoras.</div>
+        </div>
+        <div data-step="4" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">04</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Preparación de la propiedad</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Fotos HDR, video estabilizado, recorrido virtual 360° y plano comercial, para que se vea en su mejor versión.</div>
+        </div>
+        <div data-step="5" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">05</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Máxima visibilidad en portales</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Anuncio Premier en Zonaprop, Tienda Oficial en Mercado Libre, y presencia en Argenprop e Inmuebles.</div>
+        </div>
+        <div data-step="6" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">06</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Comunicación constante</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Reportes periódicos con métricas de desempeño e interés generado, para que siempre sepas cómo va tu venta.</div>
+        </div>
+        <div data-step="7" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">07</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Negociación y gestión de contratos</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Lidero la negociación y preparo la documentación para conseguir las mejores condiciones.</div>
+        </div>
+        <div data-step="8" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;border-bottom:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">08</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Acompañamiento hasta la escritura</span></div>
+          <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Estoy con vos desde el cierre hasta la firma y la entrega.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mh-jaco" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,90px);align-items:center">
+    <div style="position:relative;height:clamp(420px,46vw,680px);overflow:hidden;min-width:0">
+      <div data-parallax="0.09" style="position:absolute;inset:-10% 0;will-change:transform">
+        <img src="/images/jaco.webp" alt="Retrato de Jaco" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+    </div>
+    <div style="min-width:0;display:flex;flex-direction:column;gap:28px">
+      <div data-reveal="up" style="font-family:'Brittany',cursive;font-size:clamp(28px,3.6vw,46px);color:#0097D9;line-height:1">Hola, soy Jaco</div>
+      <div data-reveal="mask" data-delay="80" style="font-family:'Blacker Sans Display',serif;font-size:clamp(30px,4.2vw,58px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#F5F2EC">Atiendo yo, siempre. De la primera visita a la escritura.</div>
+      <div data-reveal="up" data-delay="180" style="font-size:19px;line-height:1.75;color:#C9C5BE;font-weight:500;max-width:560px">No hay equipo de ventas ni derivaciones. Cuando me escribís, me escribís a mí — y el que entra a tu casa con la cámara, el que negocia y el que te acompaña a la escribanía soy la misma persona.</div>
+      <div data-reveal="up" data-delay="260" style="display:flex;gap:44px;margin-top:14px;padding-top:26px;border-top:1px solid rgba(245,242,236,.14)">
+        <div><div style="font-family:'Gotham',sans-serif;font-size:15px;font-weight:500;color:#F5F2EC">Jacobo Malek</div><div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8C8A85;margin-top:6px">Matrícula CUCICBA</div></div>
+        <div><div style="font-family:'Gotham',sans-serif;font-size:15px;font-weight:500;color:#F5F2EC">CABA</div><div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8C8A85;margin-top:6px">Solo residencial</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 clamp(20px,4vw,56px) clamp(90px,11vw,160px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3.4vw,50px)">
+    <div data-reveal="up" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Muy profesional, todo lo tuyo es para recomendar.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Daniel</div></div>
+    <div data-reveal="up" data-delay="120" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Testimonio <span style="font-family:'Gotham',sans-serif;font-weight:500">2</span> — ideal si menciona tiempo de venta o precio obtenido.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Nombre · Barrio, año</div></div>
+    <div data-reveal="up" data-delay="240" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Testimonio <span style="font-family:'Gotham',sans-serif;font-weight:500">3</span> — ideal si habla del trato personal.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Nombre · Barrio, año</div></div>
+  </section>
+
+  <section id="mh-contacto" style="position:relative;background:#0097D9;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);overflow:hidden">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:34px">
+      <div data-reveal="up" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:500">Hablemos</div>
+      <div data-reveal="mask" style="font-family:'Blacker Sans Display',serif;font-size:clamp(38px,6vw,82px);line-height:1;letter-spacing:-.035em;font-weight:700;color:#fff;max-width:1000px">¿Tenés dudas sobre cómo vender tu propiedad?</div>
+      <a data-reveal="up" data-delay="160" href={waDudasHref} target="_blank" rel="noopener" style="margin-top:10px;background:#000;color:#fff;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:26px 44px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#F5F2EC;color:#000;transform:translateY(-4px)">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+  <footer style="background:#000;padding:clamp(36px,5vw,60px) clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:center;gap:40px">
+    <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    <div style="display:flex;gap:34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85">
+      <a href="#mh-proceso">Proceso</a>
+      <a href="#mh-material">Material</a>
+      <a href="#mh-contacto">Contacto</a>
+    </div>
+    <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5A5854;white-space:nowrap">malek.com.ar · Buenos Aires</div>
+  </footer>
+</div>
+
+<WhatsAppButton />
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(boot, 60);
+});
+
+function boot() {
+  const root = document.getElementById('malek-home');
+  if (!root) return;
+  const scroller = window;
+
+  // ---- style-hover polyfill (swaps inline styles on hover) ------------
+  root.querySelectorAll('[style-hover]').forEach((el) => {
+    const original = el.getAttribute('style') || '';
+    const hoverCss = el.getAttribute('style-hover') || '';
+    const parse = (css) => Object.fromEntries(
+      css.split(';').filter(Boolean).map((rule) => {
+        const idx = rule.indexOf(':');
+        return [rule.slice(0, idx).trim(), rule.slice(idx + 1).trim()];
+      })
+    );
+    const hoverProps = parse(hoverCss);
+    el.addEventListener('mouseenter', () => {
+      Object.entries(hoverProps).forEach(([k, v]) => { el.style[k] = v; });
+    });
+    el.addEventListener('mouseleave', () => {
+      el.setAttribute('style', original);
+    });
+  });
+
+  // ---- intro curtain ----------------------------------------------------
+  const intro = root.querySelector('#mh-intro');
+  if (intro) {
+    const mark = intro.querySelector('img');
+    requestAnimationFrame(() => { if (mark) mark.style.opacity = '1'; });
+    setTimeout(() => {
+      intro.style.transition = 'transform 1s cubic-bezier(.76,0,.24,1),opacity .6s ease .35s';
+      intro.style.transform = 'translateY(-100%)';
+      intro.style.opacity = '0';
+    }, 900);
+    setTimeout(() => { intro.style.display = 'none'; }, 2100);
+  }
+
+  // ---- reveals ------------------------------------------------------------
+  const revealed = new WeakSet();
+  const items = [...root.querySelectorAll('[data-reveal]')];
+  items.forEach((el) => {
+    const kind = el.getAttribute('data-reveal');
+    el.style.opacity = '0';
+    el.style.willChange = 'transform,opacity';
+    el.style.transform = kind === 'mask' ? 'translateY(46px)' : 'translateY(26px)';
+  });
+  const show = (el) => {
+    if (revealed.has(el)) return;
+    revealed.add(el);
+    const d = parseInt(el.getAttribute('data-delay') || '0', 10);
+    setTimeout(() => {
+      el.style.transition = 'opacity .9s cubic-bezier(.16,1,.3,1),transform 1.05s cubic-bezier(.16,1,.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, d);
+  };
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) show(e.target); }), { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  items.forEach((el) => io.observe(el));
+
+  // ---- counters -------------------------------------------------------
+  const counters = [...root.querySelectorAll('[data-count-to]')];
+  const runCount = (el) => {
+    const to = parseFloat(el.getAttribute('data-count-to'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    const t0 = performance.now(), dur = 1500;
+    const tick = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const done = new WeakSet();
+  const io2 = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting && !done.has(e.target)) { done.add(e.target); runCount(e.target); }
+  }), { threshold: 0.5 });
+  counters.forEach((el) => io2.observe(el));
+
+  // ---- proceso: active step -------------------------------------------
+  const steps = [...root.querySelectorAll('[data-step]')];
+  const num = root.querySelector('#mh-procnum');
+  const bar = root.querySelector('#mh-procbar');
+  const setActive = (el) => {
+    steps.forEach((s) => {
+      const on = s === el;
+      s.style.opacity = on ? '1' : '.32';
+      s.style.transform = on ? 'translateX(10px)' : 'translateX(0)';
+    });
+    const i = parseInt(el.getAttribute('data-step'), 10);
+    if (num) num.textContent = String(i).padStart(2, '0');
+    if (bar) bar.style.width = (i / steps.length * 100) + '%';
+  };
+  let activeStep = null;
+  const syncSteps = () => {
+    if (!steps.length) return;
+    const line = window.innerHeight * 0.55;
+    let pick = null;
+    steps.forEach((s) => { if (s.getBoundingClientRect().top <= line) pick = s; });
+    if (!pick) pick = steps[0];
+    if (pick !== activeStep) { activeStep = pick; setActive(pick); }
+  };
+
+  // ---- portal listing: sube al primer puesto ---------------------------
+  const listing = root.querySelector('#mh-listing');
+  if (listing) {
+    const cards = [...listing.children];
+    const malek = cards[0], others = cards.slice(1);
+    const step = 122;
+    malek.style.transform = 'translateY(' + (step * others.length) + 'px) scale(.97)';
+    malek.style.opacity = '0';
+    others.forEach((o) => { o.style.transform = 'translateY(-142px)'; });
+    const ioL = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      ioL.disconnect();
+      setTimeout(() => {
+        malek.style.transition = 'transform 1.15s cubic-bezier(.16,1,.3,1),opacity .7s ease';
+        malek.style.transform = 'translateY(0) scale(1)';
+        malek.style.opacity = '1';
+        others.forEach((o, i) => {
+          o.style.transition = 'transform 1.15s cubic-bezier(.16,1,.3,1) ' + (0.06 * i) + 's';
+          o.style.transform = 'translateY(0)';
+        });
+      }, 240);
+    }), { threshold: 0.3 });
+    ioL.observe(listing);
+  }
+
+  // ---- parallax + progress --------------------------------------------
+  const heroImg = root.querySelector('#mh-heroimg');
+  const parallax = [...root.querySelectorAll('[data-parallax]')];
+  const prog = root.querySelector('#mh-progress');
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const vh = window.innerHeight;
+      if (heroImg) {
+        const r = heroImg.getBoundingClientRect();
+        heroImg.style.transform = 'translate3d(0,' + (-r.top * 0.22) + 'px,0) scale(' + (1 + Math.min(0.12, Math.max(0, -r.top) / vh * 0.12)) + ')';
+      }
+      parallax.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const off = (r.top + r.height / 2 - vh / 2) * parseFloat(el.getAttribute('data-parallax'));
+        el.style.transform = 'translate3d(0,' + (-off) + 'px,0)';
+      });
+      syncSteps();
+      if (prog) {
+        const rr = root.getBoundingClientRect();
+        const total = Math.max(1, rr.height - vh);
+        prog.style.width = Math.min(100, Math.max(0, (-rr.top / total) * 100)) + '%';
+      }
+    });
+  };
+  scroller.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+}
+
+</script>
+
+</body>
+</html>
