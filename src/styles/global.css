@@ -1,29 +1,55 @@
 @font-face {
   font-family: 'Blacker Sans Display';
-  src: url('/fonts/BlackerSansDisplay-Regular.woff2') format('woff2');
+  src: url('/fonts/Blacker-Text-Regular-trial.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
-  src: url('/fonts/BlackerSansDisplay-Bold.woff2') format('woff2');
+  src: url('/fonts/Blacker-Text-Regular-Italic-trial.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Blacker Sans Display';
+  src: url('/fonts/Blacker-Text-Medium-trial.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Blacker Sans Display';
+  src: url('/fonts/Blacker-Text-Bold-trial.woff2') format('woff2');
   font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
-  src: url('/fonts/BlackerSansDisplay-ExtraBoldItalic.woff2') format('woff2');
-  font-weight: 800; font-style: italic; font-display: swap;
+  src: url('/fonts/Blacker-Text-Bold-Italic-trial.woff2') format('woff2');
+  font-weight: 700; font-style: italic; font-display: swap;
 }
 @font-face {
   font-family: 'Gotham';
-  src: url('/fonts/Gotham-Book.woff2') format('woff2');
+  src: url('/fonts/GOTHAM-LIGHT.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GOTHAM-MEDIUM.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Gotham';
-  src: url('/fonts/Gotham-Bold.woff2') format('woff2');
+  src: url('/fonts/GOTHAM-MEDIUM.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GOTHAM-BOLD.woff2') format('woff2');
   font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GOTHAM-BLACK.woff2') format('woff2');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  /* Todavía no subiste Brittany — mientras tanto cae a una cursiva del sistema */
   font-family: 'Brittany';
   src: url('/fonts/Brittany.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;

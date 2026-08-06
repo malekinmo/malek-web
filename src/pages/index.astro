@@ -38,11 +38,22 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   <meta property="og:image" content={heroImg} />
   <meta name="twitter:card" content="summary_large_image" />
   <style is:global>
-  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-Regular.woff2") format('woff2');font-weight:400;font-style:normal;font-display:swap}
-  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-Bold.woff2") format('woff2');font-weight:700;font-style:normal;font-display:swap}
-  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/BlackerSansDisplay-ExtraBoldItalic.woff2") format('woff2');font-weight:800;font-style:italic;font-display:swap}
-  @font-face{font-family:'Gotham';src:url("/fonts/Gotham-Book.woff2") format('woff2');font-weight:400;font-display:swap}
-  @font-face{font-family:'Gotham';src:url("/fonts/Gotham-Bold.woff2") format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Regular-trial.woff2") format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Regular-Italic-trial.woff2") format('woff2');font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Medium-trial.woff2") format('woff2');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Medium-Italic-trial.woff2") format('woff2');font-weight:500;font-style:italic;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Bold-trial.woff2") format('woff2');font-weight:700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/Blacker-Text-Bold-Italic-trial.woff2") format('woff2');font-weight:700;font-style:italic;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-LIGHT.woff2") format('woff2');font-weight:300;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-LIGHTITALIC.woff2") format('woff2');font-weight:300;font-style:italic;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-MEDIUM.woff2") format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-MEDIUM.woff2") format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-MEDIUMITALIC.woff2") format('woff2');font-weight:500;font-style:italic;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-BOLD.woff2") format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-BOLDITALIC.woff2") format('woff2');font-weight:700;font-style:italic;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-BLACK.woff2") format('woff2');font-weight:900;font-display:swap}
+  @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-BLACKITALIC.woff2") format('woff2');font-weight:900;font-style:italic;font-display:swap}
+  /* Brittany todavía no la subiste — mientras tanto cae a una cursiva del sistema */
   @font-face{font-family:'Brittany';src:url("/fonts/Brittany.woff2") format('woff2');font-weight:400;font-display:swap}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:#000}
@@ -70,7 +81,9 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   </div>
 
   <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,4vw,56px);background:rgba(0,0,0,.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,242,236,.08)">
-    <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    <a href="/" aria-label="Malek Inmobiliaria - Inicio" style="display:block">
+      <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    </a>
     <nav style="display:flex;gap:clamp(14px,2.2vw,38px);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9C5BE;font-weight:400">
       <a href="#mh-proceso">Proceso</a>
       <a href="#mh-material">Material</a>
@@ -88,14 +101,9 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     <div style="position:absolute;left:clamp(20px,4vw,56px);bottom:110px;max-width:820px;pointer-events:none">
       <div data-reveal="up" data-delay="900" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:26px">Venta residencial · Ciudad de Buenos Aires</div>
       <h1 style="margin:0;font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(44px,6.6vw,96px);line-height:.98;letter-spacing:-.03em;color:#F5F2EC">
-        <span data-reveal="mask" data-delay="1000" style="display:inline-block">Mudarte</span>
-        <span data-reveal="mask" data-delay="1080" style="display:inline-block">puede</span>
-        <span data-reveal="mask" data-delay="1160" style="display:inline-block">ser</span>
-        <span data-reveal="mask" data-delay="1240" style="display:inline-block">una</span>
-        <span data-reveal="mask" data-delay="1320" style="display:inline-block">buena</span>
-        <span data-reveal="mask" data-delay="1440" style="display:inline-block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(56px,8.4vw,120px);color:#0097D9;padding:0 .06em">Experiencia</span>
+        <span data-reveal="mask" data-delay="1000" style="display:inline-block">Mudarte</span>&nbsp;<span data-reveal="mask" data-delay="1080" style="display:inline-block">puede</span>&nbsp;<span data-reveal="mask" data-delay="1160" style="display:inline-block">ser</span>&nbsp;<span data-reveal="mask" data-delay="1240" style="display:inline-block">una</span>&nbsp;<span data-reveal="mask" data-delay="1320" style="display:inline-block">buena</span>&nbsp;<span data-reveal="mask" data-delay="1440" style="display:inline-block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(56px,8.4vw,120px);color:#0097D9;padding:0 .06em">Experiencia</span>
       </h1>
-      <div data-reveal="up" data-delay="1600" style="margin-top:30px;font-size:19px;line-height:1.62;color:#C9C5BE;max-width:560px;font-weight:500">Me ocupo de vender tu casa con estrategia, tecnología, proceso claro y acompañamiento profesional. <b style="color:#F5F2EC;font-weight:700">Vos solo pensás en lo que viene.</b></div>
+      <div data-reveal="up" data-delay="1600" style="margin-top:30px;font-size:19px;line-height:1.62;color:#C9C5BE;max-width:560px;font-weight:500">Me ocupo de vender tu casa con estrategia, tecnología, proceso claro y acompañamiento profesional.<br><b style="color:#F5F2EC;font-weight:700">Vos solo pensás en lo que viene.</b></div>
       <div data-reveal="up" data-delay="1720" style="display:flex;gap:14px;margin-top:40px;pointer-events:auto">
         <a href={waTasarHref} target="_blank" rel="noopener" style="background:#0097D9;color:#fff;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#00618C;color:#fff;transform:translateY(-3px)">Quiero mudarme</a>
         <a href={waGeneralHref} target="_blank" rel="noopener" style="border:1px solid rgba(245,242,236,.35);color:#F5F2EC;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:background .45s cubic-bezier(.16,1,.3,1),color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)" style-hover="background:#F5F2EC;color:#000;transform:translateY(-3px)">Hablar por WhatsApp</a>
@@ -108,35 +116,6 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
       </div>
     </div>
   </section>
-
-  <div style="background:#0097D9;overflow:hidden;padding:20px 0;position:relative">
-    <div style="display:flex;width:max-content;animation:malek-ticker 38s linear infinite">
-      <div style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-      </div>
-      <div aria-hidden="true" style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
-        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
-      </div>
-    </div>
-  </div>
 
   <section style="padding:clamp(90px,12vw,180px) clamp(20px,4vw,56px) clamp(80px,10vw,150px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,100px);align-items:start">
     <div style="min-width:0">
@@ -155,21 +134,21 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <section style="padding:0 clamp(20px,4vw,56px) clamp(90px,11vw,170px);display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(245,242,236,.14)">
-    <div style="padding:70px 50px 0 0;min-width:0">
-      <div data-count-to="90" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">0</div>
+  <section style="padding:clamp(60px,8vw,110px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#FFFFFF">
+    <div style="padding:0 50px 0 0;min-width:0">
+      <div data-count-to="90" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0A0A0A">0</div>
       <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
-      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">días en promedio, de la publicación a reserva.</div>
+      <div style="font-size:19px;line-height:1.6;color:#0A0A0A;font-weight:700">días en promedio, de la publicación a reserva.</div>
     </div>
-    <div style="padding:70px 50px 0;border-left:1px solid rgba(245,242,236,.14);min-width:0">
-      <div style="display:flex;align-items:baseline"><span style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">Top </span><span data-count-to="1" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0097D9">0%</span></div>
+    <div style="padding:0 50px;border-left:1px solid rgba(10,10,10,.12);min-width:0">
+      <div style="display:flex;align-items:baseline"><span style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0A0A0A">Top </span><span data-count-to="1" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0097D9">0%</span></div>
       <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
-      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">de las publicaciones mejor posicionadas de CABA.</div>
+      <div style="font-size:19px;line-height:1.6;color:#0A0A0A;font-weight:700">de las publicaciones mejor posicionadas de CABA.</div>
     </div>
-    <div style="padding:70px 0 0 50px;border-left:1px solid rgba(245,242,236,.14);min-width:0">
-      <div data-count-to="70" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#F5F2EC">0%</div>
+    <div style="padding:0 0 0 50px;border-left:1px solid rgba(10,10,10,.12);min-width:0">
+      <div data-count-to="70" data-suffix="%" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0A0A0A">0%</div>
       <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
-      <div style="font-size:15px;line-height:1.6;color:#C9C5BE;font-weight:700">de éxito: vendo 7 de cada 10 propiedades que publico. El mercado vende solo 2 de cada 10.</div>
+      <div style="font-size:19px;line-height:1.6;color:#0A0A0A;font-weight:700">de éxito: vendo 7 de cada 10 propiedades que publico. El mercado vende solo 2 de cada 10.</div>
     </div>
   </section>
 
@@ -281,6 +260,12 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
+  <section style="background:#0A0A0A;padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(245,242,236,.12);border-bottom:1px solid rgba(245,242,236,.12)">
+    <div data-reveal="up" style="font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(24px,3.2vw,40px);color:#F5F2EC;max-width:640px">Si querés que tu casa se venda así, llamame.</div>
+    <a data-reveal="up" data-delay="100" href={waTasarHref} target="_blank" rel="noopener" style="background:#0097D9;color:#fff;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#00618C;color:#fff;transform:translateY(-3px)">Quiero mudarme</a>
+  </section>
+
+
   <section id="mh-proceso" style="background:#F5F2EC;color:#0A0A0A;padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px)">
     <div style="display:grid;grid-template-columns:minmax(240px,460px) 1fr;gap:clamp(28px,5vw,90px);align-items:start">
       <div style="position:sticky;top:120px;padding-top:140px;min-width:0">
@@ -329,6 +314,36 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
+  <div style="background:#0097D9;overflow:hidden;padding:20px 0;position:relative">
+    <div style="display:flex;width:max-content;animation:malek-ticker 38s linear infinite">
+      <div style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+      </div>
+      <div aria-hidden="true" style="display:flex;align-items:center;gap:clamp(28px,4vw,64px);padding-right:clamp(28px,4vw,64px)">
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Tasación con informe de mercado, sin cargo</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Fotos HDR, video, plano y tour virtual</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Aviso Superdestacado en los portales</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#001E2C;letter-spacing:-.01em;white-space:nowrap">Pocas propiedades a la vez, la tuya con foco</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+        <span style="font-family:'Blacker Sans Display',serif;font-size:clamp(17px,1.9vw,26px);font-weight:700;color:#fff;letter-spacing:-.01em;white-space:nowrap">Escrituración acompañada de punta a punta</span>
+        <span style="width:6px;height:6px;background:#001E2C;flex:0 0 auto"></span>
+      </div>
+    </div>
+  </div>
+
+
   <section id="mh-jaco" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,90px);align-items:center">
     <div style="position:relative;height:clamp(420px,46vw,680px);overflow:hidden;min-width:0">
       <div data-parallax="0.09" style="position:absolute;inset:-10% 0;will-change:transform">
@@ -361,7 +376,9 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   </section>
 
   <footer style="background:#000;padding:clamp(36px,5vw,60px) clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:center;gap:40px">
-    <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    <a href="/" aria-label="Malek Inmobiliaria - Inicio" style="display:block">
+      <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
+    </a>
     <div style="display:flex;gap:34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85">
       <a href="#mh-proceso">Proceso</a>
       <a href="#mh-material">Material</a>
