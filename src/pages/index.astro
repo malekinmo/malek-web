@@ -68,6 +68,51 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   @keyframes malek-pulse{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.9);opacity:0}100%{transform:scale(1.9);opacity:0}}
   @keyframes malek-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
+  /* ===================== MOBILE (<= 860px) ===================== */
+  @media (max-width: 860px) {
+    /* Header: escondemos el menú de texto, dejamos logo + botón */
+    .mh-header { padding: 16px 20px !important; }
+    .mh-header img { width: 96px !important; }
+    .mh-header > a:last-child { padding: 10px 14px !important; font-size: 10px !important; }
+    .mh-nav { display: none !important; }
+
+    /* Hero: menos aire abajo, sacamos el indicador de scroll */
+    .mh-hero-text { bottom: 64px !important; right: 20px !important; max-width: none !important; }
+    .mh-hero-scroll { display: none !important; }
+
+    /* Grillas de 2 columnas -> 1 columna */
+    .mh-grid-2 { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .mh-why-col2 { padding-top: 0 !important; }
+    .mh-proceso-sticky { padding-top: 0 !important; position: static !important; }
+
+    /* Stats: 3 columnas -> apiladas, con separador arriba en vez de al costado */
+    .mh-stats-grid {
+      grid-template-columns: 1fr !important;
+      gap: 40px !important;
+      padding-block: 50px !important;
+    }
+    .mh-stats-grid > div {
+      padding: 0 !important;
+      border-left: 0 !important;
+      border-top: 1px solid rgba(10,10,10,.12) !important;
+      padding-top: 30px !important;
+    }
+
+    /* Material: las 4 piezas pasan de fila horizontal a columnas apiladas */
+    .mh-material-row { flex-direction: column !important; height: auto !important; gap: 3px !important; }
+    .mh-material-row > div { flex: none !important; height: 260px !important; }
+
+    /* CTA intermedio: texto y botón apilados, ancho completo */
+    .mh-cta-band { flex-direction: column !important; align-items: flex-start !important; }
+    .mh-cta-band a { width: 100%; justify-content: center !important; }
+
+    /* Grillas de 3 (testimonios) -> 1 columna */
+    .mh-testimonials-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
+
+    /* Footer: apilado */
+    .mh-footer { flex-direction: column !important; align-items: flex-start !important; gap: 22px !important; }
+  }
+
   </style>
 </head>
 <body>
@@ -80,11 +125,11 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:340px;height:auto;opacity:0;transition:opacity .7s ease">
   </div>
 
-  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,4vw,56px);background:rgba(0,0,0,.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,242,236,.08)">
+  <header class="mh-header" style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,4vw,56px);background:rgba(0,0,0,.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,242,236,.08)">
     <a href="/" aria-label="Malek Inmobiliaria - Inicio" style="display:block">
       <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
     </a>
-    <nav style="display:flex;gap:clamp(14px,2.2vw,38px);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9C5BE;font-weight:400">
+    <nav class="mh-nav" style="display:flex;gap:clamp(14px,2.2vw,38px);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#C9C5BE;font-weight:400">
       <a href="#mh-proceso">Proceso</a>
       <a href="#mh-material">Material</a>
       <a href="#mh-jaco">Quién soy</a>
@@ -98,7 +143,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
       <img src={heroImg} alt="Interior a sangre — living con luz de tarde" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
     </div>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.72) 38%,rgba(0,0,0,.15) 72%,rgba(0,0,0,.5) 100%);pointer-events:none"></div>
-    <div style="position:absolute;left:clamp(20px,4vw,56px);bottom:110px;max-width:820px;pointer-events:none">
+    <div class="mh-hero-text" style="position:absolute;left:clamp(20px,4vw,56px);bottom:110px;max-width:820px;pointer-events:none">
       <div data-reveal="up" data-delay="900" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:26px">Venta residencial · Ciudad de Buenos Aires</div>
       <h1 style="margin:0;font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(44px,6.6vw,96px);line-height:.98;letter-spacing:-.03em;color:#F5F2EC">
         <span data-reveal="mask" data-delay="1000" style="display:inline-block">Mudarte</span>&nbsp;<span data-reveal="mask" data-delay="1080" style="display:inline-block">puede</span>&nbsp;<span data-reveal="mask" data-delay="1160" style="display:inline-block">ser</span>&nbsp;<span data-reveal="mask" data-delay="1240" style="display:inline-block">una</span>&nbsp;<span data-reveal="mask" data-delay="1320" style="display:inline-block">buena</span>&nbsp;<span data-reveal="mask" data-delay="1440" style="display:inline-block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(56px,8.4vw,120px);color:#0097D9;padding:0 .06em">Experiencia</span>
@@ -109,7 +154,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
         <a href={waGeneralHref} target="_blank" rel="noopener" style="border:1px solid rgba(245,242,236,.35);color:#F5F2EC;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:background .45s cubic-bezier(.16,1,.3,1),color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)" style-hover="background:#F5F2EC;color:#000;transform:translateY(-3px)">Hablar por WhatsApp</a>
       </div>
     </div>
-    <div style="position:absolute;right:clamp(20px,4vw,56px);bottom:110px;display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none">
+    <div class="mh-hero-scroll" style="position:absolute;right:clamp(20px,4vw,56px);bottom:110px;display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none">
       <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#8C8A85;writing-mode:vertical-rl">Scroll</div>
       <div style="width:1px;height:56px;background:rgba(245,242,236,.2);position:relative;overflow:hidden">
         <div style="position:absolute;top:0;left:0;width:1px;height:26px;background:#0097D9;animation:malek-scrolldot 1.8s ease-in-out infinite"></div>
@@ -117,7 +162,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <section style="padding:clamp(90px,12vw,180px) clamp(20px,4vw,56px) clamp(80px,10vw,150px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,100px);align-items:start">
+  <section class="mh-grid-2" style="padding:clamp(90px,12vw,180px) clamp(20px,4vw,56px) clamp(80px,10vw,150px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,100px);align-items:start">
     <div style="min-width:0">
       <div data-reveal="up" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:34px">Por qué trabajar conmigo</div>
       <div style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.06;letter-spacing:-.03em;font-weight:700;color:#F5F2EC">
@@ -126,7 +171,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
         <div data-reveal="mask" data-delay="180" style="display:block;font-family:'Brittany',cursive;font-weight:400;font-size:clamp(40px,5.8vw,78px);color:#0097D9;margin-top:6px">en una cartera</div>
       </div>
     </div>
-    <div style="min-width:0;display:flex;flex-direction:column;gap:30px;padding-top:78px">
+    <div class="mh-why-col2" style="min-width:0;display:flex;flex-direction:column;gap:30px;padding-top:78px">
       <div data-reveal="up" style="font-size:20px;line-height:1.72;color:#C9C5BE;font-weight:500">Tomo <b style="color:#F5F2EC;font-weight:700">muy pocas propiedades a la vez</b>, y las elijo. Eso me deja dedicarle a la tuya más tiempo, más dinero y más energía de la que puede una inmobiliaria tradicional.</div>
       <div data-reveal="up" data-delay="120" style="font-size:20px;line-height:1.72;color:#C9C5BE;font-weight:500">Mientras una inmobiliaria tradicional reparte su atención entre cientos de avisos, tu casa tiene foco exclusivo hasta el día que se vende.</div>
       <div data-reveal="up" data-delay="220" style="height:1px;background:rgba(245,242,236,.14);margin-top:12px"></div>
@@ -134,7 +179,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <section style="padding:clamp(60px,8vw,110px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#FFFFFF">
+  <section class="mh-stats-grid" style="padding:clamp(60px,8vw,110px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#FFFFFF">
     <div style="padding:0 50px 0 0;min-width:0">
       <div data-count-to="90" style="font-family:'Gotham',sans-serif;font-size:clamp(48px,8.2vw,130px);font-weight:200;line-height:.86;letter-spacing:-.05em;color:#0A0A0A">0</div>
       <div style="width:100%;height:1px;background:#0097D9;margin:26px 0 18px"></div>
@@ -153,7 +198,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   </section>
 
   <section id="mh-premier" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px) clamp(60px,8vw,110px)">
-    <div style="display:grid;grid-template-columns:minmax(280px,1fr) 1.15fr;gap:clamp(32px,5vw,80px);align-items:center">
+    <div class="mh-grid-2" style="display:grid;grid-template-columns:minmax(280px,1fr) 1.15fr;gap:clamp(32px,5vw,80px);align-items:center">
       <div style="min-width:0;display:flex;flex-direction:column;gap:24px">
         <div data-reveal="up" style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:700">La pieza que decide todo</div>
         <div data-reveal="mask" data-delay="80" style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#F5F2EC">Sin publicidad, no te ve nadie</div>
@@ -221,7 +266,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
       <div data-reveal="mask" style="font-family:'Blacker Sans Display',serif;font-size:clamp(32px,4.6vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#F5F2EC;max-width:720px">Cuatro piezas por propiedad, sin excepción</div>
       <div data-reveal="up" data-delay="120" style="font-size:16px;line-height:1.7;color:#8C8A85;max-width:340px;font-weight:500">El material es la mitad del precio. Por eso está en el top 1% de CABA — y por eso lo hago yo con proveedores fijos.</div>
     </div>
-    <div style="display:flex;gap:6px;height:clamp(340px,42vw,520px)">
+    <div class="mh-material-row" style="display:flex;gap:6px;height:clamp(340px,42vw,520px)">
       <div style="flex:1;position:relative;overflow:hidden;transition:flex .8s cubic-bezier(.16,1,.3,1)" style-hover="flex:2.6">
         <img src={materialFotoImg} alt="Foto HDR" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
         <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.05) 58%);pointer-events:none"></div>
@@ -260,14 +305,14 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <section style="background:#0A0A0A;padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(245,242,236,.12);border-bottom:1px solid rgba(245,242,236,.12)">
+  <section class="mh-cta-band" style="background:#0A0A0A;padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(245,242,236,.12);border-bottom:1px solid rgba(245,242,236,.12)">
     <div data-reveal="up" style="font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(24px,3.2vw,40px);color:#F5F2EC;max-width:640px">Si querés que tu casa se venda así, llamame.</div>
     <a data-reveal="up" data-delay="100" href={waTasarHref} target="_blank" rel="noopener" style="background:#0097D9;color:#fff;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#00618C;color:#fff;transform:translateY(-3px)">Quiero mudarme</a>
   </section>
 
 
   <section id="mh-proceso" style="background:#F5F2EC;color:#0A0A0A;padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px)">
-    <div style="display:grid;grid-template-columns:minmax(240px,460px) 1fr;gap:clamp(28px,5vw,90px);align-items:start">
+    <div class="mh-grid-2" style="display:grid;grid-template-columns:minmax(240px,460px) 1fr;gap:clamp(28px,5vw,90px);align-items:start">
       <div style="position:sticky;top:120px;padding-top:140px;min-width:0">
         <div style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:28px">Cómo lo hago</div>
         <div style="font-family:'Blacker Sans Display',serif;font-size:clamp(30px,4vw,56px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#0A0A0A">Un proceso claro, de principio a fin</div>
@@ -277,7 +322,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
         </div>
         <div style="margin-top:18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#8C8A85">Ocho etapas · de la tasación a la entrega</div>
       </div>
-      <div style="min-width:0;padding-top:140px;display:flex;flex-direction:column">
+      <div class="mh-proceso-sticky" style="min-width:0;padding-top:140px;display:flex;flex-direction:column">
         <div data-step="1" style="padding:60px 0;min-height:250px;border-top:1px solid #DCD6CB;opacity:.32;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)">
           <div style="display:flex;gap:26px;align-items:baseline"><span style="font-size:12px;font-weight:500;color:#0097D9;width:30px">01</span><span style="font-family:'Blacker Sans Display',serif;font-size:clamp(21px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1">Tasación y análisis de mercado personalizado</span></div>
           <div style="padding-left:56px;margin-top:16px;font-size:17px;line-height:1.7;color:#4A4844;font-weight:500;max-width:640px">Armo un informe evaluando ubicación, estado y tendencias del mercado, para llegar a un precio competitivo que maximice el interés de los compradores.</div>
@@ -344,7 +389,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
   </div>
 
 
-  <section id="mh-jaco" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,90px);align-items:center">
+  <section id="mh-jaco" class="mh-grid-2" style="padding:clamp(90px,11vw,170px) clamp(20px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,90px);align-items:center">
     <div style="position:relative;height:clamp(420px,46vw,680px);overflow:hidden;min-width:0">
       <div data-parallax="0.09" style="position:absolute;inset:-10% 0;will-change:transform">
         <img src="/images/jaco.webp" alt="Retrato de Jaco" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
@@ -361,10 +406,10 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <section style="padding:0 clamp(20px,4vw,56px) clamp(90px,11vw,160px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3.4vw,50px)">
-    <div data-reveal="up" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Muy profesional, todo lo tuyo es para recomendar.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Daniel</div></div>
-    <div data-reveal="up" data-delay="120" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Testimonio <span style="font-family:'Gotham',sans-serif;font-weight:500">2</span> — ideal si menciona tiempo de venta o precio obtenido.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Nombre · Barrio, año</div></div>
-    <div data-reveal="up" data-delay="240" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Testimonio <span style="font-family:'Gotham',sans-serif;font-weight:500">3</span> — ideal si habla del trato personal.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Nombre · Barrio, año</div></div>
+  <section class="mh-testimonials-grid" style="padding:0 clamp(20px,4vw,56px) clamp(90px,11vw,160px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3.4vw,50px)">
+    <div data-reveal="up" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="color:#0097D9;font-size:15px;letter-spacing:.1em;margin-bottom:16px">★★★★★</div><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Muy profesional, todo lo tuyo es para recomendar.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Daniel · PH Villa Santa Rita</div></div>
+    <div data-reveal="up" data-delay="120" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="color:#0097D9;font-size:15px;letter-spacing:.1em;margin-bottom:16px">★★★★★</div><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Nunca creí que iba a estar tan agradecida con una inmobiliaria.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Micaela · PH Flores</div></div>
+    <div data-reveal="up" data-delay="240" style="border-top:1px solid rgba(245,242,236,.16);padding-top:34px"><div style="color:#0097D9;font-size:15px;letter-spacing:.1em;margin-bottom:16px">★★★★★</div><div style="font-family:'Blacker Sans Display',serif;font-size:23px;line-height:1.5;color:#F5F2EC">«Si no hubiera sido por vos, nunca me hubiera mudado.»</div><div style="margin-top:24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8C8A85">Jonatan · Depto. 3 ambientes</div></div>
   </section>
 
   <section id="mh-contacto" style="position:relative;background:#0097D9;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);overflow:hidden">
@@ -375,7 +420,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     </div>
   </section>
 
-  <footer style="background:#000;padding:clamp(36px,5vw,60px) clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:center;gap:40px">
+  <footer class="mh-footer" style="background:#000;padding:clamp(36px,5vw,60px) clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:center;gap:40px">
     <a href="/" aria-label="Malek Inmobiliaria - Inicio" style="display:block">
       <img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" style="width:clamp(120px,13vw,170px);height:auto;display:block">
     </a>
