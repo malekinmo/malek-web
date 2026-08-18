@@ -25,5 +25,49 @@ const { Content } = await render(post);
   .cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; margin-bottom: var(--space-3); }
   .prose { color: var(--black); line-height: 1.8; font-size: 1.05rem; }
   .prose :global(h2) { font-size: 1.4rem; margin-top: var(--space-4); margin-bottom: var(--space-2); }
+  .prose :global(h3) { font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; margin-top: var(--space-3); margin-bottom: 0.6em; }
   .prose :global(p) { margin-bottom: 1.2em; }
+  .prose :global(a) { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
+  .prose :global(a:hover) { color: var(--blue-dark); }
+  .prose :global(strong) { font-weight: 700; }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 1.2em; padding-left: 1.3em; }
+  .prose :global(li) { margin-bottom: 0.5em; }
+  .prose :global(hr) { border: none; border-top: 1px solid var(--gray-100); margin: var(--space-4) 0; }
+
+  /* Bloque destacado / CTA: en el markdown se escribe como cita > texto */
+  .prose :global(blockquote) {
+    margin: var(--space-4) 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--blue-tint-1);
+    border-left: 3px solid var(--blue);
+    border-radius: var(--radius);
+    font-size: 1rem;
+  }
+  .prose :global(blockquote p) { margin-bottom: 0; font-weight: 700; color: var(--blue-deep); }
+  .prose :global(blockquote p:not(:last-child)) { margin-bottom: 0.5em; }
+
+  /* Tablas comparativas (ej. tasas por banco) */
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-3) 0 var(--space-4);
+    font-size: 0.92rem;
+  }
+  .prose :global(th) {
+    background: var(--blue);
+    color: var(--white);
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    font-weight: 700;
+  }
+  .prose :global(td) {
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .prose :global(tr:nth-child(even) td) { background: var(--gray-100); }
+
+  @media (max-width: 640px) {
+    .prose :global(table) { font-size: 0.82rem; }
+    .prose :global(th), .prose :global(td) { padding: 0.5rem 0.5rem; }
+  }
 </style>
