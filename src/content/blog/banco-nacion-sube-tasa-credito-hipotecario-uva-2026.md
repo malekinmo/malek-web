@@ -1,6 +1,7 @@
 ---
 title: "El Banco Nación subió la tasa de los créditos hipotecarios UVA: qué significa para vos"
 excerpt: "El Banco Nación llevó su tasa de créditos hipotecarios UVA del 6% al 6,7%. Te contamos qué cambia, a quién afecta y cómo impacta si estás por comprar o vender."
+coverImage: "/images/blog/banco-nacion-sube-tasa-credito-hipotecario-uva-2026.jpg"
 publishDate: 2026-08-19
 author: "Malek Inmobiliaria"
 ---
@@ -21,7 +22,9 @@ Sigue siendo una de las tasas más bajas del mercado, pero ya no es una diferenc
 
 *Es decir: el Nación quedó apenas 0,2 puntos por debajo de ICBC y 0,8 por debajo de BBVA — una ventaja real, pero acotada. Además, la tasa no es lo único que define qué banco conviene: el porcentaje que financian, el ingreso mínimo exigido y el plazo también cambian la cuota final, así que vale la pena simular más de una opción antes de decidir.*
 
-> **¿Querés que te ayudemos a comparar bancos y calcular tu cuota real?** Escribinos por WhatsApp — [hablemos por WhatsApp](https://wa.me/5491122540182)
+> **¿Querés que te ayudemos a comparar bancos y calcular tu cuota real?**
+>
+> [📲 Hablar por WhatsApp](https://wa.me/5491122540182)
 
 ## Por qué subió
 
@@ -42,4 +45,6 @@ Si estás del lado del comprador: sigue siendo una opción competitiva si cobrá
 
 Si estás del lado del vendedor: una suba de tasa, aunque sea moderada, puede hacer que algunos compradores recalculen presupuesto o se tomen unos días más para decidir. No es motivo de alarma, pero es un buen momento para asegurarte de que el precio de publicación esté bien calibrado y para tener a mano la información que un comprador con crédito va a necesitar (tasación, estado de la documentación, etc.).
 
-> **¿Estás evaluando comprar o vender en este contexto?** En Malek Inmobiliaria te ayudamos a leer el momento y tomar la mejor decisión — [escribinos por WhatsApp](https://wa.me/5491122540182)
+> **¿Estás evaluando comprar o vender en este contexto?** En Malek Inmobiliaria te ayudamos a leer el momento y tomar la mejor decisión.
+>
+> [📲 Escribinos por WhatsApp](https://wa.me/5491122540182)

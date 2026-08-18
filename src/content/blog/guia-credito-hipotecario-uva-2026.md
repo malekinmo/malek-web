@@ -1,6 +1,7 @@
 ---
 title: "Crédito hipotecario UVA: guía para saber si te conviene pedirlo en 2026"
 excerpt: "Guía simple sobre cómo funciona el crédito hipotecario UVA en Argentina: requisitos, cómo se calcula la cuota y qué tener en cuenta antes de pedirlo en 2026."
+coverImage: "/images/blog/guia-credito-hipotecario-uva-2026.jpg"
 publishDate: 2026-08-21
 author: "Malek Inmobiliaria"
 ---
@@ -22,7 +23,9 @@ La cuota depende de tres cosas: el monto que pedís, la tasa (hoy entre 6,7% y 7
 - **Antigüedad laboral y situación crediticia** (que no figures con problemas en el BCRA).
 - **Tasación de la propiedad:** el banco no te presta sobre el precio que pactaste, sino sobre lo que su tasador determina que vale.
 
-> **¿Querés simular tu caso puntual?** Escribinos por WhatsApp y calculamos juntos cuánto podrías pedir — [hablemos por WhatsApp](https://wa.me/5491122540182)
+> **¿Querés simular tu caso puntual?** Calculamos juntos cuánto podrías pedir.
+>
+> [📲 Hablar por WhatsApp](https://wa.me/5491122540182)
 
 ## 4. Cuánto necesitás ganar (aproximado)
 
@@ -34,4 +37,6 @@ No hay una respuesta única: depende de tu perfil, de cuánto tenés ahorrado y 
 
 Si querés que te ayudemos a calcular tu caso, comparar bancos o simplemente entender si es el momento, escribinos. En Malek Inmobiliaria acompañamos todo el proceso, del cálculo de la cuota a la firma de la escritura.
 
-> **¿Querés saber si te conviene y para qué monto calificás?** [Escribinos por WhatsApp](https://wa.me/5491122540182), lo calculamos juntos.
+> **¿Querés saber si te conviene y para qué monto calificás?** Lo vemos juntos.
+>
+> [📲 Escribinos por WhatsApp](https://wa.me/5491122540182)

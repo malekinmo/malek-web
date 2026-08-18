@@ -69,7 +69,7 @@
   --blue-tint-3: #A9D6EC;
   --blue-mid: #6BAEDB;
   --blue-mid-2: #4F86C6;
-  --font-display: 'Blacker Sans Display', Georgia, serif;
+  --font-display: 'Blacker Sans Display', 'Gotham', Georgia, serif;
   --font-body: 'Gotham', 'Helvetica Neue', Arial, sans-serif;
   --font-accent: 'Brittany', cursive;
   --max-width: 1240px;
