@@ -2,26 +2,31 @@
   font-family: 'Blacker Sans Display';
   src: url('/fonts/Blacker-Text-Regular-trial.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0000-002F, U+003A-10FFFF;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
   src: url('/fonts/Blacker-Text-Regular-Italic-trial.woff2') format('woff2');
   font-weight: 400; font-style: italic; font-display: swap;
+  unicode-range: U+0000-002F, U+003A-10FFFF;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
   src: url('/fonts/Blacker-Text-Medium-trial.woff2') format('woff2');
   font-weight: 500; font-style: normal; font-display: swap;
+  unicode-range: U+0000-002F, U+003A-10FFFF;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
   src: url('/fonts/Blacker-Text-Bold-trial.woff2') format('woff2');
   font-weight: 700; font-style: normal; font-display: swap;
+  unicode-range: U+0000-002F, U+003A-10FFFF;
 }
 @font-face {
   font-family: 'Blacker Sans Display';
   src: url('/fonts/Blacker-Text-Bold-Italic-trial.woff2') format('woff2');
   font-weight: 700; font-style: italic; font-display: swap;
+  unicode-range: U+0000-002F, U+003A-10FFFF;
 }
 @font-face {
   font-family: 'Gotham';

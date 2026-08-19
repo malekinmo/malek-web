@@ -10,17 +10,25 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## Regla maestra: números y la fuente Blacker
 
-`Blacker Sans Display` es una versión **trial** y no incluye glifos de números (0-9). Cualquier texto con números que use esta fuente cae al fallback y se ve con una tipografía distinta (serif, inconsistente con el diseño).
+`Blacker Sans Display` es una versión **trial**. Los números (0-9) técnicamente **sí existen** en el archivo de la fuente (el `cmap` los mapea a `zero`, `one`, `two`...), pero el glifo real fue reemplazado por un watermark de la casa de fuentes (se ve como un logo/texto "ZESAFONTS.COM" en vez del número).
+
+Esto es importante porque **el fallback normal de `font-family` (`'Blacker Sans Display','Gotham',serif`) no alcanza a arreglarlo**: el navegador solo pasa al siguiente font de la lista cuando un glifo *falta*, y estos glifos no faltan, solo están corruptos/watermarked. Si ves un número roto en el sitio con este aspecto, este es el motivo.
+
+**El fix real está a nivel de `@font-face`, con `unicode-range`:** cada declaración `@font-face` de `Blacker Sans Display` (hay dos lugares: `src/styles/global.css` y el bloque `<style is:global>` duplicado dentro de `src/pages/index.astro`) tiene:
+
+```css
+unicode-range: U+0000-002F, U+003A-10FFFF;
+```
+
+Este rango cubre todo el Unicode **excepto** `U+0030-0039` (los dígitos 0-9). Le dice al navegador "esta fuente no cubre los números", así que para esos caracteres específicos salta directo al siguiente font de la lista (`Gotham`) — sin importar si el archivo .woff2 técnicamente tiene o no un glifo ahí. Es la única forma confiable de resolver esto con esta fuente trial.
 
 Reglas a seguir siempre que se agregue o edite texto en Blacker:
 
-1. **Nunca hardcodear el fallback a `serif` solo.** El stack correcto es:
-   `font-family:'Blacker Sans Display','Gotham',serif`
-   Así, cualquier número (u otro glifo faltante) cae en Gotham en vez de una serif genérica.
-2. **`--font-display` en `src/styles/global.css` ya tiene este fallback correcto** — cualquier elemento que use `var(--font-display)` (o los `h1`-`h4`, que lo heredan por default) está cubierto automáticamente.
-3. **`src/pages/index.astro` define sus propios estilos inline** (no usa la variable) — si se agrega un bloque nuevo con `font-family:'Blacker Sans Display'`, hay que escribir el fallback completo `,'Gotham',serif`, no solo `,serif`.
-4. **Para números grandes o destacados** (ej. "360°", cifras en hero, badges numerados) preferir envolver el número en un `<span style="font-family:'Gotham',sans-serif">` explícito en vez de confiar en el fallback automático — da más control sobre el peso y el tamaño exacto. Ejemplo ya usado en el sitio (`index.astro`): `Recorrido <span style="font-family:'Gotham',sans-serif;font-weight:700">360°</span>`.
-5. Antes de dar por terminada cualquier tarea de diseño/contenido, buscar `Blacker Sans Display` en el repo y revisar que ningún texto con dígitos quede con el fallback incompleto (`,serif` sin `'Gotham'` antes).
+1. **No se necesita envolver los números manualmente en la mayoría de los casos** — el `unicode-range` ya resuelve esto automáticamente para cualquier texto en Blacker, en cualquier parte del sitio (hero, blog, propiedades, etc.).
+2. **Si se agrega una nueva declaración `@font-face` para `Blacker Sans Display`** (por ejemplo un peso o variante nueva), hay que copiar también el `unicode-range: U+0000-002F, U+003A-10FFFF;` — si no, ese peso específico va a volver a mostrar el watermark en los números.
+3. **`src/pages/index.astro` duplica las declaraciones `@font-face`** en vez de reusar las de `global.css` — cualquier fix a nivel de fuente (unicode-range, nuevos pesos, etc.) hay que aplicarlo en los dos lugares.
+4. Si en algún componente puntual se necesita más control sobre el peso/tamaño exacto de un número dentro de texto Blacker, se puede seguir envolviendo en `<span style="font-family:'Gotham',sans-serif">` (hay un ejemplo en `index.astro`: `Recorrido <span style="font-family:'Gotham',sans-serif;font-weight:700">360°</span>`), pero ya no es necesario para que el número simplemente se vea bien.
+5. Antes de dar por terminada cualquier tarea de diseño/contenido con números, probar el render real (`astro dev`) y no solo revisar el CSS — este bug en particular no se detecta leyendo el código, solo mirando la página, porque el glifo "existe" y el navegador no tira ningún error ni warning.
 
 ## Documentation
 
