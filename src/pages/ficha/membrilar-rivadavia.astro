@@ -1,0 +1,511 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const property = {
+  titulo: 'Membrilar y Rivadavia Excelente Departamento',
+  precio: 'USD 280.000',
+  direccion: 'Membrillar 50, Flores Norte, Flores, Capital Federal',
+  barrio: 'Flores Norte',
+  m2Totales: '270',
+  m2Cubiertos: '240',
+  ambientes: '7',
+  dormitorios: '3',
+  banos: '4',
+  toilettes: '1',
+  cocheras: '1',
+  antiguedad: '40 años',
+  orientacion: 'Frente',
+  destacado: 'Muy luminoso',
+  expensas: '', // no informadas en el aviso
+  descripcion: `UBICADO A METROS DE PLAZA FLORES UN DEPARTAMENTO CON AMBIENTES GRANDES Y GRAN TAMAÑO:
+- 3 habitaciones grandes (2 con baño)
+- Sala de estar
+- Gran cocina
+- Comedor Diario
+- Gran living comedor
+- Pieza de servicio
+
+GRAN UBICACION Y PRECIO`,
+  imagenes: [
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206061.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206063.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206065.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206066.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206060.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206062.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808206064.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1808210282.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449110.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449111.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449117.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449115.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449116.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449119.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449118.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449114.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449120.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449105.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449107.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449113.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449103.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449109.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449106.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449101.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449121.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449104.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449112.jpg',
+    'https://imgar.zonapropcdn.com/avisos/resize/1/00/49/67/26/31/1200x1200/1840449108.jpg',
+  ],
+  videoYoutubeId: 'vBleOkGirB8',
+  tourVirtual: '',
+  planos: [] as string[],
+};
+
+const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
+  `Hola! Quiero más información sobre "${property.titulo}" (${property.direccion}).`
+)}`;
+const mapEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
+  property.direccion
+)}&output=embed`;
+
+const datos = [
+  { val: property.m2Totales, lab: 'm² tot.' },
+  { val: property.m2Cubiertos, lab: 'm² cub.' },
+  { val: property.ambientes, lab: 'Ambientes' },
+  { val: property.dormitorios, lab: 'Dormit.' },
+  { val: property.banos, lab: 'Baños' },
+  { val: property.toilettes, lab: 'Toilette' },
+  { val: property.cocheras, lab: 'Cochera' },
+];
+---
+
+<BaseLayout
+  title={property.titulo}
+  description={property.descripcion.slice(0, 155)}
+  ogImage={property.imagenes[0]}
+>
+  <div class="ficha">
+
+    <section
+      class="ficha-hero"
+      id="heroImg"
+      data-full={property.imagenes[0]}
+      style={`background-image:url('${property.imagenes[0]}')`}
+    >
+      <div class="ficha-hero-price">
+        {property.precio}
+        <small>Precio de venta</small>
+      </div>
+      <div class="ficha-hero-content">
+        <div class="ficha-eyebrow">Departamento en venta · {property.barrio}</div>
+        <h1 class="ficha-hero-title">{property.titulo}</h1>
+        <div class="ficha-hero-address">📍 {property.direccion}</div>
+      </div>
+    </section>
+
+    <div class="ficha-datastrip">
+      {datos.map((d) => (
+        <div class="ficha-data-item">
+          <div class="ficha-data-val">{d.val}</div>
+          <div class="ficha-data-lab">{d.lab}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="ficha-body-grid">
+      <div class="ficha-col-desc">
+        <div class="ficha-section-label">Descripción</div>
+        <div class="ficha-desc-text">{property.descripcion}</div>
+      </div>
+      <div class="ficha-col-facts">
+        <div class="ficha-section-label">Ficha técnica</div>
+        <ul class="ficha-fact-list">
+          <li><span>Tipo</span><strong>Departamento</strong></li>
+          <li><span>Orientación</span><strong>{property.orientacion}</strong></li>
+          <li><span>Antigüedad</span><strong>{property.antiguedad}</strong></li>
+          <li><span>Expensas</span><strong>{property.expensas || 'Consultar'}</strong></li>
+          <li><span>Barrio</span><strong>{property.barrio}</strong></li>
+          {property.destacado && (
+            <li><span>Destacado</span><strong>{property.destacado}</strong></li>
+          )}
+        </ul>
+      </div>
+    </div>
+
+    <div class="ficha-map-section">
+      <div class="ficha-section-label">Ubicación</div>
+      <iframe class="ficha-map-frame" loading="lazy" src={mapEmbedSrc}></iframe>
+    </div>
+
+    {property.videoYoutubeId && (
+      <div class="ficha-video-section">
+        <div class="ficha-section-label">Video</div>
+        <div class="ficha-video-embed">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${property.videoYoutubeId}`}
+            title="Video de la propiedad"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    )}
+
+    <div class="ficha-gallery">
+      <div class="ficha-section-label">Imágenes</div>
+      <div class="ficha-gallery-grid" id="galleryGrid">
+        {property.imagenes.map((src, i) => (
+          <img src={src} alt={`Foto ${i + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </div>
+
+    <div class="ficha-contact">
+      <div>
+        <div class="ficha-contact-title">Jacobo Malek</div>
+        <div class="ficha-contact-sub">Malek Inmobiliaria · Consultá por esta propiedad</div>
+      </div>
+      <a href={waHref} target="_blank" rel="noopener" class="ficha-contact-btn">
+        CONTACTAR POR WHATSAPP
+      </a>
+    </div>
+
+    <div class="ficha-legal">
+      Las medidas son aproximadas; las exactas surgen de la escritura traslativa de dominio.
+      El valor de las expensas se pactará y podrá modificarse según lo dictado por el consorcio.
+    </div>
+
+  </div>
+
+  <div class="ficha-lightbox" id="lightbox">
+    <button class="ficha-lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+    <button class="ficha-lb-nav ficha-lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+    <img id="lbImg" src="" alt="" />
+    <button class="ficha-lb-nav ficha-lb-next" id="lbNext" aria-label="Siguiente">&#8250;</button>
+  </div>
+</BaseLayout>
+
+<style>
+  .ficha {
+    max-width: var(--max-width);
+    margin-inline: auto;
+  }
+
+  .ficha-hero {
+    position: relative;
+    height: 480px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--gray-100);
+    cursor: zoom-in;
+  }
+  .ficha-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(10, 10, 10, 0.85) 100%);
+  }
+  .ficha-hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 2.5rem;
+    color: var(--white);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ficha-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-tint-3);
+    margin-bottom: 0.5rem;
+  }
+  .ficha-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    max-width: 640px;
+  }
+  .ficha-hero-address {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.92;
+  }
+  .ficha-hero-price {
+    position: absolute;
+    top: 1.75rem;
+    right: 2.5rem;
+    z-index: 2;
+    background: var(--blue);
+    color: var(--white);
+    padding: 0.75rem 1.25rem;
+    text-align: right;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 151, 217, 0.4);
+    pointer-events: none;
+  }
+  .ficha-hero-price small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+  }
+
+  .ficha-datastrip {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--black);
+    color: var(--white);
+  }
+  .ficha-data-item {
+    padding: 1.1rem 0.5rem;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ficha-data-item:last-child { border-right: none; }
+  .ficha-data-val {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--blue-tint-3);
+  }
+  .ficha-data-lab {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+    font-weight: 600;
+  }
+
+  .ficha-body-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+  }
+  .ficha-col-desc {
+    padding: 2.25rem 2.5rem;
+    border-right: 1px solid var(--gray-100);
+  }
+  .ficha-section-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.9rem;
+  }
+  .ficha-desc-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--gray-900);
+    white-space: pre-line;
+  }
+
+  .ficha-col-facts {
+    padding: 2.25rem 2rem;
+    background: var(--blue-tint-1);
+  }
+  .ficha-fact-list { list-style: none; margin: 0; padding: 0; }
+  .ficha-fact-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(0, 151, 217, 0.15);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+  }
+  .ficha-fact-list li:last-child { border-bottom: none; }
+  .ficha-fact-list li span { color: var(--gray-900); font-weight: 600; }
+  .ficha-fact-list li strong { font-weight: 700; color: var(--black); text-align: right; }
+
+  .ficha-map-section,
+  .ficha-video-section,
+  .ficha-gallery {
+    padding: 2rem 2.5rem 0.5rem;
+  }
+  .ficha-map-frame {
+    width: 100%;
+    height: 280px;
+    border: none;
+  }
+  .ficha-video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .ficha-video-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .ficha-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+  }
+  .ficha-gallery-grid img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    background: var(--gray-100);
+    cursor: zoom-in;
+    transition: opacity 0.15s ease;
+  }
+  .ficha-gallery-grid img:hover { opacity: 0.85; }
+
+  .ficha-contact {
+    margin-top: 1.5rem;
+    background: var(--blue);
+    color: var(--white);
+    padding: 1.9rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .ficha-contact-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+  }
+  .ficha-contact-sub {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+  .ficha-contact-btn {
+    background: var(--black);
+    color: var(--white);
+    padding: 0.8rem 1.6rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .ficha-legal {
+    padding: 1rem 2.5rem 1.8rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    color: var(--gray-400);
+    line-height: 1.5;
+  }
+
+  .ficha-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    cursor: zoom-out;
+    padding: 2.5rem;
+  }
+  .ficha-lightbox.open { display: flex; }
+  .ficha-lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  }
+  .ficha-lb-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  .ficha-lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: none;
+    font-size: 1.75rem;
+    padding: 0.9rem 0.6rem;
+    cursor: pointer;
+  }
+  .ficha-lb-prev { left: 1rem; }
+  .ficha-lb-next { right: 1rem; }
+
+  @media (max-width: 720px) {
+    .ficha-hero { height: 360px; }
+    .ficha-hero-content { padding: 1.5rem; }
+    .ficha-hero-price { right: 1.25rem; top: 1.25rem; font-size: 1.1rem; padding: 0.6rem 0.9rem; }
+    .ficha-datastrip { grid-template-columns: repeat(4, 1fr); }
+    .ficha-data-item { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .ficha-body-grid { grid-template-columns: 1fr; }
+    .ficha-col-desc { border-right: none; border-bottom: 1px solid var(--gray-100); padding: 1.75rem 1.25rem; }
+    .ficha-col-facts { padding: 1.75rem 1.25rem; }
+    .ficha-map-section,
+    .ficha-video-section,
+    .ficha-gallery { padding: 1.5rem 1.25rem 0.5rem; }
+    .ficha-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .ficha-contact { flex-direction: column; text-align: center; padding: 1.6rem 1.25rem; }
+  }
+</style>
+
+<script>
+  const galleryImgs = Array.from(document.querySelectorAll('#galleryGrid img')) as HTMLImageElement[];
+  const heroEl = document.getElementById('heroImg') as HTMLElement;
+  const allImages = [heroEl.dataset.full as string, ...galleryImgs.map((img) => img.src)];
+
+  const lightbox = document.getElementById('lightbox') as HTMLElement;
+  const lbImg = document.getElementById('lbImg') as HTMLImageElement;
+  let currentIndex = 0;
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    lbImg.src = allImages[currentIndex];
+    lightbox.classList.add('open');
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+  }
+  function showNext() {
+    currentIndex = (currentIndex + 1) % allImages.length;
+    lbImg.src = allImages[currentIndex];
+  }
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    lbImg.src = allImages[currentIndex];
+  }
+
+  heroEl.addEventListener('click', () => openLightbox(0));
+  galleryImgs.forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(i + 1));
+  });
+
+  document.getElementById('lbClose')?.addEventListener('click', closeLightbox);
+  document.getElementById('lbNext')?.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+  document.getElementById('lbPrev')?.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+  });
+</script>
