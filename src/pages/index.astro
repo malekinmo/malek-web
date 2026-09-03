@@ -84,6 +84,8 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
     .mh-grid-2 { grid-template-columns: 1fr !important; gap: 40px !important; }
     .mh-why-col2 { padding-top: 0 !important; }
     .mh-proceso-sticky { padding-top: 0 !important; position: static !important; }
+    .mh-proceso-numcol { position: static !important; padding-top: 0 !important; margin-bottom: 36px !important; }
+    #mh-procnum { font-size: clamp(60px,20vw,110px) !important; margin-top: 30px !important; }
 
     /* Stats: 3 columnas -> apiladas, con separador arriba en vez de al costado */
     .mh-stats-grid {
@@ -313,7 +315,7 @@ const waDudasHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola
 
   <section id="mh-proceso" style="background:#F5F2EC;color:#0A0A0A;padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px)">
     <div class="mh-grid-2" style="display:grid;grid-template-columns:minmax(240px,460px) 1fr;gap:clamp(28px,5vw,90px);align-items:start">
-      <div style="position:sticky;top:120px;padding-top:140px;min-width:0">
+      <div class="mh-proceso-numcol" style="position:sticky;top:120px;padding-top:140px;min-width:0">
         <div style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0097D9;font-weight:500;margin-bottom:28px">Cómo lo hago</div>
         <div style="font-family:'Blacker Sans Display','Gotham',serif;font-size:clamp(30px,4vw,56px);line-height:1.02;letter-spacing:-.03em;font-weight:700;color:#0A0A0A">Un proceso claro, de principio a fin</div>
         <div id="mh-procnum" style="font-family:'Gotham',sans-serif;font-size:clamp(84px,12vw,190px);font-weight:200;line-height:.8;letter-spacing:-.06em;color:#0097D9;margin-top:54px;transition:opacity .3s ease">01</div>
