@@ -84,6 +84,17 @@ const detalles = [
   @font-face{font-family:'Gotham';src:url("/fonts/GOTHAM-BLACK.woff2") format('woff2');font-weight:900;font-display:swap}
   @font-face{font-family:'Brittany';src:url("/fonts/Brittany.woff2") format('woff2');font-weight:400;font-display:swap}
 
+  /* Los dígitos de Blacker (versión trial) salen como una marca de agua de la fundición.
+     Estas reglas los reemplazan por los de Gotham: van DESPUÉS de las de Blacker a
+     propósito, porque ante un mismo rango de caracteres gana la última declarada.
+     Así cualquier título en Blacker con números (ej. "Av. La Plata 164") se ve bien
+     sin tener que acordarse de nada al escribir contenido. */
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/GOTHAM-MEDIUM.woff2") format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0030-0039}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/GOTHAM-MEDIUM.woff2") format('woff2');font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0030-0039}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/GOTHAM-BOLD.woff2") format('woff2');font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0030-0039}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/GOTHAM-MEDIUM.woff2") format('woff2');font-weight:400;font-style:italic;font-display:swap;unicode-range:U+0030-0039}
+  @font-face{font-family:'Blacker Sans Display';src:url("/fonts/GOTHAM-BOLD.woff2") format('woff2');font-weight:700;font-style:italic;font-display:swap;unicode-range:U+0030-0039}
+
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:#000}
   #mp-root{background:#000;color:#F5F2EC;font-family:'Gotham',sans-serif;-webkit-font-smoothing:antialiased}
