@@ -1,14 +1,14 @@
 ---
 title: Av. La Plata 164
 barrio: Caballito / Almagro
-price: 100000
+price: 96000
 currency: USD
 m2: 60
 ambientes: 3
 banos: 1
 orientacion: Norte
 ubicacion: Lateral
-expensas: 103000
+expensas: 106000
 abl: 12500
 antiguedad: 59
 coverImage: https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/AVLaQ6kMv3TDpQg6/chatgpt-image-16-jun-2026-14_24_28-ur8ViRvKg4YLpRiK.png
