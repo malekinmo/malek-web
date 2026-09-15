@@ -45,7 +45,18 @@
       "detalle": "El comprador reservó la propiedad con una oferta formal.",
       "match": "reserva",
       "estimado": "2026-09-14",
-      "listoInicial": true
+      "listoInicial": true,
+      "tareas": [
+        {
+          "id": "oferta-presentada-al-propietario",
+          "titulo": "Oferta presentada al propietario",
+          "match": "oferta presentada al propietario",
+          "estimado": "2026-09-14",
+          "quien": "Jaco",
+          "listoInicial": true
+        }
+      ],
+      "quien": "Comprador"
     },
     {
       "id": "aceptacion",
@@ -54,7 +65,17 @@
       "detalle": "Firmás la aceptación y la reserva queda confirmada.",
       "match": "aceptacion",
       "estimado": "2026-09-15",
-      "listoInicial": true
+      "listoInicial": true,
+      "tareas": [
+        {
+          "id": "aceptacion-comunicada-al-comprador",
+          "titulo": "Aceptación comunicada al comprador",
+          "match": "aceptacion comunicada al comprador",
+          "estimado": "2026-09-16",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Vos"
     },
     {
       "id": "refuerzo",
@@ -62,7 +83,24 @@
       "titulo": "Refuerzo",
       "detalle": "El comprador suma un refuerzo a la reserva como garantía de la operación.",
       "match": "refuerzo",
-      "estimado": "2026-09-17"
+      "estimado": "2026-09-17",
+      "tareas": [
+        {
+          "id": "refuerzo-agendado",
+          "titulo": "Refuerzo agendado",
+          "match": "refuerzo agendado",
+          "estimado": "2026-09-16",
+          "quien": "Jaco"
+        },
+        {
+          "id": "copia-de-recibos-de-reserva-y-refuerzo-e",
+          "titulo": "Copia de recibos de reserva y refuerzo entregada",
+          "match": "copia de recibos de reserva y refuerzo entregada",
+          "estimado": "2026-09-18",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Comprador"
     },
     {
       "id": "documentacion",
@@ -70,7 +108,80 @@
       "titulo": "Documentación aprobada",
       "detalle": "El banco revisa y aprueba los papeles del comprador y de la propiedad.",
       "match": "documentacion aprobada",
-      "estimado": "2026-10-01"
+      "estimado": "2026-10-01",
+      "tareas": [
+        {
+          "id": "pedido-de-documentacion-al-propietario",
+          "titulo": "Pedido de documentación al propietario",
+          "match": "pedido de documentacion al propietario",
+          "estimado": "2026-09-18",
+          "quien": "Jaco"
+        },
+        {
+          "id": "factura-de-aysa",
+          "titulo": "Factura de AySA",
+          "match": "factura de aysa",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "factura-de-luz",
+          "titulo": "Factura de luz",
+          "match": "factura de luz",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "factura-de-gas",
+          "titulo": "Factura de gas",
+          "match": "factura de gas",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "boleta-de-abl",
+          "titulo": "Boleta de ABL",
+          "match": "boleta de abl",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "ultima-liquidacion-de-expensas-paga",
+          "titulo": "Última liquidación de expensas paga",
+          "match": "ultima liquidacion de expensas paga",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "dni-de-los-titulares",
+          "titulo": "DNI de los titulares",
+          "match": "dni de los titulares",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "copia-del-titulo-de-propiedad",
+          "titulo": "Copia del título de propiedad",
+          "match": "copia del titulo de propiedad",
+          "estimado": "2026-09-22",
+          "quien": "Vos"
+        },
+        {
+          "id": "documentacion-revisada-y-enviada-al-banc",
+          "titulo": "Documentación revisada y enviada al banco",
+          "match": "documentacion revisada y enviada al banco",
+          "estimado": "2026-09-25",
+          "quien": "Jaco"
+        },
+        {
+          "id": "seguimiento-con-el-oficial-del-banco",
+          "titulo": "Seguimiento con el oficial del banco",
+          "match": "seguimiento con el oficial del banco",
+          "estimado": "2026-09-29",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "tasador",
@@ -78,7 +189,24 @@
       "titulo": "Visita del tasador",
       "detalle": "Un tasador designado por el banco visita el departamento. Te aviso con tiempo para coordinar.",
       "match": "visita del tasador",
-      "estimado": "2026-10-15"
+      "estimado": "2026-10-15",
+      "tareas": [
+        {
+          "id": "visita-del-tasador-agendada",
+          "titulo": "Visita del tasador agendada",
+          "match": "visita del tasador agendada",
+          "estimado": "2026-10-06",
+          "quien": "Jaco"
+        },
+        {
+          "id": "departamento-preparado-para-la-visita",
+          "titulo": "Departamento preparado para la visita",
+          "match": "departamento preparado para la visita",
+          "estimado": "2026-10-14",
+          "quien": "Vos"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "informe",
@@ -86,7 +214,17 @@
       "titulo": "Informe de tasación",
       "detalle": "El tasador elabora su informe y lo presenta al banco.",
       "match": "informe de tasacion",
-      "estimado": "2026-10-29"
+      "estimado": "2026-10-29",
+      "tareas": [
+        {
+          "id": "seguimiento-del-informe-con-el-banco",
+          "titulo": "Seguimiento del informe con el banco",
+          "match": "seguimiento del informe con el banco",
+          "estimado": "2026-10-22",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "aprobacion",
@@ -94,7 +232,24 @@
       "titulo": "Crédito aprobado",
       "detalle": "El banco aprueba el crédito del comprador. Plazo: hasta el 16 de noviembre.",
       "match": "aprobacion del credito",
-      "estimado": "2026-11-16"
+      "estimado": "2026-11-16",
+      "tareas": [
+        {
+          "id": "seguimiento-semanal-de-la-aprobacion",
+          "titulo": "Seguimiento semanal de la aprobación",
+          "match": "seguimiento semanal de la aprobacion",
+          "estimado": "2026-11-05",
+          "quien": "Jaco"
+        },
+        {
+          "id": "carta-de-aprobacion-recibida",
+          "titulo": "Carta de aprobación recibida",
+          "match": "carta de aprobacion recibida",
+          "estimado": "2026-11-16",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "escribania",
@@ -102,7 +257,45 @@
       "titulo": "Escribanía asignada",
       "detalle": "El banco designa la escribanía que va a hacer la escritura.",
       "match": "escribania asignada",
-      "estimado": "2026-11-27"
+      "estimado": "2026-11-27",
+      "tareas": [
+        {
+          "id": "primer-contacto-con-la-escribania",
+          "titulo": "Primer contacto con la escribanía",
+          "match": "primer contacto con la escribania",
+          "estimado": "2026-11-30",
+          "quien": "Jaco"
+        },
+        {
+          "id": "ficha-de-datos-personales-completa",
+          "titulo": "Ficha de datos personales completa",
+          "match": "ficha de datos personales completa",
+          "estimado": "2026-12-02",
+          "quien": "Vos"
+        },
+        {
+          "id": "documentacion-enviada-a-la-escribania",
+          "titulo": "Documentación enviada a la escribanía",
+          "match": "documentacion enviada a la escribania",
+          "estimado": "2026-12-03",
+          "quien": "Jaco"
+        },
+        {
+          "id": "titulo-original-entregado-a-la-escribani",
+          "titulo": "Título original entregado a la escribanía",
+          "match": "titulo original entregado a la escribania",
+          "estimado": "2026-12-04",
+          "quien": "Vos"
+        },
+        {
+          "id": "proforma-de-gastos-estimada",
+          "titulo": "Proforma de gastos estimada",
+          "match": "proforma de gastos estimada",
+          "estimado": "2026-12-07",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "titulos",
@@ -110,7 +303,17 @@
       "titulo": "Estudio de títulos",
       "detalle": "La escribanía revisa los antecedentes de la propiedad.",
       "match": "estudio de titulos",
-      "estimado": "2026-12-11"
+      "estimado": "2026-12-11",
+      "tareas": [
+        {
+          "id": "consultas-de-la-escribania-respondidas",
+          "titulo": "Consultas de la escribanía respondidas",
+          "match": "consultas de la escribania respondidas",
+          "estimado": "2026-12-15",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Escribanía"
     },
     {
       "id": "certificados",
@@ -118,7 +321,24 @@
       "titulo": "Certificados de deuda",
       "detalle": "Se piden los certificados de ABL, AySA, expensas y dominio para confirmar que todo esté en orden.",
       "match": "certificados de deuda",
-      "estimado": "2026-12-23"
+      "estimado": "2026-12-23",
+      "tareas": [
+        {
+          "id": "libre-deuda-de-expensas-pedido-a-la-admi",
+          "titulo": "Libre deuda de expensas pedido a la administración",
+          "match": "libre deuda de expensas pedido a la administracion",
+          "estimado": "2026-12-16",
+          "quien": "Jaco"
+        },
+        {
+          "id": "libre-deuda-de-expensas-recibido",
+          "titulo": "Libre deuda de expensas recibido",
+          "match": "libre deuda de expensas recibido",
+          "estimado": "2026-12-22",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Escribanía"
     },
     {
       "id": "sala",
@@ -126,7 +346,17 @@
       "titulo": "Sala y fecha de firma",
       "detalle": "Con todo OK, el banco nos asigna sala y fecha en la Sucursal Central.",
       "match": "sala y fecha",
-      "estimado": "2027-01-06"
+      "estimado": "2027-01-06",
+      "tareas": [
+        {
+          "id": "confirmacion-de-horario-y-asistentes",
+          "titulo": "Confirmación de horario y asistentes",
+          "match": "confirmacion de horario y asistentes",
+          "estimado": "2027-01-07",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Banco"
     },
     {
       "id": "firma",
@@ -134,7 +364,79 @@
       "titulo": "Escritura y entrega",
       "detalle": "Firmamos, cobrás y entregás las llaves. Plazo: hasta el 15 de enero.",
       "match": "escritura y entrega",
-      "estimado": "2027-01-15"
+      "estimado": "2027-01-15",
+      "tareas": [
+        {
+          "id": "fichas-uif-de-escribania-e-inmobiliaria",
+          "titulo": "Fichas UIF de escribanía e inmobiliaria",
+          "match": "fichas uif de escribania e inmobiliaria",
+          "estimado": "2027-01-08",
+          "quien": "Vos"
+        },
+        {
+          "id": "ultimos-comprobantes-de-pago-de-servicio",
+          "titulo": "Últimos comprobantes de pago de servicios",
+          "match": "ultimos comprobantes de pago de servicios",
+          "estimado": "2027-01-11",
+          "quien": "Vos"
+        },
+        {
+          "id": "lectura-de-medidores-de-luz-y-gas",
+          "titulo": "Lectura de medidores de luz y gas",
+          "match": "lectura de medidores de luz y gas",
+          "estimado": "2027-01-12",
+          "quien": "Jaco"
+        },
+        {
+          "id": "proporcionales-de-servicios-y-expensas-a",
+          "titulo": "Proporcionales de servicios y expensas armados",
+          "match": "proporcionales de servicios y expensas armados",
+          "estimado": "2027-01-13",
+          "quien": "Jaco"
+        },
+        {
+          "id": "departamento-libre-y-con-el-inventario-a",
+          "titulo": "Departamento libre y con el inventario acordado",
+          "match": "departamento libre y con el inventario acordado",
+          "estimado": "2027-01-13",
+          "quien": "Vos"
+        },
+        {
+          "id": "proforma-de-gastos-final",
+          "titulo": "Proforma de gastos final",
+          "match": "proforma de gastos final",
+          "estimado": "2027-01-14",
+          "quien": "Jaco"
+        },
+        {
+          "id": "recorrida-final-con-el-comprador",
+          "titulo": "Recorrida final con el comprador",
+          "match": "recorrida final con el comprador",
+          "estimado": "2027-01-14",
+          "quien": "Jaco"
+        }
+      ],
+      "quien": "Todos"
     }
-  ]
+  ],
+  "diaFirma": {
+    "vos": [
+      "DNI original de todos los titulares (y del cónyuge, si corresponde)",
+      "Título original, si todavía no quedó en la escribanía",
+      "Todas las llaves y controles del edificio",
+      "Últimas facturas pagas de luz, gas, AySA, ABL y expensas",
+      "Libre deuda de expensas firmado por la administración",
+      "Copia de la reserva y del refuerzo",
+      "Constancia de CUIT/CUIL",
+      "Un bolso o mochila para el efectivo (coordinamos el traslado seguro)"
+    ],
+    "jaco": [
+      "Recibos de reserva y refuerzo originales",
+      "Fichas UIF completas",
+      "Proporcionales de servicios y expensas impresos",
+      "Proforma de gastos final",
+      "Cambio en dólares y en pesos",
+      "Fajas para los fajos de billetes"
+    ]
+  }
 }

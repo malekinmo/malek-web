@@ -121,11 +121,11 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
                           <div class="sg-details-in">
                             <div>
                               <p class="sg-label">Lo llevás vos</p>
-                              <ul>{data.diaFirma.vos.map((x: string) => <li>{x}</li>)}</ul>
+                              <ul>{(data.diaFirma?.vos ?? []).map((x: string) => <li>{x}</li>)}</ul>
                             </div>
                             <div>
                               <p class="sg-label">Lo llevo yo</p>
-                              <ul>{data.diaFirma.jaco.map((x: string) => <li>{x}</li>)}</ul>
+                              <ul>{(data.diaFirma?.jaco ?? []).map((x: string) => <li>{x}</li>)}</ul>
                             </div>
                           </div>
                         </details>
