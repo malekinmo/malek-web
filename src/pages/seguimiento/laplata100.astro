@@ -28,9 +28,6 @@ const condiciones = [
 ];
 
 const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A confirmar');
-const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
-  `Hola Jaco! Te escribo por el seguimiento de la venta de ${data.propiedad}.`
-)}`;
 ---
 
 <!doctype html>
@@ -40,22 +37,20 @@ const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>Seguimiento de tu venta · {data.propiedad} | Malek Inmobiliaria</title>
+    <title>Seguimiento de mi venta · {data.propiedad} | Malek Inmobiliaria</title>
     <meta name="description" content={`Estado de la venta de ${data.propiedad}, paso a paso.`} />
   </head>
   <body>
     <header class="sg-top">
       <div class="container sg-top-bar">
         <a href="/" aria-label="Malek Inmobiliaria - Inicio"><img src="/images/logo-malek-white.png" alt="Malek Inmobiliaria" /></a>
-        <a class="sg-top-wa" href={waHref} target="_blank" rel="noopener">Escribime</a>
       </div>
     </header>
 
     <section class="sg-hero" style={`--foto:url('${encodeURI(data.foto)}')`}>
       <div class="container sg-hero-in">
-        <p class="eyebrow">Seguimiento de tu venta</p>
-        <h1>{data.propiedad}</h1>
-        <p class="sg-hero-sub">{data.barrio} · CABA</p>
+        <h1>Seguimiento de mi venta</h1>
+        <p class="sg-hero-sub"><span class="sg-dir">{data.propiedad}</span> · {data.barrio}, CABA</p>
 
         <div class="sg-progress" aria-live="polite">
           <div class="sg-progress-head">
@@ -102,7 +97,7 @@ const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
                       </div>
                       <p class="sg-step-detail">{e.detalle}</p>
                       {e.id === 'reserva' && <p class="sg-monto">Monto: {money(data.montos.reserva)}</p>}
-                      {e.id === 'refuerzo' && <p class="sg-monto">Monto: {money(data.montos.refuerzo)}</p>}
+                      {e.id === 'refuerzo' && <p class="sg-monto">Monto: {money(data.montos.refuerzo)} · Total a cuenta: {money((data.montos.reserva || 0) + (data.montos.refuerzo || 0))}</p>}
                     </div>
                   </li>
                 ))}
@@ -132,12 +127,6 @@ const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
           <div class="sg-card sg-card-blue">
             <p class="sg-label">Sobre el crédito</p>
             <p>{data.credito}</p>
-          </div>
-
-          <div class="sg-card sg-card-dark">
-            <p class="sg-accent">Cualquier duda</p>
-            <p>Estoy a un mensaje. Si algo no te queda claro de este proceso, escribime y lo vemos.</p>
-            <a class="btn btn-primary sg-btn" href={waHref} target="_blank" rel="noopener">Hablar con Jaco por WhatsApp</a>
           </div>
         </aside>
       </section>
@@ -203,15 +192,14 @@ const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
   .sg-top { background: #0A0A0A; }
   .sg-top-bar { display: flex; justify-content: space-between; align-items: center; padding-block: 1rem; }
   .sg-top-bar img { height: 34px; width: auto; }
-  .sg-top-wa { color: #F5F2EC; font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(245,242,236,0.35); padding: 0.5rem 1rem; border-radius: 2px; }
-  .sg-top-wa:hover { border-color: #0097D9; color: #0097D9; }
 
   .sg-hero { position: relative; background: #0A0A0A; color: #F5F2EC; padding: 4rem 0 3rem; overflow: hidden; }
   .sg-hero::before { content: ''; position: absolute; inset: 0; background: var(--foto) center/cover no-repeat; opacity: 0.28; }
   .sg-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.35) 0%, #0A0A0A 100%); }
   .sg-hero-in { position: relative; z-index: 1; }
   .sg-hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 500; margin-top: 0.6rem; }
-  .sg-hero-sub { color: #C9C5BE; margin-top: 0.6rem; }
+  .sg-hero-sub { color: #C9C5BE; margin-top: 0.8rem; font-size: 1.15rem; }
+  .sg-dir { color: #F5F2EC; font-weight: 700; }
 
   .sg-progress { margin-top: 2.5rem; background: rgba(245,242,236,0.06); border: 1px solid rgba(245,242,236,0.14); padding: 1.5rem; max-width: 760px; }
   .sg-progress-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }
@@ -265,10 +253,6 @@ const waHref = `https://wa.me/5491122540182?text=${encodeURIComponent(
   .sg-conds ul { margin: 0; padding-left: 1.1rem; }
   .sg-card-blue { background: #E8F4FA; border-color: #CFE7F5; }
   .sg-card-blue p:last-child { margin: 0.5rem 0 0; font-size: 0.93rem; color: #0A0A0A; }
-  .sg-card-dark { background: #0A0A0A; border-color: #0A0A0A; color: #F5F2EC; }
-  .sg-card-dark p { color: #C9C5BE; font-size: 0.93rem; }
-  .sg-accent { font-family: var(--font-accent); color: #0097D9 !important; font-size: 2rem !important; line-height: 1.2; margin-bottom: 0.9rem; }
-  .sg-btn { width: 100%; justify-content: center; margin-top: 0.4rem; }
 
   .sg-foot { background: #0A0A0A; color: #8C8A85; font-size: 0.8rem; padding: 1.5rem 0; }
 
