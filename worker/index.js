@@ -65,17 +65,28 @@ async function consultarNotion(token, propiedadId) {
   });
 }
 
+// Cada tarea de Notion se asigna al paso cuyo nombre coincide con el comienzo del título.
+// Si coinciden varios (ej. "refuerzo" y "refuerzo agendado"), gana el más largo.
 export function armarEtapas(config, tareas) {
-  const etapas = {};
+  const items = [];
   for (const etapa of config.etapas) {
-    const clave = normalizar(etapa.match);
-    const encontradas = tareas.filter((t) => t.nombre.startsWith(clave));
-    if (!encontradas.length) continue;
-    // Si hay varias, prioriza la marcada como Listo
-    const t = encontradas.find((x) => x.estado === 'Listo') || encontradas[0];
-    etapas[etapa.id] = { listo: t.estado === 'Listo', fecha: t.fecha };
+    items.push({ id: etapa.id, clave: normalizar(etapa.match) });
+    for (const sub of etapa.tareas || []) items.push({ id: sub.id, clave: normalizar(sub.match) });
   }
-  return etapas;
+  const porItem = {};
+  for (const t of tareas) {
+    let mejor = null;
+    for (const it of items) {
+      if (t.nombre.startsWith(it.clave) && (!mejor || it.clave.length > mejor.clave.length)) mejor = it;
+    }
+    if (!mejor) continue;
+    const previo = porItem[mejor.id];
+    // Si hay varias tareas para el mismo paso, prioriza la marcada como Listo
+    if (!previo || (!previo.listo && t.estado === 'Listo')) {
+      porItem[mejor.id] = { listo: t.estado === 'Listo', fecha: t.fecha };
+    }
+  }
+  return porItem;
 }
 
 export default {

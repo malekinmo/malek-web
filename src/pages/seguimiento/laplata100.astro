@@ -1,6 +1,6 @@
 ---
 // Panel de seguimiento para el propietario — Av. La Plata 100
-// Datos fijos (condiciones, etapas, fechas estimadas): src/data/seguimiento/laplata100.json
+// Datos fijos (condiciones, pasos, micro-tareas, fechas estimadas): src/data/seguimiento/laplata100.json
 // Estados en vivo: /api/seguimiento/laplata100 (worker/index.js → Notion, base Tareas)
 import '../../styles/global.css';
 import data from '../../data/seguimiento/laplata100.json';
@@ -8,13 +8,14 @@ import data from '../../data/seguimiento/laplata100.json';
 const c = data.condiciones;
 const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const fmt = (iso: string) => {
-  const [y, m, d] = iso.split('-').map(Number);
+  const [, m, d] = iso.split('-').map(Number);
   return `${d} ${meses[m - 1]}`;
 };
 const firma = data.etapas[data.etapas.length - 1];
-const totalEtapas = data.etapas.length;
-const listosIniciales = data.etapas.filter((e) => e.listoInicial).length;
-const pctInicial = Math.round((listosIniciales / totalEtapas) * 100);
+const items = data.etapas.flatMap((e: any) => [e, ...(e.tareas || [])]);
+const total = items.length;
+const listos = items.filter((x: any) => x.listoInicial).length;
+const pctInicial = Math.round((listos / total) * 100);
 
 const condiciones = [
   { lab: 'Valor cerrado', val: c.valor, destacado: true },
@@ -28,6 +29,7 @@ const condiciones = [
 ];
 
 const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A confirmar');
+const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 ---
 
 <!doctype html>
@@ -62,8 +64,12 @@ const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A
           </div>
           <div class="sg-bar"><div id="sgBar" class="sg-bar-fill" style={`width:${pctInicial}%`}></div></div>
           <div class="sg-progress-foot">
-            <span><span id="sgHechos">{listosIniciales}</span> de {totalEtapas} pasos completos</span>
+            <span><span id="sgHechos">{listos}</span> de {total} tareas completas</span>
             <span>Firma estimada: <b id="sgFirma">{fmt(firma.estimado)}</b></span>
+          </div>
+          <div class="sg-mini">
+            <div><span class="sg-label">Último avance</span><span id="sgUltimo">—</span></div>
+            <div><span class="sg-label">Lo próximo</span><span id="sgProximo">—</span></div>
           </div>
         </div>
       </div>
@@ -74,30 +80,56 @@ const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A
         <div class="sg-col-main">
           <h2 class="sg-h2">El camino hasta la firma</h2>
           <p class="sg-intro">
-            Acá vas a ver cada paso a medida que avanza. Lo actualizo yo en cuanto hay novedades,
-            así no tenés que andar preguntando. Las fechas en gris son estimadas.
+            Acá vas a ver cada paso a medida que avanza, con las tareas chicas de cada semana.
+            Lo actualizo yo en cuanto hay novedades, así no tenés que andar preguntando.
+            Las fechas en gris son estimadas.
           </p>
 
-          {data.fases.map((fase, i) => (
+          {data.fases.map((fase: any, i: number) => (
             <div class="sg-fase">
               <div class="sg-fase-head">
                 <span class="sg-fase-num">0{i + 1}</span>
                 <h3>{fase.titulo}</h3>
               </div>
               <ol class="sg-steps">
-                {data.etapas.filter((e) => e.fase === fase.id).map((e) => (
-                  <li class={`sg-step ${e.listoInicial ? 'is-done' : ''}`} data-id={e.id} data-estimado={e.estimado}>
-                    <span class="sg-dot" aria-hidden="true">
-                      <svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </span>
+                {data.etapas.filter((e: any) => e.fase === fase.id).map((e: any) => (
+                  <li class={`sg-step ${e.listoInicial ? 'is-done' : ''}`} data-id={e.id}>
+                    <span class="sg-dot" aria-hidden="true" set:html={check} />
                     <div class="sg-step-body">
                       <div class="sg-step-top">
                         <span class="sg-step-title">{e.titulo}</span>
-                        <span class="sg-step-date">{e.listoInicial ? fmt(e.estimado) : `~ ${fmt(e.estimado)}`}</span>
+                        <span class="sg-step-date" data-fecha={e.id}>{fmt(e.estimado)}</span>
                       </div>
                       <p class="sg-step-detail">{e.detalle}</p>
                       {e.id === 'reserva' && <p class="sg-monto">Monto: {money(data.montos.reserva)}</p>}
                       {e.id === 'refuerzo' && <p class="sg-monto">Monto: {money(data.montos.refuerzo)} · Total a cuenta: {money((data.montos.reserva || 0) + (data.montos.refuerzo || 0))}</p>}
+                      {e.tareas?.length > 0 && (
+                        <ul class="sg-subs">
+                          {e.tareas.map((t: any) => (
+                            <li class={`sg-sub ${t.listoInicial ? 'is-done' : ''}`} data-id={t.id}>
+                              <span class="sg-box" aria-hidden="true" set:html={check} />
+                              <span class="sg-sub-title">{t.titulo}</span>
+                              <span class={`sg-who sg-who-${t.quien === 'Jaco' ? 'jaco' : t.quien === 'Vos' ? 'vos' : 'otro'}`}>{t.quien}</span>
+                              <span class="sg-sub-date" data-fecha={t.id}>{fmt(t.estimado)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {e.id === 'firma' && (
+                        <details class="sg-details">
+                          <summary>Qué llevar el día de la firma</summary>
+                          <div class="sg-details-in">
+                            <div>
+                              <p class="sg-label">Lo llevás vos</p>
+                              <ul>{data.diaFirma.vos.map((x: string) => <li>{x}</li>)}</ul>
+                            </div>
+                            <div>
+                              <p class="sg-label">Lo llevo yo</p>
+                              <ul>{data.diaFirma.jaco.map((x: string) => <li>{x}</li>)}</ul>
+                            </div>
+                          </div>
+                        </details>
+                      )}
                     </div>
                   </li>
                 ))}
@@ -119,7 +151,7 @@ const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A
               ))}
               <div>
                 <dt>Inventario incluido</dt>
-                <dd><ul>{c.inventario.map((i) => <li>{i}</li>)}</ul></dd>
+                <dd><ul>{c.inventario.map((i: string) => <li>{i}</li>)}</ul></dd>
               </div>
             </dl>
           </div>
@@ -138,36 +170,48 @@ const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A
 
     <script is:inline define:vars={{ slug: data.slug, etapas: data.etapas }}>
       const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-      const fmt = (iso) => { const [y,m,d] = iso.slice(0,10).split('-').map(Number); return d + ' ' + meses[m-1]; };
+      const fmt = (iso) => { const [, m, d] = iso.slice(0,10).split('-').map(Number); return d + ' ' + meses[m-1]; };
       const $ = (id) => document.getElementById(id);
+      const items = etapas.flatMap((e) => [e, ...(e.tareas || [])]);
 
       function render(vivo) {
-        const estado = {};
-        etapas.forEach((e) => {
-          const v = vivo && vivo[e.id];
-          estado[e.id] = {
-            listo: v ? v.listo : !!e.listoInicial,
-            fecha: (v && v.fecha) || e.estimado,
-            real: !!(v && v.fecha),
-          };
+        const est = {};
+        items.forEach((x) => {
+          const v = vivo && vivo[x.id];
+          est[x.id] = { listo: v ? v.listo : !!x.listoInicial, fecha: (v && v.fecha) || x.estimado, real: !!(v && v.fecha) };
         });
-        const hechos = etapas.filter((e) => estado[e.id].listo).length;
-        const actual = etapas.find((e) => !estado[e.id].listo);
-        const pct = Math.round((hechos / etapas.length) * 100);
+        // Un paso principal cerrado da por hechas sus tareas previas
+        etapas.forEach((e) => { if (est[e.id].listo) (e.tareas || []).forEach((t) => { if (!est[t.id].listo) { est[t.id].listo = true; if (est[t.id].fecha > est[e.id].fecha) est[t.id].fecha = est[e.id].fecha; } }); });
 
-        document.querySelectorAll('.sg-step').forEach((li) => {
-          const s = estado[li.dataset.id];
-          li.classList.toggle('is-done', s.listo);
-          li.classList.toggle('is-current', !!actual && actual.id === li.dataset.id);
-          const fecha = li.querySelector('.sg-step-date');
-          fecha.textContent = s.listo || s.real ? fmt(s.fecha) : '~ ' + fmt(s.fecha);
-          fecha.classList.toggle('is-est', !s.listo && !s.real);
+        const hechos = items.filter((x) => est[x.id].listo).length;
+        const actual = etapas.find((e) => !est[e.id].listo);
+        const pct = Math.round((hechos / items.length) * 100);
+
+        document.querySelectorAll('.sg-step, .sg-sub').forEach((li) => {
+          li.classList.toggle('is-done', est[li.dataset.id].listo);
         });
+        document.querySelectorAll('.sg-step').forEach((li) => {
+          li.classList.toggle('is-current', !!actual && actual.id === li.dataset.id);
+        });
+        document.querySelectorAll('[data-fecha]').forEach((el) => {
+          const s = est[el.dataset.fecha];
+          el.textContent = (s.listo || s.real ? '' : '~ ') + fmt(s.fecha);
+          el.classList.toggle('is-est', !s.listo && !s.real);
+        });
+
+        const porFecha = (a, b) => est[a.id].fecha.localeCompare(est[b.id].fecha);
+        const hechosList = items.filter((x) => est[x.id].listo).sort(porFecha);
+        const pendientes = items.filter((x) => !est[x.id].listo).sort(porFecha);
+        const ult = hechosList[hechosList.length - 1];
+        const prox = pendientes[0];
+        $('sgUltimo').textContent = ult ? ult.titulo + ' · ' + fmt(est[ult.id].fecha) : '—';
+        $('sgProximo').textContent = prox ? prox.titulo + ' · ' + fmt(est[prox.id].fecha) : '¡Venta concretada!';
+
         $('sgPct').textContent = pct;
         $('sgBar').style.width = pct + '%';
         $('sgHechos').textContent = hechos;
         $('sgActual').textContent = actual ? actual.titulo : '¡Venta concretada!';
-        const f = estado.firma;
+        const f = est.firma;
         $('sgFirma').textContent = (f.listo || f.real ? '' : '~ ') + fmt(f.fecha);
       }
 
@@ -265,4 +309,40 @@ const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A
     .sg-progress { padding: 1.1rem; }
     .sg-step.is-current .sg-step-title::after { display: none; }
   }
+  .sg-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid rgba(245,242,236,0.12); font-size: 0.88rem; }
+  .sg-mini .sg-label { margin-bottom: 0.25rem; }
+  .sg-mini > div:last-child span:last-child { color: #0097D9; font-weight: 700; }
+
+  .sg-subs { list-style: none; margin: 0.8rem 0 0.4rem; padding: 0.3rem 0.9rem; background: #fff; border: 1px solid #ECE7DE; }
+  .sg-sub { display: grid; grid-template-columns: 18px 1fr auto 3.8rem; align-items: center; gap: 0.6rem; padding: 0.5rem 0; font-size: 0.86rem; border-top: 1px solid #F4F1EB; }
+  .sg-sub:first-child { border-top: 0; }
+  .sg-box { width: 16px; height: 16px; border: 1.5px solid #C9C5BE; border-radius: 3px; display: grid; place-items: center; color: transparent; }
+  .sg-box svg { width: 10px; height: 10px; }
+  .sg-sub.is-done .sg-box { background: #0097D9; border-color: #0097D9; color: #fff; }
+  .sg-sub-title { color: #58595B; }
+  .sg-sub.is-done .sg-sub-title { color: #0A0A0A; }
+  .sg-who { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.45rem; white-space: nowrap; }
+  .sg-who-jaco { background: #E8F4FA; color: #00618C; }
+  .sg-who-vos { background: #0A0A0A; color: #F5F2EC; }
+  .sg-who-otro { background: #F4F1EB; color: #8C8A85; }
+  .sg-sub-date { font-family: 'Gotham', sans-serif; font-size: 0.78rem; text-align: right; color: #0097D9; font-weight: 700; white-space: nowrap; }
+  .sg-sub-date.is-est { color: #8C8A85; font-weight: 400; }
+
+  .sg-details { margin-top: 0.8rem; border: 1px solid #0A0A0A; background: #0A0A0A; color: #F5F2EC; }
+  .sg-details summary { cursor: pointer; list-style: none; padding: 0.9rem 1rem; font-weight: 700; font-size: 0.92rem; display: flex; justify-content: space-between; align-items: center; }
+  .sg-details summary::-webkit-details-marker { display: none; }
+  .sg-details summary::after { content: '+'; font-size: 1.3rem; color: #0097D9; line-height: 1; }
+  .sg-details[open] summary::after { content: '−'; }
+  .sg-details-in { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 0 1rem 1.1rem; }
+  .sg-details ul { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.86rem; color: #C9C5BE; display: grid; gap: 0.35rem; }
+  @media (max-width: 860px) {
+    .sg-mini { grid-template-columns: 1fr; gap: 0.7rem; }
+    .sg-sub { grid-template-columns: 18px minmax(0,1fr) 3.4rem; row-gap: 0.2rem; }
+    .sg-who { grid-column: 2; grid-row: 2; justify-self: start; }
+    .sg-sub-date { grid-column: 3; grid-row: 1; }
+    .sg-details-in { grid-template-columns: 1fr; }
+    .sg-subs { padding: 0.2rem 0.7rem; }
+    .sg-box { grid-row: 1 / span 2; align-self: start; margin-top: 2px; }
+  }
 </style>
+
