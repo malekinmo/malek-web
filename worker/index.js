@@ -66,7 +66,7 @@ async function consultarNotion(token, propiedadId) {
   });
 }
 
-// Cada tarea de Notion se asigna al paso cuyo nombre coincide con el comienzo del título.
+// Cada tarea de Notion se asigna al paso cuyo nombre aparece dentro del título.
 // Si coinciden varios (ej. "refuerzo" y "refuerzo agendado"), gana el más largo.
 export function armarEtapas(config, tareas) {
   const items = [];
@@ -78,7 +78,7 @@ export function armarEtapas(config, tareas) {
   for (const t of tareas) {
     let mejor = null;
     for (const it of items) {
-      if (t.nombre.startsWith(it.clave) && (!mejor || it.clave.length > mejor.clave.length)) mejor = it;
+      if (t.nombre.includes(it.clave) && (!mejor || it.clave.length > mejor.clave.length)) mejor = it;
     }
     if (!mejor) continue;
     const previo = porItem[mejor.id];

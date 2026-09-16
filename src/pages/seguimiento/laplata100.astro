@@ -205,6 +205,13 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
           const v = vivo && vivo[x.id];
           est[x.id] = { listo: v ? v.listo : !!x.listoInicial, fecha: (v && v.fecha) || x.estimado, real: !!(v && v.fecha) };
         });
+        // Etapas sin tarea propia en Notion: se completan cuando se completan todas sus tareas
+        etapas.forEach((e) => {
+          if (!e.auto || !(e.tareas || []).length) return;
+          const ts = e.tareas.map((t) => est[t.id]);
+          est[e.id].listo = ts.every((x) => x.listo);
+          est[e.id].fecha = ts.map((x) => x.fecha).sort().pop();
+        });
         // Un paso principal cerrado da por hechas sus tareas previas
         etapas.forEach((e) => { if (est[e.id].listo) (e.tareas || []).forEach((t) => { if (!est[t.id].listo) { est[t.id].listo = true; if (est[t.id].fecha > est[e.id].fecha) est[t.id].fecha = est[e.id].fecha; } }); });
 
