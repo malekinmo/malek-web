@@ -61,6 +61,7 @@ async function consultarNotion(token, propiedadId) {
       nombre: normalizar((tituloProp?.title || []).map((t) => t.plain_text).join('')),
       estado: props.Estado?.status?.name || props.Estado?.select?.name || '',
       fecha: props.Fecha?.date?.start || null,
+      categoria: props.Categoria?.select?.name || null,
     };
   });
 }
@@ -83,7 +84,7 @@ export function armarEtapas(config, tareas) {
     const previo = porItem[mejor.id];
     // Si hay varias tareas para el mismo paso, prioriza la marcada como Listo
     if (!previo || (!previo.listo && t.estado === 'Listo')) {
-      porItem[mejor.id] = { listo: t.estado === 'Listo', fecha: t.fecha };
+      porItem[mejor.id] = { listo: t.estado === 'Listo', fecha: t.fecha, categoria: t.categoria };
     }
   }
   return porItem;

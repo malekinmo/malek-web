@@ -30,6 +30,7 @@ const condiciones = [
 
 const docs = (data as any).documentacion ?? [];
 const docsOk = docs.filter((x: any) => x.ok).length;
+const catClass = (c: string) => ({ Banco: 'banco', 'Escribanía': 'escribania', Inmobiliaria: 'inmobiliaria', Servicios: 'servicios' } as any)[c] || 'otro';
 const money = (n: number | null) => (n ? `USD ${n.toLocaleString('es-AR')}` : 'A confirmar');
 const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 ---
@@ -107,7 +108,7 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
                     <span class="sg-dot" aria-hidden="true" set:html={check} />
                     <div class="sg-step-body">
                       <div class="sg-step-top">
-                        <span class="sg-step-title">{e.titulo}</span>
+                        <span class="sg-step-title">{e.titulo} <span class={`sg-who sg-cat-${catClass(e.categoria)}`} data-cat={e.id}>{e.categoria}</span></span>
                         <span class="sg-step-date" data-fecha={e.id}>{fmt(e.estimado)}</span>
                       </div>
                       <p class="sg-step-detail">{e.detalle}</p>
@@ -119,7 +120,7 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
                             <li class={`sg-sub ${t.listoInicial ? 'is-done' : ''}`} data-id={t.id}>
                               <span class="sg-box" aria-hidden="true" set:html={check} />
                               <span class="sg-sub-title">{t.titulo}</span>
-                              <span class={`sg-who sg-who-${t.quien === 'Jaco' ? 'jaco' : t.quien === 'Vos' ? 'vos' : 'otro'}`}>{t.quien}</span>
+                              <span class={`sg-who sg-cat-${catClass(t.categoria)}`} data-cat={t.id}>{t.categoria}</span>
                               <span class="sg-sub-date" data-fecha={t.id}>{fmt(t.estimado)}</span>
                             </li>
                           ))}
@@ -129,14 +130,7 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
                         <details class="sg-details">
                           <summary>Qué llevar el día de la firma</summary>
                           <div class="sg-details-in">
-                            <div>
-                              <p class="sg-label">Lo llevás vos</p>
-                              <ul>{(data.diaFirma?.vos ?? []).map((x: string) => <li>{x}</li>)}</ul>
-                            </div>
-                            <div>
-                              <p class="sg-label">Lo llevo yo</p>
-                              <ul>{(data.diaFirma?.jaco ?? []).map((x: string) => <li>{x}</li>)}</ul>
-                            </div>
+                            <ul>{(data.diaFirma?.vos ?? []).map((x: string) => <li>{x}</li>)}</ul>
                           </div>
                         </details>
                       )}
@@ -225,28 +219,34 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
         document.querySelectorAll('.sg-step').forEach((li) => {
           li.classList.toggle('is-current', !!actual && actual.id === li.dataset.id);
         });
+        const catCls = { 'Banco': 'banco', 'Escribanía': 'escribania', 'Inmobiliaria': 'inmobiliaria', 'Servicios': 'servicios' };
+        document.querySelectorAll('[data-cat]').forEach((el) => {
+          const v = vivo && vivo[el.dataset.cat];
+          if (v && v.categoria) { el.textContent = v.categoria; el.className = 'sg-who sg-cat-' + (catCls[v.categoria] || 'otro'); }
+        });
         document.querySelectorAll('[data-fecha]').forEach((el) => {
           const s = est[el.dataset.fecha];
-          el.textContent = (s.listo || s.real ? '' : '~ ') + fmt(s.fecha);
-          el.classList.toggle('is-est', !s.listo && !s.real);
+          el.textContent = (s.listo ? '' : '~ ') + fmt(s.fecha);
+          el.classList.toggle('is-est', !s.listo);
         });
 
         const porFecha = (a, b) => est[a.id].fecha.localeCompare(est[b.id].fecha);
-        const hechosList = items.filter((x) => est[x.id].listo).sort(porFecha);
+        const hoy = new Date().toISOString().slice(0, 10);
+        const hechosList = items.filter((x) => est[x.id].listo && est[x.id].fecha.slice(0, 10) <= hoy).sort(porFecha);
         const pendientes = items.filter((x) => !est[x.id].listo).sort(porFecha);
         const ult = hechosList[hechosList.length - 1];
         const prox = pendientes[0];
         $('sgUltimo').textContent = ult ? ult.titulo : '—';
         $('sgUltimoFecha').textContent = ult ? fmt(est[ult.id].fecha) : '';
         $('sgProximo').textContent = prox ? prox.titulo : '¡Venta concretada!';
-        $('sgProximoFecha').textContent = prox ? (est[prox.id].real ? '' : 'Estimado: ') + fmt(est[prox.id].fecha) : '';
+        $('sgProximoFecha').textContent = prox ? 'Estimado: ' + fmt(est[prox.id].fecha) : '';
 
         $('sgPct').textContent = pct;
         $('sgBar').style.width = pct + '%';
         $('sgHechos').textContent = hechos;
         $('sgActual').textContent = actual ? actual.titulo : '¡Venta concretada!';
         const f = est.firma;
-        $('sgFirma').textContent = (f.listo || f.real ? '' : '~ ') + fmt(f.fecha);
+        $('sgFirma').textContent = (f.listo ? '' : '~ ') + fmt(f.fecha);
       }
 
       render(null);
@@ -393,6 +393,13 @@ const check = '<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3
   .sg-details[open] summary::after { content: '−'; }
   .sg-details-in { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 0 1rem 1.1rem; }
   .sg-details ul { margin: 0.5rem 0 0; padding-left: 1.1rem; font-size: 0.86rem; color: #C9C5BE; display: grid; gap: 0.35rem; }
+  .sg-cat-banco { background: #E8F4FA; color: #00618C; }
+  .sg-cat-escribania { background: #0A0A0A; color: #F5F2EC; }
+  .sg-cat-inmobiliaria { background: #0097D9; color: #fff; }
+  .sg-cat-servicios { background: #ECE7DE; color: #58595B; }
+  .sg-cat-otro { display: none; }
+  .sg-step-title .sg-who { margin-left: 0.4rem; vertical-align: 2px; }
+  .sg-details-in { grid-template-columns: 1fr !important; }
   @media (max-width: 860px) {
     .sg-mini { grid-template-columns: 1fr; gap: 0.7rem; }
     .sg-tile-title { font-size: 1.15rem; }
