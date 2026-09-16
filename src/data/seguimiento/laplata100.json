@@ -26,15 +26,18 @@
   "fases": [
     {
       "id": "reserva",
-      "titulo": "Reserva"
+      "titulo": "Reserva",
+      "intro": "El comprador se comprometió a comprar. Firmó la reserva, vos la aceptaste y ahora la refuerza con más dinero como garantía."
     },
     {
       "id": "credito",
-      "titulo": "Crédito hipotecario"
+      "titulo": "Crédito hipotecario",
+      "intro": "El comprador paga con un crédito del Banco Nación. Antes de prestar el dinero, el banco revisa los papeles y manda un tasador a ver el departamento. Los trámites con el banco los hago yo."
     },
     {
       "id": "escritura",
-      "titulo": "Escritura"
+      "titulo": "Escritura",
+      "intro": "Con el crédito aprobado, el banco designa una escribanía que revisa que todo esté en orden y prepara la escritura. El día de la firma cobrás y entregás las llaves."
     }
   ],
   "etapas": [
@@ -51,7 +54,8 @@
           "titulo": "Oferta presentada al propietario",
           "match": "oferta presentada al propietario",
           "estimado": "2026-09-14",
-          "listoInicial": true
+          "listoInicial": true,
+          "ayuda": "Te acerqué la propuesta del comprador."
         }
       ],
       "listoInicial": true
@@ -69,7 +73,8 @@
           "titulo": "Aceptación comunicada al comprador",
           "match": "aceptacion comunicada al comprador",
           "estimado": "2026-09-16",
-          "listoInicial": true
+          "listoInicial": true,
+          "ayuda": "Le confirmé al comprador que aceptaste."
         }
       ],
       "listoInicial": true
@@ -78,7 +83,7 @@
       "id": "refuerzo",
       "fase": "reserva",
       "titulo": "Refuerzo",
-      "detalle": "El comprador suma un refuerzo a la reserva como garantía de la operación.",
+      "detalle": "El comprador suma dinero a la reserva como garantía de que sigue adelante.",
       "match": "refuerzo",
       "estimado": "2026-09-17",
       "tareas": [
@@ -87,13 +92,15 @@
           "titulo": "Refuerzo agendado",
           "match": "refuerzo agendado",
           "estimado": "2026-09-16",
-          "listoInicial": true
+          "listoInicial": true,
+          "ayuda": "Coordinamos día y hora para firmarlo."
         },
         {
           "id": "copia-de-recibos-de-reserva-y-refuerzo-e",
           "titulo": "Copia de recibos de reserva y refuerzo entregada",
           "match": "copia de recibos de reserva y refuerzo entregada",
-          "estimado": "2026-09-17"
+          "estimado": "2026-09-17",
+          "ayuda": "Te entrego copia de todo lo firmado."
         }
       ]
     },
@@ -109,14 +116,16 @@
           "id": "documentacion-revisada-y-enviada-al-banc",
           "titulo": "Documentación revisada y enviada al banco",
           "match": "documentacion revisada y enviada al banco",
-          "estimado": "2026-09-16",
-          "listoInicial": true
+          "estimado": "2026-09-15",
+          "listoInicial": true,
+          "ayuda": "Revisé y cargué los papeles del departamento en el banco."
         },
         {
           "id": "seguimiento-con-el-oficial-del-banco",
           "titulo": "Seguimiento con el oficial del banco",
           "match": "seguimiento con el oficial del banco",
-          "estimado": "2026-09-29"
+          "estimado": "2026-09-29",
+          "ayuda": "El oficial es la persona del banco a cargo del crédito."
         }
       ]
     },
@@ -124,7 +133,7 @@
       "id": "tasacion",
       "fase": "credito",
       "titulo": "Tasación del banco",
-      "detalle": "Un tasador designado por el banco visita el departamento, elabora su informe y lo presenta.",
+      "detalle": "Es un requisito del banco para prestar el dinero: un tasador visita el departamento, hace su informe y lo presenta.",
       "match": "informe de tasacion",
       "estimado": "2026-10-22",
       "tareas": [
@@ -132,19 +141,22 @@
           "id": "visita-del-tasador-agendada",
           "titulo": "Visita del tasador agendada",
           "match": "visita del tasador agendada",
-          "estimado": "2026-10-01"
+          "estimado": "2026-10-01",
+          "ayuda": "Te aviso día y hora con anticipación."
         },
         {
           "id": "visita-del-tasador",
           "titulo": "Visita del tasador",
           "match": "visita del tasador",
-          "estimado": "2026-10-08"
+          "estimado": "2026-10-08",
+          "ayuda": "Recorre el departamento y toma medidas y fotos."
         },
         {
           "id": "seguimiento-del-informe-con-el-banco",
           "titulo": "Seguimiento del informe con el banco",
           "match": "seguimiento del informe con el banco",
-          "estimado": "2026-10-15"
+          "estimado": "2026-10-15",
+          "ayuda": "Controlo que el informe llegue al banco sin demoras."
         }
       ]
     },
@@ -160,13 +172,15 @@
           "id": "seguimiento-semanal-de-la-aprobacion",
           "titulo": "Seguimiento semanal de la aprobación",
           "match": "seguimiento semanal de la aprobacion",
-          "estimado": "2026-10-29"
+          "estimado": "2026-10-29",
+          "ayuda": "Consulto cada semana en qué está la aprobación."
         },
         {
           "id": "documentacion-aprobada",
           "titulo": "Documentación aprobada por el banco",
           "match": "documentacion aprobada",
-          "estimado": "2026-11-03"
+          "estimado": "2026-11-03",
+          "ayuda": "El banco da el OK a todos los papeles."
         }
       ]
     },
@@ -182,25 +196,29 @@
           "id": "primer-contacto-con-la-escribania",
           "titulo": "Primer contacto con la escribanía",
           "match": "primer contacto con la escribania",
-          "estimado": "2026-11-16"
+          "estimado": "2026-11-16",
+          "ayuda": "Me presento y coordinamos los próximos pasos."
         },
         {
           "id": "documentacion-enviada-a-la-escribania",
           "titulo": "Documentación enviada a la escribanía",
           "match": "documentacion enviada a la escribania",
-          "estimado": "2026-11-16"
+          "estimado": "2026-11-16",
+          "ayuda": "Les paso los papeles del departamento."
         },
         {
           "id": "proforma-de-gastos-estimada",
           "titulo": "Pedido de proforma de gastos estimada",
           "match": "proforma de gastos estimada",
-          "estimado": "2026-11-16"
+          "estimado": "2026-11-16",
+          "ayuda": "Un primer cálculo de los gastos de la escritura."
         },
         {
           "id": "titulo-original-entregado-a-la-escribani",
           "titulo": "Título original entregado a la escribanía",
           "match": "titulo original entregado a la escribania",
-          "estimado": "2026-11-20"
+          "estimado": "2026-11-20",
+          "ayuda": "La escritura con la que compraste; la piden en original."
         }
       ]
     },
@@ -216,7 +234,8 @@
           "id": "ficha-de-datos-personales-completada",
           "titulo": "Ficha de datos personales completada",
           "match": "ficha de datos personales completada",
-          "estimado": "2026-11-30"
+          "estimado": "2026-11-30",
+          "ayuda": "Los datos de los vendedores que van en la escritura."
         },
         {
           "id": "ficha-de-datos-personales-enviada-a-la-e",
@@ -228,13 +247,15 @@
           "id": "ficha-uif-de-la-escribania",
           "titulo": "Ficha UIF de la escribanía",
           "match": "ficha uif de la escribania",
-          "estimado": "2026-12-04"
+          "estimado": "2026-12-04",
+          "ayuda": "Declaración jurada que exige la normativa antilavado."
         },
         {
           "id": "ficha-uif-de-la-inmobiliaria",
           "titulo": "Ficha UIF de la inmobiliaria",
           "match": "ficha uif de la inmobiliaria",
-          "estimado": "2026-12-04"
+          "estimado": "2026-12-04",
+          "ayuda": "La misma declaración, para mi registro como corredor."
         }
       ],
       "auto": true
@@ -243,7 +264,7 @@
       "id": "titulos",
       "fase": "escritura",
       "titulo": "Estudio de títulos completo",
-      "detalle": "La escribanía revisa los antecedentes de la propiedad y pide los certificados.",
+      "detalle": "La escribanía revisa la historia legal del departamento para confirmar que se puede vender sin problemas.",
       "match": "estudio de titulos",
       "estimado": "2026-12-18",
       "tareas": [
@@ -251,13 +272,15 @@
           "id": "pedido-de-certificados-de-dominio-e-inhi",
           "titulo": "Pedido de certificados de dominio e inhibición",
           "match": "pedido de certificados de dominio e inhibicion",
-          "estimado": "2026-12-09"
+          "estimado": "2026-12-09",
+          "ayuda": "Confirman que el departamento está a tu nombre y sin embargos."
         },
         {
           "id": "libre-deuda-de-expensas-pedido-a-la-admi",
           "titulo": "Libre deuda de expensas pedido a la administración",
           "match": "libre deuda de expensas pedido a la administracion",
-          "estimado": "2026-12-09"
+          "estimado": "2026-12-09",
+          "ayuda": "Constancia de la administración de que las expensas están al día."
         },
         {
           "id": "certificados-recibidos",
@@ -277,17 +300,10 @@
       "id": "sala",
       "fase": "escritura",
       "titulo": "Sala y fecha de firma",
-      "detalle": "El banco nos asigna sala y fecha en la Sucursal Central.",
+      "detalle": "El banco nos asigna el día, la hora y la sala en la Sucursal Central para firmar.",
       "match": "sala y fecha",
       "estimado": "2026-12-22",
-      "tareas": [
-        {
-          "id": "ultimos-comprobantes-de-pago-de-servicio",
-          "titulo": "Últimos comprobantes de pago de servicios",
-          "match": "ultimos comprobantes de pago de servicios",
-          "estimado": "2027-01-04"
-        }
-      ]
+      "tareas": []
     },
     {
       "id": "firma",
@@ -298,10 +314,18 @@
       "estimado": "2027-01-07",
       "tareas": [
         {
+          "id": "ultimos-comprobantes-de-pago-de-servicio",
+          "titulo": "Últimos comprobantes de pago de servicios",
+          "match": "ultimos comprobantes de pago de servicios",
+          "estimado": "2027-01-04",
+          "ayuda": "Últimas facturas pagas de luz, gas, AySA y ABL."
+        },
+        {
           "id": "proporcionales-de-servicios-y-expensas-a",
           "titulo": "Proporcionales de servicios y expensas armados",
           "match": "proporcionales de servicios y expensas armados",
-          "estimado": "2027-01-04"
+          "estimado": "2027-01-05",
+          "ayuda": "Calculo lo que le toca pagar a cada parte hasta el día de la firma."
         },
         {
           "id": "confirmacion-de-horario-y-asistentes",
@@ -313,19 +337,21 @@
           "id": "recorrida-final-con-el-comprador",
           "titulo": "Recorrida final con el comprador",
           "match": "recorrida final con el comprador",
-          "estimado": "2027-01-06"
+          "estimado": "2027-01-06",
+          "ayuda": "El comprador ve el departamento antes de firmar."
         },
         {
           "id": "proforma-de-gastos-final",
           "titulo": "Proforma de gastos final",
           "match": "proforma de gastos final",
-          "estimado": "2027-01-06"
+          "estimado": "2027-01-06",
+          "ayuda": "El monto exacto de los gastos, el día previo."
         },
         {
           "id": "departamento-desocupado",
           "titulo": "Departamento desocupado y limpio para la entrega",
           "match": "departamento desocupado",
-          "estimado": "2027-01-06",
+          "estimado": "2026-09-15",
           "listoInicial": true
         }
       ]
