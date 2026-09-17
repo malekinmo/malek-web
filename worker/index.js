@@ -96,7 +96,8 @@ export function armarPanel(paginas, vista = 'Vendedor') {
   // "Vista" vacía = se ve en las dos páginas; si tiene valores, solo en las que figuren
   const visibles = filas.filter((f) => !f.vistas.length || f.vistas.includes(vista));
 
-  const porFecha = (a, b) => (a.fecha || '9999').slice(0, 10).localeCompare((b.fecha || '9999').slice(0, 10));
+  // Ordena por fecha y hora: si dos cosas caen el mismo día, manda la hora
+  const porFecha = (a, b) => (a.fecha || '9999').localeCompare(b.fecha || '9999');
   const faseId = (nombre) => (FASES.find((f) => normalizar(f.titulo) === normalizar(nombre)) || FASES[0]).id;
 
   const etapas = visibles

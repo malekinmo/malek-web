@@ -253,7 +253,7 @@ const CIRC = +(2 * Math.PI * R).toFixed(2);
         const actual = etapas.find((e) => !e.listo);
         const ultimaEtapa = etapas[etapas.length - 1];
         const orden = new Map(items.map((x, i) => [x.id, i]));
-        const porFecha = (a, b) => (a.fecha || '9999').slice(0, 10).localeCompare((b.fecha || '9999').slice(0, 10)) || orden.get(a.id) - orden.get(b.id);
+        const porFecha = (a, b) => (a.fecha || '9999').localeCompare(b.fecha || '9999') || orden.get(a.id) - orden.get(b.id);
         const hoy = new Date().toISOString().slice(0, 10);
         const hechosList = items.filter((x) => x.listo && (x.fecha || '').slice(0, 10) <= hoy).sort(porFecha);
         const pendientes = items.filter((x) => !x.listo).sort(porFecha);
