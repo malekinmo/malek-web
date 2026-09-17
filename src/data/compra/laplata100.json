@@ -26,7 +26,7 @@
     "vos": [
       "DNI original de todos los compradores (y del cónyuge, si corresponde)",
       "Copia de la reserva y del refuerzo firmados",
-      "El dinero de los gastos de escritura, según la proforma final",
+      "El dinero necesario para el saldo y los gastos, según la proforma final",
       "Ficha UIF completa, si todavía no la entregaste"
     ]
   },
@@ -77,14 +77,14 @@
         "tareas": [
           {
             "id": "3dcbabd6e026812784fdc1dc026790fd",
-            "titulo": "Refuerzo agendado",
+            "titulo": "Agendar el refuerzo",
             "ayuda": "Coordinamos día y hora para firmarlo.",
             "fecha": "2026-09-16",
             "listo": true
           },
           {
             "id": "3dcbabd6e02681e1befbf2d4dffff36f",
-            "titulo": "Copia de la reserva y del refuerzo entregada",
+            "titulo": "Entregar copia de la reserva y del refuerzo",
             "ayuda": "Te entrego copia de todo lo firmado.",
             "fecha": "2026-09-17",
             "listo": false
@@ -94,28 +94,28 @@
       {
         "id": "3ddbabd6e026814a9c57d8ff4fb75da0",
         "fase": "credito",
-        "titulo": "Propiedad asociada al crédito",
+        "titulo": "Vinculamos la Propiedad al crédito",
         "detalle": "La cargamos desde la plataforma del banco para vincularla con la solicitud de crédito del comprador.",
         "fecha": "2026-09-17",
         "listo": false,
         "tareas": [
           {
             "id": "3dcbabd6e026814bb0b4c77f924093f0",
-            "titulo": "Documentación revisada y enviada al banco",
+            "titulo": "Revisar y enviar la documentación al banco",
             "ayuda": "Revisé y cargué los papeles del departamento en el banco.",
             "fecha": "2026-09-15",
             "listo": true
           },
           {
             "id": "3debabd6e02680708704eed691f4185b",
-            "titulo": "Aceptación y refuerzo enviados al banco",
+            "titulo": "Enviar la aceptación y el refuerzo al banco",
             "ayuda": "El banco necesita ver lo firmado para avanzar con el crédito.",
             "fecha": "2026-09-17",
             "listo": false
           },
           {
             "id": "3dcbabd6e02681a2afb0f2282b5aa6f3",
-            "titulo": "Seguimiento con el oficial del banco",
+            "titulo": "Hacer seguimiento con el oficial del banco",
             "ayuda": "El oficial es la persona del banco a cargo del crédito.",
             "fecha": "2026-09-29",
             "listo": false
@@ -132,21 +132,21 @@
         "tareas": [
           {
             "id": "3dcbabd6e02681b696bfdf2c84eef464",
-            "titulo": "Visita del tasador agendada",
+            "titulo": "Agendar la visita del tasador",
             "ayuda": "Te aviso día y hora con anticipación.",
             "fecha": "2026-10-01",
             "listo": false
           },
           {
             "id": "3dcbabd6e026816c88ece764d7dfb46c",
-            "titulo": "Visita del tasador",
+            "titulo": "Recibir al tasador en el departamento",
             "ayuda": "Recorre el departamento y toma medidas y fotos.",
             "fecha": "2026-10-08",
             "listo": false
           },
           {
             "id": "3dcbabd6e02681b486c8e37275e586b3",
-            "titulo": "Seguimiento del informe con el banco",
+            "titulo": "Seguir el informe con el banco",
             "ayuda": "Controlo que el informe llegue al banco sin demoras.",
             "fecha": "2026-10-15",
             "listo": false
@@ -163,14 +163,14 @@
         "tareas": [
           {
             "id": "3dcbabd6e026815b93b5f3f5ab97fce6",
-            "titulo": "Seguimiento semanal de la aprobación",
+            "titulo": "Seguir semanalmente la aprobación",
             "ayuda": "Consulto cada semana en qué está la aprobación.",
             "fecha": "2026-10-29",
             "listo": false
           },
           {
             "id": "3dcbabd6e0268170b8d2da3867f73a54",
-            "titulo": "Documentación aprobada por el banco",
+            "titulo": "Obtener la aprobación de la documentación",
             "ayuda": "El banco da el OK a todos los papeles.",
             "fecha": "2026-11-03",
             "listo": false
@@ -180,28 +180,28 @@
       {
         "id": "3dcbabd6e026816f895edf9115ab22df",
         "fase": "escritura",
-        "titulo": "Escribanía asignada",
+        "titulo": "Asignación de Escribania",
         "detalle": "El banco designa la escribanía que va a hacer la escritura.",
         "fecha": "2026-11-13",
         "listo": false,
         "tareas": [
           {
             "id": "3dcbabd6e026817794f4fc3aa17be2aa",
-            "titulo": "Primer contacto con la escribanía",
+            "titulo": "Hacer el primer contacto con la escribanía",
             "ayuda": "Me presento y coordinamos los próximos pasos.",
             "fecha": "2026-11-16",
             "listo": false
           },
           {
             "id": "3dcbabd6e026816bbd6ded09436b30bf",
-            "titulo": "Documentación enviada a la escribanía",
+            "titulo": "Enviar la documentación a la escribanía",
             "ayuda": "Les paso los papeles del departamento.",
             "fecha": "2026-11-16",
             "listo": false
           },
           {
             "id": "3dcbabd6e0268138a7c6e80bf0287b1f",
-            "titulo": "Pedido de proforma de gastos estimada",
+            "titulo": "Pedir la proforma de gastos estimada",
             "ayuda": "Un primer cálculo de los gastos de la escritura.",
             "fecha": "2026-11-16",
             "listo": false
@@ -218,28 +218,28 @@
         "tareas": [
           {
             "id": "3dcbabd6e02681b18359eb442d61e235",
-            "titulo": "Ficha de datos personales completada",
+            "titulo": "Completar la ficha de datos personales",
             "ayuda": "Los datos de los vendedores que van en la escritura.",
             "fecha": "2026-11-30",
             "listo": false
           },
           {
             "id": "3ddbabd6e02681c7a91af2f415b0e2e5",
-            "titulo": "Ficha de datos personales enviada a la escribanía",
+            "titulo": "Enviar la ficha de datos personales a la escribanía",
             "ayuda": "",
             "fecha": "2026-12-02",
             "listo": false
           },
           {
             "id": "3dcbabd6e026813fb68cdd3c48e480ca",
-            "titulo": "Ficha UIF de la escribanía",
+            "titulo": "Completar la ficha UIF de la escribanía",
             "ayuda": "Declaración jurada que exige la normativa antilavado.",
             "fecha": "2026-12-04",
             "listo": false
           },
           {
             "id": "3ddbabd6e02681d3b069e46402ad5154",
-            "titulo": "Ficha UIF de la inmobiliaria",
+            "titulo": "Completar la ficha UIF de la inmobiliaria",
             "ayuda": "La misma declaración, para mi registro como corredor.",
             "fecha": "2026-12-04",
             "listo": false
@@ -249,21 +249,21 @@
       {
         "id": "3dcbabd6e02681abace6e62d17b07177",
         "fase": "escritura",
-        "titulo": "Estudio de títulos completo",
+        "titulo": "Papeles para poder escriturar",
         "detalle": "La escribanía revisa la historia legal del departamento para confirmar que se puede vender sin problemas.",
         "fecha": "2026-12-18",
         "listo": false,
         "tareas": [
           {
             "id": "3ddbabd6e026803d9313fc926f787ce8",
-            "titulo": "Pedido de certificados de dominio e inhibición",
+            "titulo": "Pedir los certificados de dominio e inhibición",
             "ayuda": "Confirman que el departamento está a tu nombre y sin embargos.",
             "fecha": "2026-12-09",
             "listo": false
           },
           {
             "id": "3ddbabd6e02680e5b81ed14782c15e3b",
-            "titulo": "Certificados de dominio e inhibición recibidos",
+            "titulo": "Recibir los certificados de dominio e inhibición",
             "ayuda": "",
             "fecha": "2026-12-16",
             "listo": false
@@ -289,35 +289,35 @@
         "tareas": [
           {
             "id": "3ddbabd6e026808e928ffed5b525cabd",
-            "titulo": "Departamento desocupado y limpio para la entrega",
+            "titulo": "Dejar el departamento desocupado y limpio",
             "ayuda": "",
             "fecha": "2026-09-15",
             "listo": true
           },
           {
             "id": "3dcbabd6e0268125850ee16d827dae4a",
-            "titulo": "Proporcionales de servicios y expensas armados",
+            "titulo": "Armar los proporcionales de servicios y expensas",
             "ayuda": "Calculo lo que le toca pagar a cada parte hasta el día de la firma.",
             "fecha": "2027-01-05",
             "listo": false
           },
           {
             "id": "3dcbabd6e0268138b536ddc80870ed87",
-            "titulo": "Confirmación de horario y asistentes",
+            "titulo": "Confirmar horario y asistentes",
             "ayuda": "",
             "fecha": "2027-01-05",
             "listo": false
           },
           {
             "id": "3dcbabd6e026819ca1b1d4d39e9a7aa3",
-            "titulo": "Recorrida final con el comprador",
+            "titulo": "Hacer la recorrida final con el comprador",
             "ayuda": "El comprador ve el departamento antes de firmar.",
             "fecha": "2027-01-06",
             "listo": false
           },
           {
             "id": "3dcbabd6e02681f9a54cc71f9ff3cd91",
-            "titulo": "Proforma de gastos final",
+            "titulo": "Pedir la proforma de gastos final",
             "ayuda": "El monto exacto de los gastos, el día previo.",
             "fecha": "2027-01-06",
             "listo": false
