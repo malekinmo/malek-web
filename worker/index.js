@@ -4,6 +4,7 @@
 //
 // Todo el contenido del recorrido sale de Notion. En cada tarea:
 //   Panel        → Etapa | Tarea | Documento   (si está vacío, no aparece en el panel)
+//   Vista        → Vendedor y/o Comprador (si está vacío, se ve en las dos páginas)
 //   Fase         → Reserva | Crédito hipotecario | Escritura   (solo en las Etapas)
 //   Etapa del panel → a qué Etapa pertenece una Tarea
 //   Título panel → cómo se ve el nombre en el panel (si está vacío, usa el nombre de la tarea)
@@ -74,7 +75,7 @@ async function consultarNotion(token, propiedadId) {
   return (await res.json()).results || [];
 }
 
-export function armarPanel(paginas) {
+export function armarPanel(paginas, vista = 'Vendedor') {
   const filas = paginas.map((p) => {
     const props = p.properties || {};
     const tituloProp = Object.values(props).find((v) => v && v.type === 'title');
@@ -87,14 +88,18 @@ export function armarPanel(paginas) {
       ayuda: texto(props['Explicación']),
       fecha: props.Fecha?.date?.start || null,
       listo: (props.Estado?.status?.name || props.Estado?.select?.name) === 'Listo',
+      vistas: (props.Vista?.multi_select || []).map((v) => v.name),
       etapaId: (props['Etapa del panel']?.relation || []).map((r) => (r.id || '').replace(/-/g, ''))[0] || null,
     };
   });
 
+  // "Vista" vacía = se ve en las dos páginas; si tiene valores, solo en las que figuren
+  const visibles = filas.filter((f) => !f.vistas.length || f.vistas.includes(vista));
+
   const porFecha = (a, b) => (a.fecha || '9999').slice(0, 10).localeCompare((b.fecha || '9999').slice(0, 10));
   const faseId = (nombre) => (FASES.find((f) => normalizar(f.titulo) === normalizar(nombre)) || FASES[0]).id;
 
-  const etapas = filas
+  const etapas = visibles
     .filter((f) => f.panel === 'Etapa')
     .sort(porFecha)
     .map((e) => ({
@@ -104,13 +109,13 @@ export function armarPanel(paginas) {
       detalle: e.ayuda,
       fecha: e.fecha,
       listo: e.listo,
-      tareas: filas
+      tareas: visibles
         .filter((t) => t.panel === 'Tarea' && t.etapaId === e.id)
         .sort(porFecha)
         .map((t) => ({ id: t.id, titulo: t.titulo, ayuda: t.ayuda, fecha: t.fecha, listo: t.listo })),
     }));
 
-  const documentos = filas
+  const documentos = visibles
     .filter((f) => f.panel === 'Documento')
     .map((f) => ({ titulo: f.titulo, ok: f.listo }))
     .sort((a, b) => Number(b.ok) - Number(a.ok) || a.titulo.localeCompare(b.titulo, 'es'));
@@ -122,15 +127,17 @@ export function armarPanel(paginas) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const m = url.pathname.match(/^\/api\/seguimiento\/([a-z0-9-]+)\/?$/);
+    // /api/seguimiento/<slug> → vista del vendedor · /api/compra/<slug> → vista del comprador
+    const m = url.pathname.match(/^\/api\/(seguimiento|compra)\/([a-z0-9-]+)\/?$/);
 
     if (m) {
-      const cfg = PROPIEDADES[m[1]];
+      const vista = m[1] === 'compra' ? 'Comprador' : 'Vendedor';
+      const cfg = PROPIEDADES[m[2]];
       if (!cfg) return json({ ok: false, error: 'no-encontrado' }, 404);
       if (!env.NOTION_TOKEN) return json({ ok: false, error: 'falta-token' }, 503);
       try {
         const paginas = await consultarNotion(env.NOTION_TOKEN, cfg.notionId);
-        return json({ ok: true, ...armarPanel(paginas), actualizado: new Date().toISOString() });
+        return json({ ok: true, vista, ...armarPanel(paginas, vista), actualizado: new Date().toISOString() });
       } catch (e) {
         console.error(e);
         return json({ ok: false, error: 'notion' }, 502);
