@@ -1,24 +1,43 @@
 // Worker de malek.com.ar
 // Sirve el sitio estático (dist/) y agrega UNA ruta dinámica:
-//   /api/seguimiento/<slug>  → lee las Tareas de la propiedad en Notion
-// Solo devuelve estado y fecha de cada etapa (nunca nombres ni datos personales).
+//   /api/seguimiento/<slug>  → arma el panel de seguimiento leyendo la base Tareas de Notion
+//
+// Todo el contenido del recorrido sale de Notion. En cada tarea:
+//   Panel        → Etapa | Tarea | Documento   (si está vacío, no aparece en el panel)
+//   Fase         → Reserva | Crédito hipotecario | Escritura   (solo en las Etapas)
+//   Etapa del panel → a qué Etapa pertenece una Tarea
+//   Título panel → cómo se ve el nombre en el panel (si está vacío, usa el nombre de la tarea)
+//   Explicación  → la línea de ayuda que lee el propietario
+//   Fecha        → ordena las etapas y las tareas, y es la fecha que se muestra
+//   Estado       → Listo = tildado
 //
 // Requiere el secreto NOTION_TOKEN en Cloudflare (Settings → Variables and Secrets).
 
-import laplata100 from '../src/data/seguimiento/laplata100.json';
+const PROPIEDADES = {
+  laplata100: { notionId: '350babd6-e026-80fc-ae36-e86acc35a862' },
+};
 
-const SEGUIMIENTOS = { laplata100 };
+const FASES = [
+  { id: 'reserva', titulo: 'Reserva' },
+  { id: 'credito', titulo: 'Crédito hipotecario' },
+  { id: 'escritura', titulo: 'Escritura' },
+];
 
 const TAREAS_DATA_SOURCE = '16fbabd6-e026-817b-aca7-000b4713a63b';
 const TAREAS_DATABASE = '16fbabd6e026810185a7e76b632af310';
 const PROP_RELACION = '🏡 Propiedades';
 
 const normalizar = (s) =>
-  (s || '')
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
+  (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+
+const texto = (prop) => (prop?.rich_text || []).map((t) => t.plain_text).join('').trim();
+
+// "Reserva Av La Plata 100" → "Reserva"; "Documento: Expensas — Av La Plata 100" → "Expensas"
+const limpiar = (nombre) =>
+  (nombre || '')
+    .replace(/^Documento:\s*/i, '')
+    .replace(/\s*[—-]\s*Av\.?\s*La Plata.*$/i, '')
+    .replace(/\s*Av\.?\s*La Plata\s*\d+.*$/i, '')
     .trim();
 
 const json = (data, status = 200) =>
@@ -52,42 +71,52 @@ async function consultarNotion(token, propiedadId) {
     });
   }
   if (!res.ok) throw new Error(`Notion ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  const data = await res.json();
-
-  return (data.results || []).map((p) => {
-    const props = p.properties || {};
-    const tituloProp = Object.values(props).find((v) => v && v.type === 'title');
-    return {
-      nombre: normalizar((tituloProp?.title || []).map((t) => t.plain_text).join('')),
-      estado: props.Estado?.status?.name || props.Estado?.select?.name || '',
-      fecha: props.Fecha?.date?.start || null,
-      categoria: props.Categoria?.select?.name || null,
-    };
-  });
+  return (await res.json()).results || [];
 }
 
-// Cada tarea de Notion se asigna al paso cuyo nombre aparece dentro del título.
-// Si coinciden varios (ej. "refuerzo" y "refuerzo agendado"), gana el más largo.
-export function armarEtapas(config, tareas) {
-  const items = [];
-  for (const etapa of config.etapas) {
-    items.push({ id: etapa.id, clave: normalizar(etapa.match) });
-    for (const sub of etapa.tareas || []) items.push({ id: sub.id, clave: normalizar(sub.match) });
-  }
-  const porItem = {};
-  for (const t of tareas) {
-    let mejor = null;
-    for (const it of items) {
-      if (t.nombre.includes(it.clave) && (!mejor || it.clave.length > mejor.clave.length)) mejor = it;
-    }
-    if (!mejor) continue;
-    const previo = porItem[mejor.id];
-    // Si hay varias tareas para el mismo paso, prioriza la marcada como Listo
-    if (!previo || (!previo.listo && t.estado === 'Listo')) {
-      porItem[mejor.id] = { listo: t.estado === 'Listo', fecha: t.fecha, categoria: t.categoria };
-    }
-  }
-  return porItem;
+export function armarPanel(paginas) {
+  const filas = paginas.map((p) => {
+    const props = p.properties || {};
+    const tituloProp = Object.values(props).find((v) => v && v.type === 'title');
+    const nombre = (tituloProp?.title || []).map((t) => t.plain_text).join('');
+    return {
+      id: (p.id || '').replace(/-/g, ''),
+      panel: props.Panel?.select?.name || '',
+      fase: props.Fase?.select?.name || '',
+      titulo: texto(props['Título panel']) || limpiar(nombre),
+      ayuda: texto(props['Explicación']),
+      fecha: props.Fecha?.date?.start || null,
+      listo: (props.Estado?.status?.name || props.Estado?.select?.name) === 'Listo',
+      etapaId: (props['Etapa del panel']?.relation || []).map((r) => (r.id || '').replace(/-/g, ''))[0] || null,
+    };
+  });
+
+  const porFecha = (a, b) => (a.fecha || '9999').slice(0, 10).localeCompare((b.fecha || '9999').slice(0, 10));
+  const faseId = (nombre) => (FASES.find((f) => normalizar(f.titulo) === normalizar(nombre)) || FASES[0]).id;
+
+  const etapas = filas
+    .filter((f) => f.panel === 'Etapa')
+    .sort(porFecha)
+    .map((e) => ({
+      id: e.id,
+      fase: faseId(e.fase),
+      titulo: e.titulo,
+      detalle: e.ayuda,
+      fecha: e.fecha,
+      listo: e.listo,
+      tareas: filas
+        .filter((t) => t.panel === 'Tarea' && t.etapaId === e.id)
+        .sort(porFecha)
+        .map((t) => ({ id: t.id, titulo: t.titulo, ayuda: t.ayuda, fecha: t.fecha, listo: t.listo })),
+    }));
+
+  const documentos = filas
+    .filter((f) => f.panel === 'Documento')
+    .map((f) => ({ titulo: f.titulo, ok: f.listo }))
+    .sort((a, b) => Number(b.ok) - Number(a.ok) || a.titulo.localeCompare(b.titulo, 'es'));
+
+  const usadas = FASES.filter((f) => etapas.some((e) => e.fase === f.id));
+  return { fases: usadas, etapas, documentos };
 }
 
 export default {
@@ -96,12 +125,12 @@ export default {
     const m = url.pathname.match(/^\/api\/seguimiento\/([a-z0-9-]+)\/?$/);
 
     if (m) {
-      const config = SEGUIMIENTOS[m[1]];
-      if (!config) return json({ ok: false, error: 'no-encontrado' }, 404);
+      const cfg = PROPIEDADES[m[1]];
+      if (!cfg) return json({ ok: false, error: 'no-encontrado' }, 404);
       if (!env.NOTION_TOKEN) return json({ ok: false, error: 'falta-token' }, 503);
       try {
-        const tareas = await consultarNotion(env.NOTION_TOKEN, config.notionPropiedadId);
-        return json({ ok: true, etapas: armarEtapas(config, tareas), actualizado: new Date().toISOString() });
+        const paginas = await consultarNotion(env.NOTION_TOKEN, cfg.notionId);
+        return json({ ok: true, ...armarPanel(paginas), actualizado: new Date().toISOString() });
       } catch (e) {
         console.error(e);
         return json({ ok: false, error: 'notion' }, 502);
