@@ -5,7 +5,7 @@
 // Todo el contenido del recorrido sale de Notion. En cada tarea:
 //   Panel        → Etapa | Tarea | Documento   (si está vacío, no aparece en el panel)
 //   Vista        → Vendedor y/o Comprador (si está vacío, se ve en las dos páginas)
-//   Fase         → Reserva | Crédito hipotecario | Escritura   (solo en las Etapas)
+//   Fase         → Tasación | Documentación | Preparación | Publicación | Reserva | Crédito hipotecario | Escritura   (solo en las Etapas)
 //   Etapa del panel → a qué Etapa pertenece una Tarea
 //   Título panel → cómo se ve el nombre en el panel (si está vacío, usa el nombre de la tarea)
 //   Explicación  → la línea de ayuda que lee el propietario
@@ -16,9 +16,15 @@
 
 const PROPIEDADES = {
   laplata100: { notionId: '350babd6-e026-80fc-ae36-e86acc35a862' },
+  alberdi3140: { notionId: '3f3babd6-e026-80a5-b204-fab2b3d5576c' },
 };
 
+// Todas las fases posibles, en el orden de una venta. Cada panel muestra solo las que usa.
 const FASES = [
+  { id: 'tasacion', titulo: 'Tasación' },
+  { id: 'documentacion', titulo: 'Documentación' },
+  { id: 'preparacion', titulo: 'Preparación' },
+  { id: 'publicacion', titulo: 'Publicación' },
   { id: 'reserva', titulo: 'Reserva' },
   { id: 'credito', titulo: 'Crédito hipotecario' },
   { id: 'escritura', titulo: 'Escritura' },
@@ -39,6 +45,7 @@ const limpiar = (nombre) =>
     .replace(/^Documento:\s*/i, '')
     .replace(/\s*[—-]\s*Av\.?\s*La Plata.*$/i, '')
     .replace(/\s*Av\.?\s*La Plata\s*\d+.*$/i, '')
+    .replace(/\s*[—-]\s*Alberdi\s*\d+.*$/i, '')
     .trim();
 
 const json = (data, status = 200) =>

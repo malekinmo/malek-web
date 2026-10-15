@@ -1,0 +1,258 @@
+{
+  "slug": "alberdi3140",
+  "propiedad": "Alberdi 3140",
+  "barrio": "",
+  "foto": "/images/material/foto-hdr.webp",
+  "exclusiva": {
+    "dias": 120,
+    "texto": "Autorización de venta exclusiva con el Compromiso de Calidad: un plan de trabajo concreto y un solo interlocutor para todo."
+  },
+  "incluye": [
+    "Fotografía profesional HDR",
+    "Amoblamiento virtual",
+    "Tour 360° de la propiedad",
+    "Video del recorrido",
+    "Plano profesional de la planta",
+    "Portales con la opción de mayor destaque"
+  ],
+  "despues": "Una vez publicado, cada semana te mando un informe con impresiones, visualizaciones, consultas y visitas. Si a los 60 días no conseguimos el resultado buscado, revisamos juntos la estrategia.",
+  "guia": {
+    "titulo": "Cómo preparar el departamento",
+    "items": [
+      "Iluminar: abrí persianas y cortinas y prendé todas las luces. Lámparas de buena potencia, en lo posible cálidas.",
+      "Reparar: aceitá puertas, ventanas y cerraduras; que las persianas suban sin esfuerzo y las canillas no goteen. Si pintás, que sea de blanco.",
+      "Ordenar: dejá cada ambiente con lo indispensable y las superficies despejadas. Más espacio libre se ve más amplio.",
+      "Despersonalizar: guardá fotos, cuadros personales y objetos sueltos. Los placares ordenados muestran su capacidad real."
+    ]
+  },
+  "fases": [
+    {
+      "id": "tasacion",
+      "titulo": "Tasación",
+      "intro": "El punto de partida: conocer cuánto vale hoy tu departamento y con qué estrategia salimos a venderlo."
+    },
+    {
+      "id": "documentacion",
+      "titulo": "Documentación",
+      "intro": "Antes de publicar dejo todos los papeles en orden y firmamos la autorización de venta. Así, cuando aparezca un comprador, no hay sorpresas ni demoras."
+    },
+    {
+      "id": "preparacion",
+      "titulo": "Preparación",
+      "intro": "La primera impresión se gana en las fotos. Preparamos el departamento y hacemos todo el material visual con equipo profesional."
+    },
+    {
+      "id": "publicacion",
+      "titulo": "Publicación",
+      "intro": "Salimos al mercado con el aviso completo y el máximo destaque en los portales, para estar entre las propiedades mejor publicadas de la Ciudad."
+    }
+  ],
+  "respaldo": {
+    "etapas": [
+      {
+        "id": "3fababd6e0268141bb32d4c185c3d888",
+        "fase": "tasacion",
+        "titulo": "Tasación",
+        "detalle": "Recorrí el departamento, tomé medidas, video y fotos de la documentación, y lo comparé con lo que se vende hoy en la zona para definir el precio.",
+        "fecha": "2026-10-08T19:30:00.000+00:00",
+        "listo": true,
+        "tareas": [
+          {
+            "id": "3f3babd6e02680ccb342ed5940793428",
+            "titulo": "Visitar y tasar el departamento",
+            "ayuda": "Medidas, estado general, video y fotos de la documentación.",
+            "fecha": "2026-10-08T19:30:00.000+00:00",
+            "listo": true
+          },
+          {
+            "id": "3fababd6e0268194be34e8f80327a6ad",
+            "titulo": "Presentar el informe de tasación y la estrategia de venta",
+            "ayuda": "Repasamos el mercado de la zona, el precio de salida y el plan de marketing.",
+            "fecha": "2026-10-13T13:00:00.000+00:00",
+            "listo": true
+          }
+        ]
+      },
+      {
+        "id": "3fababd6e0268109ab20eddecb8a0e6b",
+        "fase": "documentacion",
+        "titulo": "Documentación y autorización",
+        "detalle": "Reúno todos los papeles del departamento antes de publicar, para que cuando aparezca un comprador no haya demoras.",
+        "fecha": "2026-10-13T14:00:00.000+00:00",
+        "listo": false,
+        "tareas": [
+          {
+            "id": "3f8babd6e02680aa8a95ff7fa2bc9b5d",
+            "titulo": "Reunir la documentación del departamento",
+            "ayuda": "Escritura, reglamento, planos, DNI, expensas, ABL y servicios. El detalle está en Documentación.",
+            "fecha": "2026-10-13T14:00:00.000+00:00",
+            "listo": true
+          },
+          {
+            "id": "3f8babd6e026809d8729c791b354f7a6",
+            "titulo": "Pedir los informes de dominio e inhibición",
+            "ayuda": "Confirman en el Registro de la Propiedad que el departamento está a tu nombre y libre de embargos o inhibiciones.",
+            "fecha": "2026-10-13T15:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3f8babd6e02680dbbe23c41c22f1466c",
+            "titulo": "Firmar el Compromiso de Calidad",
+            "ayuda": "Es la autorización de venta exclusiva por 120 días: me compromete con un plan de trabajo concreto y te da un único interlocutor.",
+            "fecha": "2026-10-14T15:00:00.000+00:00",
+            "listo": false
+          }
+        ]
+      },
+      {
+        "id": "3fababd6e026816e905cf8b1c900f77c",
+        "fase": "preparacion",
+        "titulo": "Preparación del departamento",
+        "detalle": "Antes de las fotos dejamos el departamento listo para mostrarse: más luz, pequeños arreglos, orden y menos objetos personales.",
+        "fecha": "2026-10-16T13:00:00.000+00:00",
+        "listo": false,
+        "tareas": [
+          {
+            "id": "3fababd6e026810f8c83f6d2f909d3a6",
+            "titulo": "Enviar la guía para preparar el departamento",
+            "ayuda": "Te paso por escrito qué conviene hacer antes de las fotos, ambiente por ambiente.",
+            "fecha": "2026-10-16T13:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3fababd6e026819f9448f4b5d0b36880",
+            "titulo": "Preparar el departamento para las fotos",
+            "ayuda": "Lo hacés vos con la guía: abrir cortinas, cambiar lámparas quemadas, ordenar y guardar objetos personales.",
+            "fecha": "2026-10-17T21:00:00.000+00:00",
+            "listo": false
+          }
+        ]
+      },
+      {
+        "id": "3fababd6e0268122a552e110305ea85e",
+        "fase": "preparacion",
+        "titulo": "Relevamiento profesional",
+        "detalle": "Un fotógrafo profesional hace fotos HDR, el video del recorrido y el tour 360°, y se dibuja el plano de la planta.",
+        "fecha": "2026-10-18T14:00:00.000+00:00",
+        "listo": false,
+        "tareas": [
+          {
+            "id": "3f8babd6e0268034be5ff9e19ef50ca1",
+            "titulo": "Coordinar el relevamiento de fotos, video y tour 360°",
+            "ayuda": "Agendo al fotógrafo y te confirmo día y horario.",
+            "fecha": "2026-10-15T13:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3f8babd6e02680448e29e7411426000f",
+            "titulo": "Encargar el plano de la planta",
+            "ayuda": "Un plano claro, con medidas, para que el comprador entienda la distribución antes de venir.",
+            "fecha": "2026-10-15T14:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3fababd6e02681fd93a2c8b41d3e5dad",
+            "titulo": "Hacer las fotos HDR, el video y el tour 360°",
+            "ayuda": "El fotógrafo va al departamento. Dura alrededor de una hora y conviene que esté con todas las luces prendidas.",
+            "fecha": "2026-10-18T14:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3f8babd6e026804b9e10cb6d0052ba14",
+            "titulo": "Amoblar virtualmente los ambientes",
+            "ayuda": "Sobre las fotos se agregan muebles digitales para mostrar el potencial de cada ambiente.",
+            "fecha": "2026-10-21T13:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3fababd6e0268163a685d69dfa329b31",
+            "titulo": "Revisar y aprobar el material terminado",
+            "ayuda": "Te comparto las fotos, el video, el tour y el plano antes de publicar.",
+            "fecha": "2026-10-22T13:00:00.000+00:00",
+            "listo": false
+          }
+        ]
+      },
+      {
+        "id": "3fababd6e02681e698c8e7e81b7bfc08",
+        "fase": "publicacion",
+        "titulo": "Publicación",
+        "detalle": "Publico en los principales portales con el máximo destaque, para que el aviso aparezca entre los primeros de la zona.",
+        "fecha": "2026-10-23T13:00:00.000+00:00",
+        "listo": false,
+        "tareas": [
+          {
+            "id": "3fababd6e02681549646d3c6127e4d3c",
+            "titulo": "Redactar el aviso y la ficha de la propiedad",
+            "ayuda": "El texto del aviso, las medidas, los servicios y todo lo que un comprador quiere saber antes de visitar.",
+            "fecha": "2026-10-22T18:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3f8babd6e02680d5bcfdf6f691cd9d48",
+            "titulo": "Publicar en los portales con máximo destaque",
+            "ayuda": "El aviso sale en los principales portales con la mejor ubicación disponible.",
+            "fecha": "2026-10-23T13:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3fababd6e02681b9a1f2cd675f227dac",
+            "titulo": "Compartir los links del aviso publicado",
+            "ayuda": "Te mando los links para que veas cómo quedó y puedas compartirlo.",
+            "fecha": "2026-10-23T15:00:00.000+00:00",
+            "listo": false
+          },
+          {
+            "id": "3fababd6e0268149b0fccf34b35ec3a4",
+            "titulo": "Armar la carpeta de documentación para las visitas",
+            "ayuda": "Ficha impresa, expensas, planos y servicios a mano, para responder cualquier pregunta en la visita.",
+            "fecha": "2026-10-24T13:00:00.000+00:00",
+            "listo": false
+          }
+        ]
+      }
+    ],
+    "documentos": [
+      {
+        "titulo": "Boleta de ABL",
+        "ok": true
+      },
+      {
+        "titulo": "Copia de la escritura",
+        "ok": true
+      },
+      {
+        "titulo": "DNI de los propietarios",
+        "ok": true
+      },
+      {
+        "titulo": "Expensas",
+        "ok": true
+      },
+      {
+        "titulo": "Factura de AySA",
+        "ok": true
+      },
+      {
+        "titulo": "Factura de gas",
+        "ok": true
+      },
+      {
+        "titulo": "Factura de luz",
+        "ok": true
+      },
+      {
+        "titulo": "Planos",
+        "ok": true
+      },
+      {
+        "titulo": "Reglamento de copropiedad",
+        "ok": true
+      },
+      {
+        "titulo": "Informes de dominio e inhibición",
+        "ok": false
+      }
+    ]
+  }
+}
