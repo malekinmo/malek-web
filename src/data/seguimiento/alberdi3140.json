@@ -3,10 +3,6 @@
   "propiedad": "Alberdi 3140",
   "barrio": "",
   "foto": "/images/material/foto-hdr.webp",
-  "exclusiva": {
-    "dias": 120,
-    "texto": "Autorización de venta exclusiva con el Compromiso de Calidad: un plan de trabajo concreto y un solo interlocutor para todo."
-  },
   "incluye": [
     "Fotografía profesional HDR",
     "Amoblamiento virtual",
@@ -17,12 +13,55 @@
   ],
   "despues": "Una vez publicado, cada semana te mando un informe con impresiones, visualizaciones, consultas y visitas. Si a los 60 días no conseguimos el resultado buscado, revisamos juntos la estrategia.",
   "guia": {
-    "titulo": "Cómo preparar el departamento",
-    "items": [
-      "Iluminar: abrí persianas y cortinas y prendé todas las luces. Lámparas de buena potencia, en lo posible cálidas.",
-      "Reparar: aceitá puertas, ventanas y cerraduras; que las persianas suban sin esfuerzo y las canillas no goteen. Si pintás, que sea de blanco.",
-      "Ordenar: dejá cada ambiente con lo indispensable y las superficies despejadas. Más espacio libre se ve más amplio.",
-      "Despersonalizar: guardá fotos, cuadros personales y objetos sueltos. Los placares ordenados muestran su capacidad real."
+    "titulo": "Consejos para la sesión de fotos",
+    "grupos": [
+      {
+        "titulo": "En todo el inmueble",
+        "items": [
+          "Abrir persianas y cortinas",
+          "Si hay lámparas quemadas, reemplazarlas",
+          "Mantener la limpieza de los espacios",
+          "Sin publicidad visible, ni elementos religiosos o políticos",
+          "Liberar el mayor espacio posible para que el ambiente se vea más amplio"
+        ]
+      },
+      {
+        "titulo": "Living y comedor",
+        "items": [
+          "Despejar mesas y otras superficies",
+          "Guardar controles remotos y adornos pequeños",
+          "Apagar TV y otras pantallas"
+        ]
+      },
+      {
+        "titulo": "En los dormitorios",
+        "items": [
+          "Tender las camas",
+          "Despejar mesas de luz y otras superficies",
+          "Guardar ropa y calzado",
+          "En habitaciones de niños, guardar juguetes"
+        ]
+      },
+      {
+        "titulo": "En los baños",
+        "items": [
+          "Guardar botellas y elementos de aseo",
+          "Liberar la bañadera",
+          "Limpiar vidrios y espejos",
+          "Quitar tachos de basura, toallas, toallones, batas y alfombras",
+          "Guardar juguetes y objetos de niños"
+        ]
+      },
+      {
+        "titulo": "En la cocina",
+        "items": [
+          "Despejar bachas, mesadas y otras superficies",
+          "Guardar repasadores y trapos",
+          "Descolgar utensilios de las paredes (ollas, sartenes, etc.)",
+          "Guardar tachos de basura",
+          "Guardar camitas y juguetes"
+        ]
+      }
     ]
   },
   "fases": [
@@ -254,5 +293,23 @@
         "ok": false
       }
     ]
-  }
+  },
+  "precio": {
+    "valor": "USD 85.000",
+    "label": "Valor de publicación"
+  },
+  "condiciones": [
+    {
+      "lab": "Exclusividad",
+      "val": "120 días · Compromiso de Calidad"
+    },
+    {
+      "lab": "Honorarios",
+      "val": "3% si se vende a USD 83.000 o más"
+    },
+    {
+      "lab": "Honorarios por debajo de USD 83.000",
+      "val": "2%"
+    }
+  ]
 }

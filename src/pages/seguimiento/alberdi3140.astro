@@ -108,10 +108,17 @@ const CIRC = +(2 * Math.PI * R).toFixed(2);
 
       <aside class="sg-side">
         <div class="sg-price" data-rv="flip" data-tilt>
-          <span class="sg-lbl">Exclusividad</span>
-          <strong>{d.exclusiva.dias} días</strong>
-          <span class="sg-price-sub">Compromiso de Calidad</span>
-          <p class="sg-price-txt">{d.exclusiva.texto}</p>
+          <span class="sg-lbl">{d.precio.label}</span>
+          <strong>{d.precio.valor}</strong>
+        </div>
+
+        <div class="sg-glass" data-rv="up">
+          <span class="sg-lbl">Condiciones</span>
+          <dl class="sg-conds">
+            {d.condiciones.map((x: any) => (
+              <div><dt>{x.lab}</dt><dd>{x.val}</dd></div>
+            ))}
+          </dl>
         </div>
 
         <div id="sgDocs"></div>
@@ -164,12 +171,12 @@ const CIRC = +(2 * Math.PI * R).toFixed(2);
 
       // La guía de preparación se despliega dentro de la etapa "Preparación…"
       function htmlEtapa(e, esActual) {
-        const acc = norma(e.titulo).startsWith('prepar') && guia?.items?.length
+        const acc = norma(e.titulo).startsWith('prepar') && guia?.grupos?.length
           ? '<details class="sg-acc"><summary><span>' + esc(guia.titulo) + '</span><i aria-hidden="true"></i></summary>' +
-            '<div class="sg-acc-body"><ul>' + guia.items.map((x) => {
-              const i = x.indexOf(':');
-              return '<li>' + (i > 0 ? '<b>' + esc(x.slice(0, i)) + '</b>' + esc(x.slice(i)) : esc(x)) + '</li>';
-            }).join('') + '</ul></div></details>'
+            '<div class="sg-acc-body sg-guia">' + guia.grupos.map((g) =>
+              '<div class="sg-guia-g"><h5>' + esc(g.titulo) + '</h5><ul>' +
+              g.items.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') +
+            '</div></details>'
           : '';
         return '<li class="sg-step' + (e.listo ? ' is-done' : '') + (esActual ? ' is-current' : '') + '" data-rv="flip">' +
           '<span class="sg-node" aria-hidden="true"><span>' + check + '</span></span>' +
@@ -221,7 +228,7 @@ const CIRC = +(2 * Math.PI * R).toFixed(2);
             const ok = docs.filter((x) => x.ok).length;
             return '<details class="sg-glass sg-docs" data-rv="up"><summary><div class="sg-docs-head">' +
               '<div class="sg-mini-ring" style="--p:' + (ok / docs.length) + '"><span>' + ok + '<small>/' + docs.length + '</small></span></div>' +
-              '<div><span class="sg-lbl">Documentación</span><strong>' + (docs.length - ok > 0 ? 'Faltan ' + (docs.length - ok) : 'Completa') + '</strong></div>' +
+              '<div><span class="sg-lbl">Documentación</span><strong>' + (docs.length - ok > 1 ? 'Faltan ' + (docs.length - ok) : docs.length - ok === 1 ? 'Falta 1' : 'Completa') + '</strong></div>' +
               '<i class="sg-plus" aria-hidden="true"></i></div></summary><ul class="sg-docs-list">' +
               docs.map((x) => '<li class="' + (x.ok ? 'is-ok' : 'is-missing') + '"><span class="sg-box">' + (x.ok ? check : '') + '</span>' +
                 '<span>' + esc(x.titulo) + '</span><em>' + (x.ok ? 'La tengo' : 'Falta') + '</em></li>').join('') +
@@ -474,7 +481,11 @@ const CIRC = +(2 * Math.PI * R).toFixed(2);
   .sg-incl li { position: relative; padding: 12px 0 12px 22px; border-bottom: 1px solid rgba(245,242,236,.06); font-size: 15px; font-weight: 500; color: var(--bone); }
   .sg-incl li:last-child { border-bottom: 0; padding-bottom: 0; }
   .sg-incl li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px rgba(0,151,217,.8); }
-  .sg-acc-body b { color: var(--bone); font-weight: 700; }
+  .sg-guia { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 24px; padding: 0 20px 20px; }
+  .sg-guia-g h5 { margin: 6px 0 10px; font-family: 'Gotham', sans-serif; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--c); font-weight: 700; }
+  .sg-acc-body.sg-guia ul { padding: 0 0 14px 18px; gap: 7px; font-size: 13.5px; }
+  .sg-guia-g:first-child { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .sg-guia { grid-template-columns: 1fr; } }
   .sg-price-sub { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--c); font-weight: 700; }
   .sg-glass { position: relative; padding: 24px 26px; border: 1px solid var(--line); background: rgba(245,242,236,.025); }
   .sg-docs-head { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; }
