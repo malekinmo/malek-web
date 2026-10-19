@@ -1,0 +1,335 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Publicador" description="Herramienta de publicación de videos de Malek Inmobiliaria en TikTok.">
+  <section class="pub container">
+    <p class="eyebrow">Malek Publicador</p>
+    <h1>Aprobar videos para TikTok</h1>
+    <p class="lead">
+      Revisá cada video, elegí cómo se publica y aprobalo. Se publica solo en tu perfil de TikTok
+      en la fecha programada. Nada se sube sin tu aprobación.
+    </p>
+
+    <form id="key-form" class="card key-card" hidden>
+      <label for="key">Clave de acceso</label>
+      <div class="row">
+        <input id="key" type="password" autocomplete="current-password" required />
+        <button class="btn btn-primary" type="submit">Entrar</button>
+      </div>
+    </form>
+
+    <div id="app" hidden>
+      <div class="card account">
+        <img id="avatar" alt="" hidden />
+        <div>
+          <p class="muted small">Se publica en la cuenta de TikTok</p>
+          <p id="nickname" class="nick">—</p>
+        </div>
+        <a class="btn btn-outline" href="https://n8n.malek.com.ar/webhook/tiktok">Conectar con TikTok</a>
+      </div>
+      <p id="creator-error" class="alert" hidden></p>
+
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="pending">Por aprobar <span id="count-pending"></span></button>
+        <button type="button" class="tab" data-tab="approved">Aprobados <span id="count-approved"></span></button>
+      </div>
+
+      <p id="loading" class="muted">Cargando videos…</p>
+      <p id="empty" class="muted" hidden></p>
+      <div id="list" class="list"></div>
+    </div>
+  </section>
+
+  <template id="tpl">
+    <article class="card video">
+      <div class="preview"><iframe allow="autoplay" title="Vista previa"></iframe></div>
+      <div class="fields">
+        <p class="muted small" data-f="meta"></p>
+        <h2 data-f="nombre"></h2>
+
+        <div data-f="form">
+          <label>Título</label>
+          <textarea data-f="title" rows="6" maxlength="2200"></textarea>
+
+          <label>¿Quién puede ver este video?</label>
+          <select data-f="privacy" required>
+            <option value="" selected disabled>Elegí una opción</option>
+          </select>
+
+          <fieldset>
+            <legend>Permitir que los usuarios</legend>
+            <label class="check"><input type="checkbox" data-f="allowComment" /> Comenten</label>
+            <label class="check"><input type="checkbox" data-f="allowDuet" /> Hagan dúo</label>
+            <label class="check"><input type="checkbox" data-f="allowStitch" /> Hagan stitch</label>
+          </fieldset>
+
+          <fieldset>
+            <label class="check toggle"><input type="checkbox" data-f="disclose" /> Divulgar contenido comercial</label>
+            <p class="muted small">Activalo si el video promociona una marca, un producto o un servicio.</p>
+            <div data-f="discloseOpts" hidden>
+              <label class="check"><input type="checkbox" data-f="brandOrganic" /> Tu marca</label>
+              <p class="muted small indent">Promocionás tu propio negocio. El video se etiquetará como "Contenido promocional".</p>
+              <label class="check"><input type="checkbox" data-f="brandedContent" /> Contenido de marca</label>
+              <p class="muted small indent">Promocionás a un tercero. El video se etiquetará como "Colaboración pagada".</p>
+            </div>
+          </fieldset>
+
+          <p class="consent small" data-f="consent"></p>
+          <p class="alert" data-f="error" hidden></p>
+          <button class="btn btn-primary wide" type="button" data-f="approve" disabled>Aprobar y programar</button>
+        </div>
+
+        <div data-f="approvedBox" hidden>
+          <p class="ok-badge">✓ Aprobado</p>
+          <p class="small" data-f="summary"></p>
+          <p class="muted small">Se publica solo en tu perfil de TikTok en la fecha programada. Después de publicarse, puede tardar unos minutos en aparecer.</p>
+          <p class="alert" data-f="error2" hidden></p>
+          <button class="btn btn-outline wide" type="button" data-f="unapprove">Quitar aprobación y editar</button>
+        </div>
+      </div>
+    </article>
+  </template>
+</BaseLayout>
+
+<script is:inline>
+(() => {
+  const API = 'https://n8n.malek.com.ar/webhook';
+  const MUSIC = 'https://www.tiktok.com/legal/page/global/music-usage-confirmation/en';
+  const BC = 'https://www.tiktok.com/legal/page/global/bc-policy/en';
+  const LABELS = {
+    PUBLIC_TO_EVERYONE: 'Todos',
+    MUTUAL_FOLLOW_FRIENDS: 'Amigos',
+    FOLLOWER_OF_CREATOR: 'Seguidores',
+    SELF_ONLY: 'Solo yo',
+  };
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get() { try { return localStorage.getItem('malek-pub-key') || ''; } catch (e) { return ''; } },
+    set(v) { try { localStorage.setItem('malek-pub-key', v); } catch (e) {} },
+    clear() { try { localStorage.removeItem('malek-pub-key'); } catch (e) {} },
+  };
+  let key = store.get();
+  let creator = null;
+  let videos = [];
+  let tab = 'pending';
+
+  const fmtDate = (d) => d ? new Date(d).toLocaleString('es-AR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'sin fecha';
+
+  function askKey() { $('key-form').hidden = false; $('app').hidden = true; }
+
+  $('key-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    key = $('key').value.trim();
+    store.set(key);
+    load();
+  });
+
+  document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => {
+    tab = b.dataset.tab;
+    document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('active', x === b));
+    draw();
+  }));
+
+  async function post(path, payload) {
+    const r = await fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ key, ...payload }) });
+    if (r.status === 401) { store.clear(); key = ''; askKey(); throw new Error('Clave incorrecta.'); }
+    const res = await r.json();
+    if (!res.ok) throw new Error(res.error || 'No se pudo guardar.');
+    return res;
+  }
+
+  async function load() {
+    if (!key) return askKey();
+    $('key-form').hidden = true; $('app').hidden = false;
+    $('loading').hidden = false; $('empty').hidden = true; $('list').innerHTML = '';
+    let data;
+    try {
+      const r = await fetch(API + '/tiktok-pendientes?key=' + encodeURIComponent(key));
+      if (r.status === 401) { store.clear(); key = ''; return askKey(); }
+      data = await r.json();
+    } catch (e) {
+      $('loading').textContent = 'No pude conectarme con el servidor. Probá de nuevo en un rato.';
+      return;
+    }
+    $('loading').hidden = true;
+    creator = data.creator;
+    if (creator) {
+      $('nickname').textContent = creator.creator_nickname || ('@' + (creator.creator_username || ''));
+      if (creator.creator_avatar_url) { $('avatar').src = creator.creator_avatar_url; $('avatar').hidden = false; }
+      $('creator-error').hidden = true;
+    } else {
+      $('creator-error').hidden = false;
+      $('creator-error').textContent = 'No se pudo leer la cuenta de TikTok. Conectala de nuevo. ' + (data.creatorError || '');
+    }
+    videos = data.videos || [];
+    draw();
+  }
+
+  function draw() {
+    const pending = videos.filter((v) => !v.aprobado);
+    const approved = videos.filter((v) => v.aprobado);
+    $('count-pending').textContent = pending.length ? '(' + pending.length + ')' : '';
+    $('count-approved').textContent = approved.length ? '(' + approved.length + ')' : '';
+    const shown = tab === 'pending' ? pending : approved;
+    $('list').innerHTML = '';
+    $('empty').hidden = shown.length > 0;
+    $('empty').textContent = tab === 'pending' ? 'No hay videos esperando aprobación.' : 'Todavía no aprobaste videos.';
+    shown.forEach(render);
+  }
+
+  function render(v) {
+    const node = $('tpl').content.firstElementChild.cloneNode(true);
+    const f = (n) => node.querySelector('[data-f="' + n + '"]');
+    node.querySelector('iframe').src = v.fileId ? 'https://drive.google.com/file/d/' + v.fileId + '/preview' : 'about:blank';
+    f('nombre').textContent = v.nombre || v.archivo;
+    f('meta').textContent = 'Se publica: ' + fmtDate(v.fecha) + ' · ' + v.archivo;
+
+    if (v.aprobado) {
+      f('form').hidden = true;
+      f('approvedBox').hidden = false;
+      const a = v.aprobacion || {};
+      const allowed = [a.allowComment && 'comentarios', a.allowDuet && 'dúo', a.allowStitch && 'stitch'].filter(Boolean);
+      f('summary').textContent = 'Visible para: ' + (LABELS[a.privacy] || a.privacy || '—') +
+        ' · Permite: ' + (allowed.length ? allowed.join(', ') : 'nada') +
+        (a.disclose ? ' · Contenido comercial: ' + [a.brandOrganic && 'tu marca', a.brandedContent && 'contenido de marca'].filter(Boolean).join(' y ') : '');
+      if (v.error) { f('error2').hidden = false; f('error2').textContent = 'Último error: ' + v.error; }
+      f('unapprove').addEventListener('click', async () => {
+        f('unapprove').disabled = true;
+        try {
+          await post('/tiktok-desaprobar', { pageId: v.pageId });
+          v.aprobado = false;
+          v.copy = a.title || v.copy;
+          tab = 'pending';
+          document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('active', x.dataset.tab === 'pending'));
+          draw();
+        } catch (e) {
+          f('error2').hidden = false; f('error2').textContent = e.message; f('unapprove').disabled = false;
+        }
+      });
+      $('list').appendChild(node);
+      return;
+    }
+
+    f('title').value = v.copy || '';
+    const opts = (creator && creator.privacy_level_options) || [];
+    opts.forEach((o) => {
+      const op = document.createElement('option');
+      op.value = o; op.textContent = LABELS[o] || o;
+      f('privacy').appendChild(op);
+    });
+
+    const map = { allowComment: 'comment_disabled', allowDuet: 'duet_disabled', allowStitch: 'stitch_disabled' };
+    Object.entries(map).forEach(([field, flag]) => {
+      if (creator && creator[flag]) {
+        f(field).disabled = true;
+        f(field).parentElement.classList.add('disabled');
+        f(field).parentElement.title = 'Desactivado en la configuración de tu cuenta de TikTok';
+      }
+    });
+
+    const problems = [];
+    if (v.fileError) problems.push(v.fileError);
+    if (!creator) problems.push('Falta conectar la cuenta de TikTok.');
+    const max = creator && creator.max_video_post_duration_sec;
+    if (max && v.durationSec && v.durationSec > max) problems.push('El video dura ' + v.durationSec + ' s y tu cuenta permite hasta ' + max + ' s.');
+
+    function update() {
+      const disclose = f('disclose').checked;
+      f('discloseOpts').hidden = !disclose;
+      if (!disclose) { f('brandOrganic').checked = false; f('brandedContent').checked = false; }
+      const branded = f('brandedContent').checked;
+      [...f('privacy').options].forEach((op) => {
+        if (op.value === 'SELF_ONLY') {
+          op.disabled = branded;
+          op.title = branded ? 'El contenido de marca no puede ser privado' : '';
+        }
+      });
+      if (branded && f('privacy').value === 'SELF_ONLY') f('privacy').value = '';
+
+      f('consent').innerHTML = (branded
+        ? 'Al aprobar, aceptás la <a href="' + BC + '" target="_blank" rel="noopener">Política de contenido de marca</a> y la <a href="' + MUSIC + '" target="_blank" rel="noopener">Confirmación de uso de música</a> de TikTok.'
+        : 'Al aprobar, aceptás la <a href="' + MUSIC + '" target="_blank" rel="noopener">Confirmación de uso de música</a> de TikTok.') +
+        ' El video se publicará en tu perfil el ' + fmtDate(v.fecha);
+
+      const missingBrand = disclose && !f('brandOrganic').checked && !branded;
+      f('approve').title = missingBrand ? 'Indicá si el contenido promociona tu marca, la de un tercero o ambas' : '';
+      f('approve').disabled = problems.length > 0 || !f('privacy').value || missingBrand;
+    }
+
+    if (problems.length) { f('error').hidden = false; f('error').textContent = problems.join(' '); }
+    node.querySelectorAll('input, select').forEach((el) => el.addEventListener('change', update));
+    update();
+
+    f('approve').addEventListener('click', async () => {
+      f('approve').disabled = true;
+      f('error').hidden = true;
+      const payload = {
+        pageId: v.pageId, title: f('title').value, privacy: f('privacy').value,
+        allowComment: f('allowComment').checked, allowDuet: f('allowDuet').checked, allowStitch: f('allowStitch').checked,
+        disclose: f('disclose').checked, brandOrganic: f('brandOrganic').checked, brandedContent: f('brandedContent').checked,
+        consent: true,
+      };
+      try {
+        await post('/tiktok-aprobar', payload);
+        v.aprobado = true;
+        v.aprobacion = payload;
+        draw();
+      } catch (e) {
+        f('error').hidden = false; f('error').textContent = e.message;
+        update();
+      }
+    });
+
+    $('list').appendChild(node);
+  }
+
+  load();
+})();
+</script>
+
+<style>
+  .pub { max-width: 1000px; padding-top: var(--space-5); padding-bottom: var(--space-5); }
+  .pub h1 { font-size: clamp(2rem, 5vw, 3rem); margin-top: var(--space-1); }
+  .lead { font-family: var(--font-body); margin-top: var(--space-2); max-width: 62ch; }
+  .card { border: 1px solid var(--gray-400); border-radius: 12px; padding: var(--space-3); margin-top: var(--space-3); background: var(--white); font-family: var(--font-body); }
+  .row { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+  .row input { flex: 1; }
+  input[type=password], textarea, select {
+    width: 100%; font: inherit; padding: 0.7rem 0.8rem; border: 1px solid var(--gray-400); border-radius: 8px; background: var(--white);
+  }
+  label { display: block; font-weight: 700; font-size: 0.9rem; margin: var(--space-2) 0 0.4rem; }
+  .account { display: flex; align-items: center; gap: var(--space-2); }
+  .account > div { flex: 1; }
+  .account img[hidden] { display: none; }
+  .account img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+  .nick { font-weight: 700; font-size: 1.1rem; margin: 0; }
+  .muted { color: var(--gray-900); }
+  .small { font-size: 0.85rem; }
+  .tabs { display: flex; gap: 0.5rem; margin-top: var(--space-3); border-bottom: 1px solid var(--gray-400); font-family: var(--font-body); }
+  .tab { background: none; border: 0; border-bottom: 3px solid transparent; padding: 0.7rem 0.9rem; font: inherit; font-weight: 700; color: var(--gray-900); cursor: pointer; }
+  .tab.active { color: var(--black); border-bottom-color: var(--blue); }
+  .list { display: grid; gap: var(--space-3); }
+  .video { display: grid; grid-template-columns: 300px 1fr; gap: var(--space-3); }
+  .preview { aspect-ratio: 9 / 16; background: var(--black); border-radius: 8px; overflow: hidden; }
+  .preview iframe { width: 100%; height: 100%; border: 0; }
+  .video h2 { font-family: var(--font-body); font-size: 1.2rem; margin: 0.2rem 0 0; }
+  fieldset { border: 0; padding: 0; margin: var(--space-2) 0 0; }
+  legend { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .check { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; margin: 0.3rem 0; }
+  .check.disabled { opacity: 0.45; }
+  .toggle { font-weight: 700; }
+  .indent { margin: 0 0 0.6rem 1.6rem; }
+  .consent { margin-top: var(--space-2); }
+  .consent :global(a) { color: var(--blue); text-decoration: underline; }
+  .wide { margin-top: var(--space-2); width: 100%; }
+  .wide:disabled { opacity: 0.45; cursor: not-allowed; }
+  .alert { background: var(--blue-tint-1); border: 1px solid var(--blue-tint-3); color: var(--black); padding: 0.7rem 0.9rem; border-radius: 8px; font-size: 0.9rem; }
+  .ok-badge { display: inline-block; margin-top: var(--space-2); background: var(--blue); color: var(--white); font-weight: 700; padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.9rem; }
+  @media (max-width: 760px) {
+    .video { grid-template-columns: 1fr; }
+    .preview { max-width: 320px; width: 100%; margin-inline: auto; }
+    .account { flex-wrap: wrap; }
+    .account .btn { width: 100%; text-align: center; }
+    .row { flex-direction: column; }
+  }
+</style>
