@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const fotos = [{"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372580.jpg", "alt": "Foto 1 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094123.jpg", "alt": "Foto 2 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094125.jpg", "alt": "Foto 3 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372588.jpg", "alt": "Foto 4 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372581.jpg", "alt": "Foto 5 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372591.jpg", "alt": "Foto 6 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094124.jpg", "alt": "Foto 7 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372593.jpg", "alt": "Foto 8 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372592.jpg", "alt": "Foto 9 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372582.jpg", "alt": "Foto 10 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094127.jpg", "alt": "Foto 11 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372590.jpg", "alt": "Foto 12 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372587.jpg", "alt": "Foto 13 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372584.jpg", "alt": "Foto 14 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094126.jpg", "alt": "Foto 15 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372583.jpg", "alt": "Foto 16 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372589.jpg", "alt": "Foto 17 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372579.jpg", "alt": "Foto 18 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372585.jpg", "alt": "Foto 19 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2075372586.jpg", "alt": "Foto 20 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094128.jpg", "alt": "Foto 21 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2067094121.jpg", "alt": "Foto 22 de Doctor Luis Beláustegui 4172"}, {"src": "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2052210745.jpg", "alt": "Foto 23 de Doctor Luis Beláustegui 4172"}];
+const stats = [{"val": "110", "lab": "m² totales"}, {"val": "80", "lab": "m² cubiertos"}, {"val": "4", "lab": "Ambientes"}];
+const facts = [["Tipo", "PH triplex"], ["Estado", "A estrenar"], ["Superficie total", "110 m²"], ["Superficie cubierta", "80 m²"], ["Ambientes", "4"], ["Dormitorios", "3"], ["Baños", "2 completos + toilette"], ["Orientación", "Contrafrente"], ["Exteriores", "Patio con césped y terraza"], ["Crédito", "No apto"], ["Barrio", "Floresta"]];
+const waHref = 'https://wa.me/5491122540182?text=' + encodeURIComponent("Hola Jacobo! Quiero más información sobre \"Triplex 4 ambientes a estrenar en Floresta\" (Doctor Luis Beláustegui 4172, Floresta, Capital Federal).");
+const mapsHref = "https://www.google.com/maps/search/?api=1&query=Doctor+Luis+Bel%C3%A1ustegui+4172+Floresta%2C+Capital+Federal";
+const ytId = "y__vIgNlPJc";
+const tourHref = null;
+const planoSrc = "https://imgar.zonapropcdn.com/avisos/resize/1/00/59/08/61/10/1200x1200/2052210869.jpg";
+---
+
+<BaseLayout
+  title="Triplex 4 ambientes a estrenar en Floresta"
+  description="Triplex PH de 4 ambientes a estrenar, con patio y terraza. Unidad funcional N° 3, con entrega inmediata. Está en el contrafrente de un complejo de solo 4 unidades. En planta baja tiene living comedor,"
+  ogImage={fotos[0].src}
+>
+  <div class="ficha">
+    <section class="hero" style={`background-image:url('${fotos[0].src}')`}>
+      <button type="button" class="hero-zoom" id="heroZoom" aria-label="Ampliar foto principal"></button>
+      <div class="price">
+        USD 162.000
+        <small>Venta</small>
+      </div>
+      <div class="hero-text">
+        <div class="eyebrow-light">PH triplex · Floresta</div>
+        <h1>Triplex 4 ambientes a estrenar en Floresta</h1>
+        <p>Doctor Luis Beláustegui 4172, Floresta, Capital Federal</p>
+      </div>
+    </section>
+
+    <div class="strip">
+      {stats.map((s) => (
+        <div class="stat">
+          <b>{s.val}</b>
+          <span>{s.lab}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="columns">
+      <div class="desc">
+        <div class="label">Descripción</div>
+        <p>Triplex PH de 4 ambientes a estrenar, con patio y terraza. Unidad funcional N° 3, con entrega inmediata.</p>
+        <p>Está en el contrafrente de un complejo de solo 4 unidades. En planta baja tiene living comedor, cocina incorporada, toilette de recepción, patio con césped y lavadero independiente.</p>
+        <p>Por escalera, el primer piso tiene hall de distribución, baño completo y dos dormitorios con frente de placard, uno al frente y otro al contrafrente.</p>
+        <p>En la tercera planta está el tercer dormitorio, al contrafrente, con otro baño completo y terraza.</p>
+        <p>Las medidas son enunciativas. Los metros definitivos surgen de la mensura final y la escritura traslativa de dominio.</p>
+      </div>
+      <aside class="facts">
+        <div class="label">Ficha técnica</div>
+        <ul>
+          {facts.map(([k, v]) => (
+            <li><span>{k}</span><span>{v}</span></li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+
+    <section class="block">
+      <div class="label">Ubicación</div>
+      <div class="place">
+        <div class="place-addr">
+          <strong>Doctor Luis Beláustegui 4172</strong>
+          <span>Floresta, Capital Federal</span>
+        </div>
+        <a class="btn-dark" href={mapsHref} target="_blank" rel="noopener">Abrir en Google Maps</a>
+      </div>
+    </section>
+
+    {ytId && (
+      <section class="block">
+        <div class="label">Video</div>
+        <a class="video" href={`https://www.youtube.com/watch?v=${ytId}`} target="_blank" rel="noopener" style={`background-image:url('https://img.youtube.com/vi/${ytId}/hqdefault.jpg')`} aria-label="Ver video en YouTube"><span class="play"></span><span class="cap">Ver video en YouTube</span></a>
+      </section>
+    )}
+
+    {tourHref && (
+      <section class="block">
+        <div class="label">Tour virtual 360°</div>
+        <div class="place">
+          <div class="place-addr"><strong>Recorré la propiedad en 360°</strong><span>Se abre en una pestaña nueva</span></div>
+          <a class="btn-dark" href={tourHref} target="_blank" rel="noopener">Abrir tour virtual</a>
+        </div>
+      </section>
+    )}
+
+    {planoSrc && (
+      <section class="block">
+        <div class="label">Plano</div>
+        <button class="plano" type="button" id="planoBtn" aria-label="Ampliar plano"><img id="planoImg" src={planoSrc} alt="Plano de la propiedad" loading="lazy" /></button>
+      </section>
+    )}
+
+    <section class="block">
+      <div class="label">Imágenes (23)</div>
+      <div class="gallery" id="gallery">
+        {fotos.map((f, i) => (
+          <button type="button" aria-label={`Ampliar foto ${i + 1}`}>
+            <img src={f.src} alt={f.alt} loading="lazy" decoding="async" />
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact">
+      <div>
+        <h2>Jacobo Malek</h2>
+        <p>Malek Inmobiliaria · C.P.I. N° 8865 · Consultá por esta propiedad<br /><span class="phone">11 2254-0182</span></p>
+      </div>
+      <a class="btn-dark" href={waHref} target="_blank" rel="noopener">Contactar por WhatsApp</a>
+    </section>
+
+    <div class="legal">Las medidas son aproximadas; las exactas surgen de la documentación correspondiente. Fotografías no vinculantes ni contractuales.</div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="lb-btn lb-close" type="button" id="lbClose" aria-label="Cerrar">&times;</button>
+    <button class="lb-btn lb-nav lb-prev" type="button" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
+    <img id="lbImg" alt="" />
+    <button class="lb-btn lb-nav lb-next" type="button" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
+    <div class="lb-count" id="lbCount"></div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Los números van siempre en Gotham: Blacker trial no tiene dígitos. */
+  .ficha {
+    max-width: 960px;
+    margin: var(--space-3) auto var(--space-5);
+    background: var(--white);
+    box-shadow: 0 0 40px rgba(10, 10, 10, 0.1);
+    overflow: hidden;
+  }
+  .num { font-family: var(--font-body); font-weight: 700; }
+
+  .hero {
+    position: relative;
+    height: 460px;
+    background-size: cover;
+    background-position: center 42%;
+    background-color: var(--gray-100);
+    color: var(--white);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0) 38%, rgba(10, 10, 10, 0.88) 100%);
+    pointer-events: none;
+  }
+  .hero-zoom {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+  .hero-zoom:focus-visible { outline: 3px solid var(--blue); outline-offset: -6px; }
+  .price {
+    position: absolute;
+    right: 28px;
+    top: 26px;
+    z-index: 2;
+    background: var(--blue);
+    padding: 13px 20px;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 25px;
+    text-align: right;
+    line-height: 1.1;
+    box-shadow: 0 6px 20px rgba(0, 151, 217, 0.4);
+    pointer-events: none;
+  }
+  .price small {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-text {
+    position: absolute;
+    z-index: 2;
+    left: 36px;
+    right: 30px;
+    bottom: 28px;
+    pointer-events: none;
+  }
+  .eyebrow-light {
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    color: var(--blue-tint-3);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    margin: 10px 0;
+    max-width: 640px;
+    text-wrap: balance;
+  }
+  .hero p { margin: 0; font-size: 0.9rem; font-weight: 500; }
+
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--black);
+    color: var(--white);
+  }
+  .stat {
+    text-align: center;
+    padding: 18px 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .stat:last-child { border-right: 0; }
+  .stat b {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--blue-tint-3);
+  }
+  .stat span {
+    display: block;
+    margin-top: 4px;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  .columns { display: grid; grid-template-columns: 1.5fr 1fr; }
+  .desc, .facts { padding: 32px 36px; min-width: 0; }
+  .facts { background: var(--blue-tint-1); }
+  .label {
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  .desc p { font-size: 0.92rem; line-height: 1.75; max-width: 62ch; }
+  .desc p:last-child { margin-bottom: 0; }
+  .facts ul { list-style: none; padding: 0; margin: 0; }
+  .facts li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(0, 151, 217, 0.18);
+    font-size: 0.82rem;
+  }
+  .facts li:last-child { border-bottom: 0; }
+  .facts li span:first-child { color: var(--gray-900); font-weight: 500; }
+  .facts li span:last-child { text-align: right; font-weight: 700; }
+
+  .block { padding: 30px 36px 6px; }
+  .place {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    border: 1px solid var(--gray-400);
+    padding: 20px 22px;
+  }
+  .place-addr { min-width: 0; }
+  .place-addr strong { display: block; font-size: 0.95rem; }
+  .place-addr span { display: block; margin-top: 2px; font-size: 0.82rem; color: var(--gray-900); }
+  .btn-dark {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 13px 20px;
+    transition: background-color 0.15s ease;
+  }
+  .btn-dark:hover { background: var(--blue); }
+  .btn-dark:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .gallery button {
+    padding: 0;
+    border: 0;
+    background: var(--gray-100);
+    cursor: zoom-in;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    display: block;
+  }
+  .gallery button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.15s ease; }
+  .gallery button:hover img { opacity: 0.85; }
+
+  .contact {
+    margin-top: 28px;
+    background: var(--blue);
+    color: var(--white);
+    padding: 28px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .contact h2 { font-weight: 700; font-size: 1.25rem; margin-bottom: 6px; }
+  .contact p { font-size: 0.82rem; line-height: 1.6; margin: 0; }
+  .contact .phone { font-weight: 700; user-select: all; }
+  .contact .btn-dark:hover { background: #222; }
+  .legal { padding: 18px 36px 26px; font-size: 0.68rem; color: var(--gray-900); line-height: 1.6; }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.95);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .lb-btn {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    border: 0;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .lb-btn:hover { background: rgba(255, 255, 255, 0.24); }
+  .lb-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+  .lb-close { top: 14px; right: 14px; font-size: 30px; width: 46px; height: 46px; }
+  .lb-nav { top: 50%; transform: translateY(-50%); font-size: 34px; width: 46px; height: 64px; }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+  .lb-count {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 700px) {
+    .ficha { margin: 0 0 var(--space-4); box-shadow: none; }
+    .hero { height: 380px; }
+    .hero-text { left: 18px; right: 18px; bottom: 20px; }
+    .price { right: 14px; top: 14px; font-size: 1.15rem; padding: 10px 14px; }
+    .stat b { font-size: 1.25rem; }
+    .columns { grid-template-columns: 1fr; }
+    .desc, .facts { padding: 26px 18px; }
+    .block { padding: 24px 18px 4px; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .contact { padding: 24px 18px; flex-direction: column; align-items: stretch; text-align: center; }
+    .legal { padding: 16px 18px 24px; }
+  }
+
+  .video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; background: #000 center / cover no-repeat; text-decoration: none; }
+  .video::after { content: ''; position: absolute; inset: 0; background: rgba(10, 15, 20, 0.35); }
+  .video .play { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; }
+  .video .play::before { content: ''; margin-left: 6px; border-left: 22px solid #fff; border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
+  .video .cap { position: absolute; z-index: 1; left: 20px; bottom: 16px; color: #fff; font-weight: 700; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; }
+  .plano { display: block; width: 100%; padding: 0; border: 1px solid #e3e7ea; background: #fff; cursor: zoom-in; }
+  .plano img { width: 100%; max-height: 560px; object-fit: contain; background: #fff; }
+</style>
+
+<script>
+  const imgs = Array.from(document.querySelectorAll('#gallery img, #planoImg')) as HTMLImageElement[];
+  const box = document.getElementById('lightbox') as HTMLElement;
+  const big = document.getElementById('lbImg') as HTMLImageElement;
+  const count = document.getElementById('lbCount') as HTMLElement;
+  let cur = 0;
+
+  function show(i: number) {
+    cur = (i + imgs.length) % imgs.length;
+    big.src = imgs[cur].src;
+    big.alt = imgs[cur].alt;
+    count.textContent = `${cur + 1} / ${imgs.length}`;
+  }
+  function openAt(i: number) {
+    show(i);
+    box.classList.add('open');
+    (document.getElementById('lbClose') as HTMLElement).focus();
+  }
+  function closeBox() {
+    box.classList.remove('open');
+  }
+
+  imgs.forEach((im, i) => im.parentElement?.addEventListener('click', () => openAt(i)));
+  document.getElementById('heroZoom')?.addEventListener('click', () => openAt(0));
+  document.getElementById('planoBtn')?.addEventListener('click', () => openAt(imgs.length - 1));
+  document.getElementById('lbClose')?.addEventListener('click', closeBox);
+  document.getElementById('lbPrev')?.addEventListener('click', (e) => { e.stopPropagation(); show(cur - 1); });
+  document.getElementById('lbNext')?.addEventListener('click', (e) => { e.stopPropagation(); show(cur + 1); });
+  box.addEventListener('click', (e) => { if (e.target === box) closeBox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') closeBox();
+    if (e.key === 'ArrowRight') show(cur + 1);
+    if (e.key === 'ArrowLeft') show(cur - 1);
+  });
+
+  let x0: number | null = null;
+  box.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  });
+</script>
