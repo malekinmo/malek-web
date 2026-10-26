@@ -1,5 +1,5 @@
 ---
-title: Av. Alberdi 3140
+title: Alberdi 3140
 barrio: Flores
 price: 86000
 currency: USD
