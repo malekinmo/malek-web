@@ -21,23 +21,29 @@ collections:
       - { label: "Barrio", name: "barrio", widget: "string" }
       - { label: "Precio (USD)", name: "price", widget: "number" }
       - { label: "Moneda", name: "currency", widget: "string", default: "USD" }
-      - { label: "Metros cuadrados", name: "m2", widget: "number" }
+      - { label: "Metros cuadrados totales", name: "m2", widget: "number" }
+      - { label: "Metros cuadrados cubiertos", name: "m2Cubiertos", widget: "number", required: false }
       - { label: "Ambientes", name: "ambientes", widget: "number" }
+      - { label: "Dormitorios", name: "dormitorios", widget: "number", required: false }
       - { label: "Baños", name: "banos", widget: "number" }
+      - { label: "Piso", name: "piso", widget: "string", required: false, hint: "Ej: 3°, PB" }
       - { label: "Orientación", name: "orientacion", widget: "string", required: false }
       - { label: "Ubicación (Frente/Lateral/Interno)", name: "ubicacion", widget: "string", required: false }
       - { label: "Expensas", name: "expensas", widget: "number", required: false }
       - { label: "ABL", name: "abl", widget: "number", required: false }
       - { label: "Antigüedad (años)", name: "antiguedad", widget: "number", required: false }
+      - { label: "Características", name: "caracteristicas", widget: "select", multiple: true, required: false, options: ["Balcón", "Terraza", "Patio", "Ascensor", "Cochera", "Apto crédito", "Apto profesional", "Aire acondicionado", "Calefacción", "Cocina separada", "Lavadero", "Baulera", "Amenities", "Luminoso"], hint: "Se muestran con ícono en la ficha." }
       - { label: "Foto de portada", name: "coverImage", widget: "image" }
       - { label: "Galería de fotos", name: "gallery", widget: "image", multiple: true, hint: "Podés seleccionar o arrastrar varias fotos a la vez. Arrastrá para reordenar." }
       - { label: "Link video (Youtube/Vimeo)", name: "videoUrl", widget: "string", required: false, hint: "Pegá el link normal, ej https://www.youtube.com/watch?v=XXXX" }
+      - { label: "El video es vertical", name: "videoVertical", widget: "boolean", default: false, required: false, hint: "Activalo si el video es vertical (tipo Reel/Short): se muestra al lado del tour." }
       - { label: "Link tour virtual (Kuula, etc)", name: "virtualTourUrl", widget: "string", required: false }
       - { label: "Número de WhatsApp", name: "whatsappNumber", widget: "string", default: "5491122540182" }
       - { label: "Mensaje de WhatsApp", name: "whatsappMessage", widget: "string", default: "Hola! Quiero saber más sobre esta propiedad." }
       - { label: "Destacada en portada", name: "featured", widget: "boolean", default: true }
       - { label: "Orden", name: "order", widget: "number", default: 0 }
       - { label: "Descripción", name: "body", widget: "markdown" }
+      - { label: "Mensaje destacado", name: "destacado", widget: "string", required: false, hint: "Opcional. Aparece resaltado debajo de la descripción." }
 
   - name: "blog"
     label: "Blog"

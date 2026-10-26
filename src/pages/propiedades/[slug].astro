@@ -12,22 +12,25 @@ const { data } = property;
 const { Content } = await render(property);
 
 const waHref = `https://wa.me/${data.whatsappNumber}?text=${encodeURIComponent(data.whatsappMessage)}`;
-const waTasarHref = `https://wa.me/5491122540182?text=${encodeURIComponent('Hola! Quiero tasar mi propiedad.')}`;
 
 // Convierte un link normal de YouTube/Vimeo al formato de embed.
 function toEmbedUrl(url?: string): string | null {
   if (!url) return null;
   try {
     const u = new URL(url);
-    if (u.hostname.includes('youtu.be')) return `https://www.youtube.com/embed/${u.pathname.replace('/', '')}`;
+    // Autoplay: los navegadores solo lo permiten con el video silenciado.
+    const yt = (id: string) =>
+      `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&playsinline=1&rel=0`;
+    if (u.hostname.includes('youtu.be')) return yt(u.pathname.replace('/', ''));
     if (u.hostname.includes('youtube.com')) {
-      if (u.pathname.startsWith('/embed/')) return url;
+      if (u.pathname.startsWith('/embed/')) return yt(u.pathname.replace('/embed/', ''));
+      if (u.pathname.startsWith('/shorts/')) return yt(u.pathname.replace('/shorts/', ''));
       const id = u.searchParams.get('v');
-      if (id) return `https://www.youtube.com/embed/${id}`;
+      if (id) return yt(id);
     }
     if (u.hostname.includes('vimeo.com')) {
-      if (u.hostname.includes('player.vimeo.com')) return url;
-      return `https://player.vimeo.com/video/${u.pathname.replace('/', '')}`;
+      const id = u.pathname.split('/').filter(Boolean).pop();
+      return `https://player.vimeo.com/video/${id}?autoplay=1&muted=1&loop=1`;
     }
     return url;
   } catch {
@@ -41,20 +44,54 @@ const allPhotos = [data.coverImage, ...data.gallery, ...(data.planoImage ? [data
 const galleryOffset = 1; // la portada ocupa el índice 0
 const planoIndex = data.planoImage ? allPhotos.length - 1 : -1;
 
-// Destacados de la barra superior — los números van en Gotham.
+// Íconos de línea (trazo celeste). Se usan en la barra de datos y en características.
+const ICONS: Record<string, string> = {
+  ambientes: '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 12h9M12 3v18"/>',
+  dormitorios: '<path d="M3 18V8M21 18v-5a3 3 0 0 0-3-3H10v8M3 14h18M6.5 11.5h.01"/><circle cx="6.5" cy="11.5" r="1.5"/>',
+  banos: '<path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3zM6 12V5a2 2 0 0 1 4 0M7 20l-1 2M17 20l1 2"/>',
+  m2: '<path d="M3 3h18v18H3z"/><path d="M3 9h3M3 15h3M9 21v-3M15 21v-3"/>',
+  m2c: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  orientacion: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/>',
+  'Balcón': '<path d="M3 13h18M5 13v8M9 13v8M13 13v8M17 13v8M3 21h18M7 13V4h10v9"/>',
+  'Terraza': '<path d="M12 3v10M5 9l7-6 7 6"/><path d="M3 21h18M7 21v-4h10v4"/>',
+  'Patio': '<path d="M12 21v-7M12 14c-3 0-5-2-5-5a5 5 0 0 1 10 0c0 3-2 5-5 5zM4 21h16"/>',
+  'Ascensor': '<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 9l2-2 2 2M9 15l2 2 2-2"/><path d="M16 3v18"/>',
+  'Cochera': '<path d="M5 17h14M6 17l1.5-5h9L18 17M5 17v3M19 17v3"/><circle cx="8" cy="15" r=".5"/><circle cx="16" cy="15" r=".5"/><path d="M3 9l9-6 9 6"/>',
+  'Apto crédito': '<rect x="3" y="6" width="18" height="12" rx="1"/><path d="M3 10h18M7 15h4"/>',
+  'Apto profesional': '<rect x="3" y="7" width="18" height="13" rx="1"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/>',
+  'Aire acondicionado': '<rect x="3" y="5" width="18" height="7" rx="1"/><path d="M7 15v2M12 15v4M17 15v2"/>',
+  'Calefacción': '<path d="M12 21c-4 0-6-3-6-6 0-4 4-6 4-11 3 2 7 6 7 11 0 3-2 6-5 6z"/><path d="M12 21c-1.5 0-2.5-1-2.5-2.5S12 15 12 15s2.5 2 2.5 3.5S13.5 21 12 21z"/>',
+  'Cocina separada': '<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 9h16"/><circle cx="9" cy="6" r=".6"/><circle cx="15" cy="6" r=".6"/><circle cx="12" cy="15" r="3"/>',
+  'Lavadero': '<rect x="4" y="3" width="16" height="18" rx="1"/><circle cx="12" cy="13" r="4"/><path d="M4 7h16"/>',
+  'Baulera': '<rect x="3" y="7" width="18" height="13" rx="1"/><path d="M3 11h18M10 15h4M6 7l2-3h8l2 3"/>',
+  'Amenities': '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
+  'Luminoso': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+};
+const svg = (key: string) =>
+  `<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="#0097D9" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[key] ?? ICONS['Amenities']}</svg>`;
+
+// Barra de datos — los números van en Gotham. Los datos vacíos no se muestran.
 const quickSpecs = [
-  { value: String(data.ambientes), label: 'Ambientes' },
-  { value: String(data.banos), label: data.banos > 1 ? 'Baños' : 'Baño' },
-  { value: `${data.m2}`, label: 'm² totales' },
-  { value: data.orientacion ?? '—', label: 'Orientación' },
-];
+  { icon: 'ambientes', value: data.ambientes, label: 'Ambientes' },
+  { icon: 'dormitorios', value: data.dormitorios, label: data.dormitorios === 1 ? 'Dormitorio' : 'Dormitorios' },
+  { icon: 'banos', value: data.banos, label: data.banos > 1 ? 'Baños' : 'Baño' },
+  { icon: 'm2', value: data.m2, label: 'm² totales' },
+  { icon: 'm2c', value: data.m2Cubiertos, label: 'm² cubiertos' },
+  { icon: 'orientacion', value: data.orientacion, label: 'Orientación' },
+].filter((s) => s.value !== undefined && s.value !== null && s.value !== '');
+
+const caracteristicas = data.caracteristicas ?? [];
 
 const detalles = [
   { label: 'Ubicación', value: data.ubicacion ?? '—' },
+  ...(data.piso ? [{ label: 'Piso', value: data.piso }] : []),
   { label: 'Antigüedad', value: data.antiguedad ? `${data.antiguedad} años` : '—' },
   { label: 'Expensas', value: data.expensas ? `$${data.expensas.toLocaleString('es-AR')}` : '—' },
   { label: 'ABL', value: data.abl ? `$${data.abl.toLocaleString('es-AR')}` : '—' },
 ];
+
+// Video vertical + tour: van lado a lado en PC.
+const sideBySide = Boolean(videoEmbedUrl && data.videoVertical && data.virtualTourUrl);
 ---
 
 <!doctype html>
@@ -107,11 +144,15 @@ const detalles = [
     .mp-header{padding:16px 20px !important}
     .mp-header img{width:96px !important}
     .mp-nav{display:none !important}
-    .mp-hero{height:78vh !important}
+    .mp-hero{height:56vh !important;min-height:400px !important}
     .mp-hero-inner{bottom:44px !important}
     .mp-scrollcue{display:none !important}
     .mp-specs{grid-template-columns:repeat(2,1fr) !important;gap:0 !important}
-    .mp-specs > div{border-left:0 !important;border-top:1px solid rgba(245,242,236,.14);padding:26px 0 !important}
+    .mp-specs > div{border-left:0 !important;border-top:1px solid rgba(245,242,236,.14);padding:24px 0 !important}
+    .mp-feats{grid-template-columns:1fr 1fr !important}
+    .mp-media{grid-template-columns:1fr !important;height:auto !important}
+    .mp-media-video{height:auto !important;width:100% !important;max-width:420px;margin:0 auto}
+    .mp-media-tour{height:auto !important;aspect-ratio:4/5}
     .mp-body{grid-template-columns:1fr !important;gap:44px !important}
     .mp-aside{position:static !important}
     .mp-gallery{grid-template-columns:1fr 1fr !important}
@@ -165,11 +206,12 @@ const detalles = [
   </section>
 
   <!-- SPECS -->
-  <section class="mp-specs" style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(245,242,236,.14);padding:0 clamp(20px,4vw,56px)">
+  <section class="mp-specs" style={`display:grid;grid-template-columns:repeat(${quickSpecs.length},1fr);border-bottom:1px solid rgba(245,242,236,.14);padding:0 clamp(20px,4vw,56px)`}>
     {quickSpecs.map((s, i) => (
-      <div data-reveal="up" data-delay={i * 70} style={`padding:40px 34px;min-width:0;${i > 0 ? 'border-left:1px solid rgba(245,242,236,.14);' : ''}`}>
-        <div style="font-family:'Gotham',sans-serif;font-size:clamp(30px,4vw,54px);font-weight:200;line-height:.9;letter-spacing:-.04em;color:#F5F2EC">{s.value}</div>
-        <div style="margin-top:14px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8C8A85">{s.label}</div>
+      <div data-reveal="up" data-delay={i * 70} style={`padding:36px clamp(16px,2vw,30px);min-width:0;${i > 0 ? 'border-left:1px solid rgba(245,242,236,.14);' : ''}`}>
+        <div style="width:28px;height:28px;margin-bottom:18px" set:html={svg(s.icon)}></div>
+        <div style="font-family:'Gotham',sans-serif;font-size:clamp(28px,3.2vw,46px);font-weight:300;line-height:.9;letter-spacing:-.04em;color:#F5F2EC">{s.value}</div>
+        <div style="margin-top:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8C8A85">{s.label}</div>
       </div>
     ))}
   </section>
@@ -182,6 +224,27 @@ const detalles = [
       <div data-reveal="up" data-delay="120" class="mp-prose" style="margin-top:30px;font-size:17px;line-height:1.85;color:#C9C5BE">
         <Content />
       </div>
+
+      {data.destacado && (
+        <div data-reveal="up" data-delay="160" style="margin-top:36px;display:flex;gap:16px;align-items:flex-start;background:rgba(0,151,217,.12);border:1px solid rgba(0,151,217,.55);border-left:4px solid #0097D9;padding:22px 24px">
+          <div style="flex:none;width:24px;height:24px;margin-top:1px"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="#0097D9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div>
+          <p style="margin:0;font-size:17px;line-height:1.55;font-weight:700;color:#F5F2EC">{data.destacado}</p>
+        </div>
+      )}
+
+      {caracteristicas.length > 0 && (
+        <div style="margin-top:56px">
+          <div data-reveal="up" class="mp-eyebrow">Características</div>
+          <div class="mp-feats" style="margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            {caracteristicas.map((c, i) => (
+              <div data-reveal="up" data-delay={Math.min(i, 5) * 50} style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(245,242,236,.14);background:rgba(245,242,236,.03)">
+                <div style="flex:none;width:24px;height:24px" set:html={svg(c)}></div>
+                <span style="font-size:14px;color:#F5F2EC">{c}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
 
     <aside class="mp-aside" data-reveal="up" data-delay="160" style="position:sticky;top:120px;min-width:0;border:1px solid rgba(245,242,236,.16);padding:clamp(24px,3vw,36px);background:rgba(245,242,236,.03)">
@@ -203,7 +266,7 @@ const detalles = [
     <section style="padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px)">
       <div data-reveal="up" class="mp-eyebrow">Galería</div>
       <h2 data-reveal="up" data-delay="60" class="mp-h2" style="margin-bottom:38px">Recorré cada ambiente</h2>
-      <div class="mp-gallery" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div class="mp-gallery" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
         {data.gallery.map((src, i) => (
           <button data-reveal="up" data-delay={Math.min(i, 5) * 60} data-lightbox-open data-index={i + galleryOffset} aria-label={`Ver foto ${i + 1} a pantalla completa`} style="all:unset;display:block;cursor:zoom-in;position:relative;overflow:hidden;aspect-ratio:4/3">
             <img src={src} alt={`${data.title} — foto ${i + 1}`} loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">
@@ -213,7 +276,22 @@ const detalles = [
     </section>
   )}
 
-  {videoEmbedUrl && (
+  {sideBySide && (
+    <section style="padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px)">
+      <div data-reveal="up" class="mp-eyebrow">Video y recorrido virtual</div>
+      <h2 data-reveal="up" data-delay="60" class="mp-h2" style="margin-bottom:38px">Entrá desde donde estés</h2>
+      <div class="mp-media" data-reveal="up" data-delay="120" style="display:grid;grid-template-columns:auto 1fr;gap:8px;height:clamp(520px,80vh,760px)">
+        <div class="mp-media-video" style="position:relative;height:100%;aspect-ratio:9/16;background:#0A0A0A;border:1px solid rgba(245,242,236,.14)">
+          <iframe src={videoEmbedUrl} title={`Video — ${data.title}`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
+        </div>
+        <div class="mp-media-tour" style="position:relative;height:100%;min-width:0;background:#0A0A0A;border:1px solid rgba(245,242,236,.14)">
+          <iframe src={data.virtualTourUrl} title={`Tour virtual — ${data.title}`} loading="lazy" allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {!sideBySide && videoEmbedUrl && (
     <section style="padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px)">
       <div data-reveal="up" class="mp-eyebrow">Video</div>
       <h2 data-reveal="up" data-delay="60" class="mp-h2" style="margin-bottom:38px">Un paseo completo</h2>
@@ -223,7 +301,7 @@ const detalles = [
     </section>
   )}
 
-  {data.virtualTourUrl && (
+  {!sideBySide && data.virtualTourUrl && (
     <section style="padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px)">
       <div data-reveal="up" class="mp-eyebrow">Recorrido virtual</div>
       <h2 data-reveal="up" data-delay="60" class="mp-h2" style="margin-bottom:38px">Entrá desde donde estés</h2>
@@ -247,13 +325,6 @@ const detalles = [
   <section class="mp-cta" style="background:#0097D9;padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap">
     <div data-reveal="up" style="font-family:'Blacker Sans Display',serif;font-weight:700;font-size:clamp(24px,3.2vw,40px);line-height:1.1;color:#fff;max-width:620px">¿Querés conocerla en persona?</div>
     <a data-reveal="up" data-delay="100" href={waHref} target="_blank" rel="noopener" style="background:#0A0A0A;color:#fff;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:24px 40px;white-space:nowrap;display:inline-flex;align-items:center;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease" style-hover="background:#F5F2EC;color:#0A0A0A;transform:translateY(-4px)">Escribime por WhatsApp</a>
-  </section>
-
-  <!-- VENDER -->
-  <section style="padding:clamp(70px,9vw,120px) clamp(20px,4vw,56px);text-align:center">
-    <div data-reveal="up" style="font-family:'Brittany',cursive;font-size:clamp(30px,4.6vw,56px);color:#0097D9;line-height:1">¿Y si la que vendés es la tuya?</div>
-    <div data-reveal="up" data-delay="90" style="margin-top:22px;font-size:16px;line-height:1.7;color:#C9C5BE;max-width:56ch;margin-inline:auto">Trabajo con hasta 10 propiedades a la vez para poder dedicarle a cada una el tiempo que necesita. Si estás pensando en mudarte, hablemos.</div>
-    <a data-reveal="up" data-delay="160" href={waTasarHref} target="_blank" rel="noopener" style="margin-top:34px;border:1px solid rgba(245,242,236,.35);color:#F5F2EC;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:21px 34px;display:inline-flex;align-items:center;transition:background .45s cubic-bezier(.16,1,.3,1),color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)" style-hover="background:#F5F2EC;color:#000;transform:translateY(-3px)">Quiero tasar mi propiedad</a>
   </section>
 
   <!-- FOOTER -->
