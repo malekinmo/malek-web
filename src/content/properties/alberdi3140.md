@@ -4,13 +4,23 @@ barrio: Flores
 price: 86000
 currency: USD
 m2: 52
+m2Cubiertos: 46
 ambientes: 2
+dormitorios: 1
 banos: 1
+piso: 3°
 orientacion: Norte
 ubicacion: Frente
 expensas: 175000
 abl: 22000
 antiguedad: 15
+caracteristicas:
+  - Balcón
+  - Ascensor
+  - Apto crédito
+  - Aire acondicionado
+  - Calefacción
+  - Cocina separada
 coverImage: /images/uploads/Portada-1.jpg
 gallery:
   - /images/uploads/Alberdi/Av. J. B. Alberdi 3100-1-1.jpg
@@ -41,18 +51,18 @@ gallery:
   - /images/uploads/Alberdi/Av. J. B. Alberdi 3100-26.jpg
   - /images/uploads/Av. J. B. Alberdi 3140, Flores.jpg
 videoUrl: https://www.youtube.com/watch?v=5TtD1_no1h8
+videoVertical: true
 virtualTourUrl: https://kuula.co/share/collection/7dvQd
 whatsappNumber: '5491122540182'
 whatsappMessage: Hola! Quiero saber más sobre Alberdi 3100
 featured: true
 order: 0
+destacado: El departamento se encuentra alquilado por USD 500 hasta Abril 2027
 ---
 
 Departamento de 2 ambientes al frente, orientación norte.
 Piso 3° con ascensor, sobre Av. Juan Bautista Alberdi.
 Muy buen estado. Apto crédito.
-
-El departamento se encuentra alquilado por USD 500 hasta Abril 2027
 
 Living comedor de 7,80 x 3,00 con salida a balcón.
 Balcón de 1,90 x 4,90.
