@@ -11,7 +11,7 @@
     "Plano profesional de la planta",
     "Portales con la opción de mayor destaque"
   ],
-  "despues": "Una vez publicado, cada semana te mando un informe con impresiones, visualizaciones, consultas y visitas. Si a los 60 días no conseguimos el resultado buscado, revisamos juntos la estrategia.",
+  "despues": "Cada viernes actualizo esta página con los datos hasta el jueves. Si a los 60 días no conseguimos el resultado buscado, revisamos juntos la estrategia.",
   "guia": {
     "titulo": "Consejos para la sesión de fotos",
     "grupos": [
@@ -311,5 +311,113 @@
       "lab": "Honorarios por debajo de USD 83.000",
       "val": "2%"
     }
-  ]
+  ],
+  "informe": {
+    "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
+    "generado": "2026-10-26",
+    "actualizado": "26 de octubre",
+    "estado": "Publicada",
+    "fecha_publicacion": "2026-10-25",
+    "dias_autorizacion": 120,
+    "fin_autorizacion": "23 feb 2027",
+    "proximo_informe": "Viernes 31 oct",
+    "destacado": {
+      "titulo": "3 consultas en 2 días",
+      "detalle": "Una de Zonaprop y dos de Mercado Libre"
+    },
+    "proximo": {
+      "titulo": "Coordinar las primeras visitas",
+      "detalle": "Primer informe semanal: 31 oct"
+    },
+    "semana": {
+      "rango": "Primeros 2 días · 25 y 26 oct",
+      "primera": true,
+      "actual": {
+        "exposicion": 1350,
+        "clics": 60,
+        "consultas": 3,
+        "visitas": 0,
+        "descartaron": 0
+      },
+      "anterior": null
+    },
+    "lectura": "El 25 el aviso recién se estaba posicionando: 795 vistas y 9 clics. El 26 subió a 51 clics. Superó los 50 por día, el umbral de validación. Con 2 días es temprano para sacar conclusiones. El viernes 31 te mando el primer corte semanal.",
+    "totales": {
+      "exposicion": 1350,
+      "clics": 60,
+      "consultas": 3,
+      "visitas": 0
+    },
+    "umbrales": {
+      "especulacion": 25,
+      "prueba": 50
+    },
+    "dias": [
+      {
+        "fecha": "2026-10-25",
+        "exposicion": 795,
+        "clics": 9
+      },
+      {
+        "fecha": "2026-10-26",
+        "exposicion": 555,
+        "clics": 51
+      }
+    ],
+    "semanas": [],
+    "portales": [
+      {
+        "nombre": "Zonaprop",
+        "color": "#f57c1f",
+        "consultas": 1
+      },
+      {
+        "nombre": "MercadoLibre",
+        "color": "#ffd100",
+        "consultas": 2
+      },
+      {
+        "nombre": "Argenprop",
+        "color": "#4caf50",
+        "consultas": 0
+      },
+      {
+        "nombre": "Malek.com.ar",
+        "color": "#0097D9",
+        "consultas": 0
+      }
+    ],
+    "mercado": {
+      "mes": 1,
+      "exposicion": 5426,
+      "consultas": 16,
+      "visitas": 6
+    },
+    "consultas": [
+      {
+        "nombre": "Álvaro V.",
+        "fuente": "MercadoLibre",
+        "etapa": "Calificar",
+        "visito": false,
+        "fecha": "2026-10-26",
+        "feedback": ""
+      },
+      {
+        "nombre": "Marcela A.",
+        "fuente": "MercadoLibre",
+        "etapa": "Calificar",
+        "visito": false,
+        "fecha": "2026-10-26",
+        "feedback": ""
+      },
+      {
+        "nombre": "Melisa",
+        "fuente": "Zonaprop",
+        "etapa": "Calificar",
+        "visito": false,
+        "fecha": "2026-10-26",
+        "feedback": ""
+      }
+    ]
+  }
 }
