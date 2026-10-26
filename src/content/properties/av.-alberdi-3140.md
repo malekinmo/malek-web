@@ -9,7 +9,7 @@ banos: 1
 orientacion: Norte
 ubicacion: Frente
 expensas: 175000
-abl: null
+abl: 22000
 antiguedad: 15
 coverImage: /images/uploads/Portada-1.jpg
 gallery:
