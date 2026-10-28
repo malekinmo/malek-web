@@ -4,7 +4,7 @@ barrio: Flores
 price: 86000
 currency: USD
 m2: 52
-m2Cubiertos: 48
+m2Cubiertos: 46
 ambientes: 2
 dormitorios: 1
 banos: 1
