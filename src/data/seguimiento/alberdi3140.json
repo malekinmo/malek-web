@@ -295,7 +295,7 @@
     ]
   },
   "precio": {
-    "valor": "USD 85.000",
+    "valor": "USD 86.000",
     "label": "Valor de publicación"
   },
   "condiciones": [
@@ -314,38 +314,38 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-10-26",
-    "actualizado": "26 de octubre",
+    "generado": "2026-10-28",
+    "actualizado": "28 de octubre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
     "proximo_informe": "Viernes 31 oct",
     "destacado": {
-      "titulo": "3 consultas en 2 días",
-      "detalle": "Una de Zonaprop y dos de Mercado Libre"
+      "titulo": "4 consultas y 2 visitas en agenda",
+      "detalle": "Tres de Mercado Libre y una de Zonaprop"
     },
     "proximo": {
-      "titulo": "Coordinar las primeras visitas",
+      "titulo": "Hacer las primeras visitas",
       "detalle": "Primer informe semanal: 31 oct"
     },
     "semana": {
-      "rango": "Primeros 2 días · 25 y 26 oct",
+      "rango": "Primera semana · desde el 25 oct",
       "primera": true,
       "actual": {
         "exposicion": 1350,
         "clics": 60,
-        "consultas": 3,
+        "consultas": 4,
         "visitas": 0,
         "descartaron": 0
       },
       "anterior": null
     },
-    "lectura": "El 25 el aviso recién se estaba posicionando: 795 vistas y 9 clics. El 26 subió a 51 clics. Superó los 50 por día, el umbral de validación. Con 2 días es temprano para sacar conclusiones. El viernes 31 te mando el primer corte semanal.",
+    "lectura": "El 25 el aviso recién se estaba posicionando: 795 vistas y 9 clics. El 26 subió a 51 clics, por encima de los 50 por día que marcan la validación. Ya hay 4 consultas y 2 visitas en agenda. Es temprano para sacar conclusiones. El viernes 31 te mando el primer corte semanal.",
     "totales": {
       "exposicion": 1350,
       "clics": 60,
-      "consultas": 3,
+      "consultas": 4,
       "visitas": 0
     },
     "umbrales": {
@@ -374,7 +374,7 @@
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 2
+        "consultas": 3
       },
       {
         "nombre": "Argenprop",
@@ -395,9 +395,17 @@
     },
     "consultas": [
       {
-        "nombre": "Álvaro V.",
+        "nombre": "Mateo C.",
         "fuente": "MercadoLibre",
         "etapa": "Calificar",
+        "visito": false,
+        "fecha": "2026-10-28",
+        "feedback": ""
+      },
+      {
+        "nombre": "Álvaro V.",
+        "fuente": "MercadoLibre",
+        "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-10-26",
         "feedback": ""
@@ -405,7 +413,7 @@
       {
         "nombre": "Marcela A.",
         "fuente": "MercadoLibre",
-        "etapa": "Calificar",
+        "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-10-26",
         "feedback": ""

@@ -11,8 +11,6 @@ import data from '../../data/seguimiento/alberdi3140.json';
 
 const d: any = data;
 const inf: any = d.informe;
-const R = 54;
-const CIRC = +(2 * Math.PI * R).toFixed(2);
 
 const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const fFecha = (iso: string) => { const [, m, day] = iso.slice(0, 10).split('-').map(Number); return `${day} ${meses[m - 1]}`; };
@@ -21,8 +19,20 @@ const dias = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)
 
 // Resumen
 const diasPub = dias(inf.fecha_publicacion, inf.generado) + 1;
-const ringOffset = +(CIRC * (1 - Math.min(diasPub / inf.dias_autorizacion, 1))).toFixed(2);
 const clicsDia = inf.dias.length ? Math.round(inf.totales.clics / inf.dias.length) : 0;
+const ultimoDia = inf.dias.length ? inf.dias[inf.dias.length - 1] : null;
+
+// Termómetro de la demanda
+const UM = inf.umbrales;
+const clicsMax = Math.max(UM.prueba * 1.5, clicsDia * 1.1);
+const zonaClics = clicsDia < UM.especulacion ? { n: 'Especulación', c: 'z1' } : clicsDia < UM.prueba ? { n: 'Prueba', c: 'z2' } : { n: 'Validación', c: 'z3' };
+const posClics = Math.min(clicsDia / clicsMax, 1) * 100;
+const consSemana = inf.semana.actual.consultas;
+const consRef = +(inf.mercado.consultas / (30 / 7)).toFixed(1);
+const consMax = Math.max(consRef * 2, consSemana * 1.15);
+const posCons = Math.min(consSemana / consMax, 1) * 100;
+const posRef = (consRef / consMax) * 100;
+const consVs = consRef ? Math.round(((consSemana - consRef) / consRef) * 100) : 0;
 const T = inf.totales;
 
 // Semana
@@ -140,7 +150,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
       <div class="sg-floor" aria-hidden="true"><div class="sg-floor-grid"></div></div>
 
       <div class="sg-wrap sg-hero-in">
-        <p class="sg-eyebrow" data-rv="up">{d.propiedad} · Publicada el {fFecha(inf.fecha_publicacion)}</p>
+        <p class="sg-eyebrow" data-rv="up">{d.propiedad} · {inf.estado}</p>
         <h1 class="sg-h1">
           <span class="sg-mask"><span data-rv="mask">Seguimiento</span></span>
           <span class="sg-mask"><span data-rv="mask" data-delay="120">de</span></span>
@@ -148,37 +158,38 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
         </h1>
 
         <div class="sg-dash" data-rv="flip" data-delay="350">
-          <div class="sg-tilt" data-tilt>
-            <div class="sg-ring">
-              <svg viewBox="0 0 128 128" aria-hidden="true">
-                <defs>
-                  <linearGradient id="sgGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#6BAEDB" /><stop offset="1" stop-color="#0097D9" />
-                  </linearGradient>
-                </defs>
-                <circle cx="64" cy="64" r={R} class="sg-ring-bg" />
-                <circle cx="64" cy="64" r={R} class="sg-ring-fg" id="sgRing"
-                  style={`stroke-dasharray:${CIRC};stroke-dashoffset:${CIRC}`} data-circ={CIRC} data-to={ringOffset} />
-              </svg>
-              <div class="sg-ring-txt">
-                <strong><span data-count={diasPub}>{diasPub}</span></strong>
-                <span>de {inf.dias_autorizacion} días</span>
+          <div class="sg-tilt sg-termo" data-tilt>
+            <span class="sg-lbl">Termómetro de la demanda</span>
+            <div class="sg-termo-grid">
+              <div class="sg-gauge">
+                <div class="sg-gauge-top">
+                  <strong data-count={clicsDia}>{clicsDia}</strong>
+                  <div><b>Clics por día</b><span class={`sg-zona ${zonaClics.c}`}>{zonaClics.n}</span></div>
+                </div>
+                <div class="sg-tbar" style={`--pos:${posClics.toFixed(1)}%`}>
+                  <i class="z1" style={`width:${(UM.especulacion / clicsMax * 100).toFixed(1)}%`}></i>
+                  <i class="z2" style={`width:${((UM.prueba - UM.especulacion) / clicsMax * 100).toFixed(1)}%`}></i>
+                  <i class="z3"></i>
+                  <em class="sg-pin"></em>
+                </div>
+                <div class="sg-tscale"><span style={`left:${(UM.especulacion / clicsMax * 100).toFixed(1)}%`}>{UM.especulacion}</span><span style={`left:${(UM.prueba / clicsMax * 100).toFixed(1)}%`}>{UM.prueba}</span></div>
+                <p>Promedio desde la publicación{ultimoDia && <> · último día: <b>{ultimoDia.clics}</b></>}</p>
+              </div>
+              <div class="sg-gauge">
+                <div class="sg-gauge-top">
+                  <strong data-count={consSemana}>{consSemana}</strong>
+                  <div><b>Consultas esta semana</b><span class={`sg-zona ${consSemana >= consRef ? 'z3' : 'z2'}`}>{consVs >= 0 ? '+' : ''}{consVs}% vs. mercado</span></div>
+                </div>
+                <div class="sg-tbar sg-tbar-c" style={`--pos:${posCons.toFixed(1)}%`}>
+                  <i class="fill"></i>
+                  <u style={`left:${posRef.toFixed(1)}%`}></u>
+                  <em class="sg-pin"></em>
+                </div>
+                <div class="sg-tscale"><span style={`left:${posRef.toFixed(1)}%`}>{String(consRef).replace('.', ',')}</span></div>
+                <p>La línea marca el promedio del mercado en el primer mes</p>
               </div>
             </div>
-
-            <div class="sg-dash-info">
-              <div class="sg-now">
-                <span class="sg-lbl">Etapa actual</span>
-                <strong>{inf.estado}</strong>
-              </div>
-              <div class="sg-stats">
-                <div><b data-count={T.exposicion}>{nf(T.exposicion)}</b><span>Exposición</span></div>
-                <div><b data-count={T.clics}>{nf(T.clics)}</b><span>Clics</span></div>
-                <div><b data-count={T.consultas}>{nf(T.consultas)}</b><span>Consultas</span></div>
-                <div><b data-count={T.visitas}>{nf(T.visitas)}</b><span>Visitas</span></div>
-              </div>
-              <div class="sg-firma">Clics por día <b>{clicsDia}</b></div>
-            </div>
+            <div class="sg-firma">Día {diasPub} de {inf.dias_autorizacion} · Publicada el {fFecha(inf.fecha_publicacion)}</div>
           </div>
 
           <div class="sg-duo">
@@ -377,44 +388,41 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
 
           <section class="sg-sec">
             <div class="sg-intro" data-rv="up">
-              <p class="sg-eyebrow">Cómo llegamos acá</p>
-              <h2 class="sg-h2">El camino <span class="sg-accent">hasta publicar</span></h2>
-              <p>El recorrido completo desde la tasación hasta la publicación, paso a paso.</p>
+              <p class="sg-eyebrow">Tu publicación</p>
+              <h2 class="sg-h2">Condiciones y <span class="sg-accent">recorrido</span></h2>
+              <p>El acuerdo de venta, la documentación y el camino que hicimos hasta publicar.</p>
+            </div>
+            <div class="sg-fondo">
+              <div class="sg-price" data-rv="flip" data-tilt>
+                <span class="sg-lbl">{d.precio.label}</span>
+                <strong>{d.precio.valor}</strong>
+              </div>
+              <div class="sg-glass" data-rv="up">
+                <span class="sg-lbl">Condiciones</span>
+                <dl class="sg-conds">
+                  {d.condiciones.map((x: any) => (
+                    <div><dt>{x.lab}</dt><dd>{x.val}</dd></div>
+                  ))}
+                  <div><dt>Fin de autorización</dt><dd>{inf.fin_autorizacion}</dd></div>
+                </dl>
+              </div>
+              <div class="sg-fondo-col">
+                <div id="sgDocs"></div>
+                <div class="sg-glass sg-credito" data-rv="up">
+                  <span class="sg-accent sg-credito-t">Lo que sigue</span>
+                  <p>{d.despues}</p>
+                </div>
+              </div>
             </div>
             <details class="sg-camino" data-rv="up">
-              <summary><span>Ver el recorrido</span><i aria-hidden="true"></i></summary>
+              <summary><span>Ver el recorrido hasta publicar</span><i aria-hidden="true"></i></summary>
               <div id="sgFases"></div>
             </details>
+            <a class="sg-wa" href={wa} target="_blank" rel="noopener" data-rv="up">Hablar con Jaco</a>
           </section>
 
           <p class="sg-updated">Actualizado el {inf.actualizado} · Próximo informe: {inf.proximo_informe}</p>
         </div>
-
-        <aside class="sg-side">
-          <div class="sg-price" data-rv="flip" data-tilt>
-            <span class="sg-lbl">{d.precio.label}</span>
-            <strong>{d.precio.valor}</strong>
-          </div>
-
-          <div class="sg-glass" data-rv="up">
-            <span class="sg-lbl">Condiciones</span>
-            <dl class="sg-conds">
-              {d.condiciones.map((x: any) => (
-                <div><dt>{x.lab}</dt><dd>{x.val}</dd></div>
-              ))}
-              <div><dt>Fin de autorización</dt><dd>{inf.fin_autorizacion}</dd></div>
-            </dl>
-          </div>
-
-          <div id="sgDocs"></div>
-
-          <div class="sg-glass sg-credito" data-rv="up">
-            <span class="sg-accent sg-credito-t">Lo que sigue</span>
-            <p>{d.despues}</p>
-          </div>
-
-          <a class="sg-wa" href={wa} target="_blank" rel="noopener" data-rv="up">Hablar con Jaco</a>
-        </aside>
       </main>
 
       <footer class="sg-foot">
@@ -546,8 +554,6 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
             else io.observe(el);
           });
         }
-        const ring = $('sgRing');
-        setTimeout(() => { ring.style.strokeDashoffset = ring.dataset.to; }, reduce ? 0 : 500);
 
         if (!reduce && window.matchMedia('(hover: hover)').matches) {
           document.querySelectorAll('[data-tilt]').forEach((el) => {
@@ -662,12 +668,36 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-scroll span { position: absolute; top: -20px; left: 0; width: 1px; height: 20px; background: var(--c); animation: sgDrop 2s var(--ease) infinite; }
   @keyframes sgDrop { to { top: 60px; } }
 
+  /* ---------- Termómetro (hero) ---------- */
+  .sg-termo { flex-direction: column; align-items: stretch; gap: 22px; }
+  .sg-termo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3vw, 40px); transform: translateZ(30px); }
+  .sg-gauge-top { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+  .sg-gauge-top strong { font-family: 'Gotham', sans-serif; font-weight: 700; font-size: clamp(64px, 7vw, 104px); line-height: .82; letter-spacing: -.05em; font-variant-numeric: tabular-nums; text-shadow: 0 0 40px rgba(0,151,217,.45); }
+  .sg-gauge-top b { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--bone); margin-bottom: 8px; }
+  .sg-zona { display: inline-block; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; padding: 5px 9px; }
+  .sg-zona.z1 { background: rgba(245,242,236,.12); color: var(--g1); }
+  .sg-zona.z2 { background: rgba(107,174,219,.22); color: #A9D6EC; }
+  .sg-zona.z3 { background: var(--c); color: #fff; box-shadow: 0 0 18px rgba(0,151,217,.6); }
+  .sg-tbar { --pos: 0%; position: relative; display: flex; height: 10px; background: rgba(245,242,236,.08); }
+  .sg-tbar i { display: block; height: 100%; }
+  .sg-tbar .z1 { background: rgba(245,242,236,.16); } .sg-tbar .z2 { background: rgba(107,174,219,.45); } .sg-tbar .z3 { flex: 1; background: linear-gradient(90deg, #0097D9, #6BAEDB); box-shadow: 0 0 16px rgba(0,151,217,.5); }
+  .sg-tbar-c .fill { position: absolute; inset: 0 auto 0 0; width: var(--pos); background: linear-gradient(90deg, #00618C, #0097D9); box-shadow: 0 0 16px rgba(0,151,217,.5); transform-origin: left; transform: scaleX(0); transition: transform 1.6s var(--ease) .6s; }
+  .sg-dash.in .sg-tbar-c .fill { transform: none; }
+  .sg-tbar-c u { position: absolute; top: -5px; bottom: -5px; width: 2px; margin-left: -1px; background: var(--bone); opacity: .8; }
+  .sg-pin { position: absolute; top: 50%; left: 0; width: 18px; height: 18px; margin: -9px 0 0 -9px; background: #fff; transform: rotate(45deg); box-shadow: 0 0 0 4px rgba(0,151,217,.35), 0 0 20px rgba(0,151,217,.8); transition: left 1.6s var(--ease) .6s; }
+  .sg-dash.in .sg-pin { left: var(--pos); }
+  .sg-tscale { position: relative; height: 18px; margin-top: 8px; }
+  .sg-tscale span { position: absolute; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: var(--g2); font-variant-numeric: tabular-nums; }
+  .sg-gauge p { margin: 6px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--g2); font-weight: 500; }
+  .sg-gauge p b { color: var(--bone); }
+  .sg-termo .sg-firma { padding-top: 16px; border-top: 1px solid var(--line); }
+
   /* ---------- Cuerpo claro ---------- */
-  .sg-light { --ink: #FFFFFF; --bone: #0A0A0A; --g1: #4A4946; --g2: #8C8A85; --line: rgba(10,10,10,.1); --soft: #F5F2EC; --tint: #E8F4FA;
-    position: relative; background: #fff; color: var(--bone); }
+  .sg-light { --ink: #FBFAF6; --paper: #F3F0EA; --card: #FBFAF6; --bone: #1C1B19; --g1: #4A4946; --g2: #85837E; --line: rgba(28,27,25,.11); --soft: #E8E4DC; --tint: #DDEEF7;
+    position: relative; background: var(--paper); color: var(--bone); }
   .sg-light::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--c), transparent); opacity: .6; }
 
-  .sg-body { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(32px, 5vw, 80px); padding-top: clamp(60px, 8vw, 110px); padding-bottom: 110px; align-items: start; }
+  .sg-body { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1140px; gap: clamp(32px, 5vw, 80px); padding-top: clamp(60px, 8vw, 110px); padding-bottom: 110px; align-items: start; }
   .sg-main { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(80px, 10vw, 130px); }
   .sg-intro { max-width: 640px; margin-bottom: 26px; }
   .sg-h2 { font-family: 'Blacker Sans Display', 'Gotham', serif; font-weight: 700; font-size: clamp(32px, 4.2vw, 56px); line-height: 1; letter-spacing: -.03em; margin: 0 0 14px; }
@@ -682,7 +712,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
 
   /* KPIs */
   .sg-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-  .sg-kpi { position: relative; padding: 22px 22px 20px; border: 1px solid var(--line); background: #fff; box-shadow: 0 24px 50px -40px rgba(10,10,10,.35); display: flex; flex-direction: column; gap: 10px; }
+  .sg-kpi { position: relative; padding: 22px 22px 20px; border: 1px solid var(--line); background: var(--card); box-shadow: 0 24px 50px -40px rgba(10,10,10,.35); display: flex; flex-direction: column; gap: 10px; }
   .sg-kpi strong { font-family: 'Gotham', sans-serif; font-weight: 700; font-size: clamp(30px, 3.2vw, 42px); line-height: 1; letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
   .sg-chip { align-self: flex-start; font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; padding: 5px 9px; }
   .sg-chip.eq { background: var(--soft); color: var(--g2); }
@@ -705,7 +735,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-fl > strong { text-align: right; font-weight: 700; font-size: 26px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 
   /* Gráfico */
-  .sg-chart { border: 1px solid var(--line); padding: 24px 24px 18px; background: #fff; box-shadow: 0 30px 60px -50px rgba(10,10,10,.4); }
+  .sg-chart { border: 1px solid var(--line); padding: 24px 24px 18px; background: var(--card); box-shadow: 0 30px 60px -50px rgba(10,10,10,.4); }
   .sg-chart-scroll { overflow-x: auto; }
   .sg-chart svg { display: block; width: 100%; min-width: 440px; height: auto; overflow: visible; }
   .sg-chart text { font-family: 'Gotham', sans-serif; font-size: 11px; fill: var(--g2); font-weight: 500; }
@@ -743,7 +773,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-bench-pct { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--c); }
 
   /* Consultas: pestañas */
-  .sg-tabs { border: 1px solid var(--line); background: #fff; box-shadow: 0 30px 60px -50px rgba(10,10,10,.4); }
+  .sg-tabs { border: 1px solid var(--line); background: var(--card); box-shadow: 0 30px 60px -50px rgba(10,10,10,.4); }
   .sg-tablist { display: flex; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
   .sg-tablist::-webkit-scrollbar { display: none; }
   .sg-tablist button { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 18px 12px 16px; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; font: inherit; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--g2); cursor: pointer; transition: color .4s, border-color .4s, background .4s; }
@@ -786,13 +816,13 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-rail i { position: absolute; inset: 0; background: linear-gradient(var(--c), #6BAEDB); transform-origin: top; transform: scaleY(var(--fill)); box-shadow: 0 0 14px var(--c); }
   .sg-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
   .sg-step { position: relative; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: clamp(14px, 2.4vw, 26px); }
-  .sg-node { position: relative; z-index: 1; width: 32px; height: 32px; margin-top: 22px; border: 1px solid rgba(10,10,10,.25); background: #fff; display: grid; place-items: center; color: transparent; transform: rotate(45deg) scale(.86); transition: all .6s var(--ease); }
+  .sg-node { position: relative; z-index: 1; width: 32px; height: 32px; margin-top: 22px; border: 1px solid rgba(10,10,10,.25); background: var(--card); display: grid; place-items: center; color: transparent; transform: rotate(45deg) scale(.86); transition: all .6s var(--ease); }
   .sg-node > span { transform: rotate(-45deg); display: grid; }
   .sg-step.is-done .sg-node { background: var(--c); border-color: var(--c); color: #fff; box-shadow: 0 0 22px rgba(0,151,217,.45); }
   .sg-step.is-current .sg-node { border-color: var(--c); }
   .sg-step.is-current .sg-node::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--c); }
-  .sg-panel { position: relative; padding: clamp(18px, 2.4vw, 26px); border: 1px solid var(--line); background: #fff; }
-  .sg-step.is-current .sg-panel { border-color: rgba(0,151,217,.55); background: linear-gradient(160deg, rgba(0,151,217,.08), #fff); }
+  .sg-panel { position: relative; padding: clamp(18px, 2.4vw, 26px); border: 1px solid var(--line); background: var(--card); }
+  .sg-step.is-current .sg-panel { border-color: rgba(0,151,217,.55); background: linear-gradient(160deg, rgba(0,151,217,.08), var(--card)); }
   .sg-step-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .sg-panel h4 { font-family: 'Blacker Sans Display', 'Gotham', serif; font-weight: 500; font-size: clamp(19px, 1.9vw, 24px); line-height: 1.12; margin: 0; }
   .sg-badge { display: none; margin-left: 12px; vertical-align: 4px; font-family: 'Gotham', sans-serif; font-size: 9px; letter-spacing: .24em; text-transform: uppercase; font-weight: 700; color: #fff; background: var(--c); padding: 5px 9px; }
@@ -830,15 +860,19 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-updated { margin: 0; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--g2); font-weight: 700; }
 
   /* Lateral */
-  .sg-side { position: sticky; top: 28px; display: grid; gap: 16px; }
+  .sg-fondo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; margin-bottom: 16px; }
+  .sg-fondo-col { display: grid; gap: 16px; }
+  .sg-camino { margin-bottom: 16px; }
+  .sg-wa { max-width: 420px; }
+  .sg-fondo .sg-price strong { font-size: clamp(32px, 3.2vw, 42px); white-space: nowrap; }
   .sg-light .sg-price { padding: 28px; display: flex; flex-direction: column; gap: 8px; background: #0A0A0A; border-color: #0A0A0A; color: #F5F2EC; box-shadow: 0 40px 80px -40px rgba(0,151,217,.55); overflow: hidden; }
   .sg-light .sg-price::after { content: ''; position: absolute; inset: auto -30% -60% auto; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(0,151,217,.45), transparent 65%); pointer-events: none; }
   .sg-price strong { position: relative; z-index: 1; font-family: 'Gotham', sans-serif; font-weight: 700; font-size: clamp(38px, 4vw, 50px); letter-spacing: -.035em; line-height: 1; color: #F5F2EC; transform: translateZ(40px); text-shadow: 0 0 30px rgba(0,151,217,.45); }
-  .sg-glass { position: relative; padding: 22px 24px; border: 1px solid var(--line); background: #fff; }
+  .sg-glass { position: relative; padding: 22px 24px; border: 1px solid var(--line); background: var(--card); }
   .sg-docs-head { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; }
   .sg-docs-head strong { display: block; font-family: 'Blacker Sans Display', 'Gotham', serif; font-weight: 500; font-size: 22px; margin-top: 6px; }
   .sg-mini-ring { --p: 0; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--c) calc(var(--p) * 360deg), rgba(10,10,10,.08) 0); position: relative; }
-  .sg-mini-ring::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: #fff; }
+  .sg-mini-ring::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--card); }
   .sg-mini-ring span { position: relative; font-weight: 700; font-size: 17px; }
   .sg-mini-ring small { font-size: 10px; color: var(--g2); }
   .sg-docs-list { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--line); }
@@ -850,7 +884,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-conds div:last-child { border-bottom: 0; padding-bottom: 0; }
   .sg-conds dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--g2); font-weight: 700; }
   .sg-conds dd { margin: 5px 0 0; font-size: 15px; font-weight: 500; }
-  .sg-credito { border-color: rgba(0,151,217,.35); background: linear-gradient(160deg, var(--tint), #fff); }
+  .sg-credito { border-color: rgba(0,151,217,.35); background: linear-gradient(160deg, var(--tint), var(--card)); }
   .sg-credito-t { display: block; font-size: 34px; line-height: 1; margin-bottom: 12px; }
   .sg-credito p { margin: 0; color: var(--g1); font-size: 14px; line-height: 1.65; font-weight: 500; }
   .sg-wa { display: block; text-align: center; padding: 18px; background: var(--c); color: #fff; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; box-shadow: 0 24px 50px -24px rgba(0,151,217,.8); transition: background .3s; }
@@ -860,8 +894,8 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-foot { border-top: 1px solid var(--line); padding: 28px 0; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--g2); }
 
   @media (max-width: 1020px) {
-    .sg-body { grid-template-columns: minmax(0, 1fr); }
-    .sg-side { position: static; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .sg-fondo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sg-fondo .sg-price { grid-column: 1 / -1; }
     .sg-dash { grid-template-columns: minmax(0, 1fr); }
     .sg-duo { grid-template-columns: 1fr 1fr; }
   }
@@ -882,6 +916,9 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
     .sg-ring { margin: 0 auto; }
     .sg-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
     .sg-duo { grid-template-columns: 1fr; }
+    .sg-termo-grid { grid-template-columns: minmax(0, 1fr); }
+    .sg-fondo { grid-template-columns: minmax(0, 1fr); }
+    .sg-wa { max-width: none; }
     .sg-card3d { min-height: 0; }
     .sg-scroll { display: none; }
     .sg-fase-head { grid-template-columns: minmax(0, 1fr); gap: 6px; }
@@ -904,5 +941,6 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
     [data-rv] { opacity: 1 !important; transform: none !important; }
     .sg-fl-bar i, .sg-pb i, .sg-bench-bar i, .sg-chart .bar rect { transform: none !important; }
     .sg-chart .bar .v { opacity: 1 !important; }
+    .sg-pin { left: var(--pos) !important; } .sg-tbar-c .fill { transform: none !important; }
   }
 </style>
