@@ -384,12 +384,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 1
+        "consultas": 0
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 3
+        "consultas": 0
       },
       {
         "nombre": "Argenprop",
@@ -410,24 +410,30 @@
     },
     "consultas": [
       {
-        "nombre": "Mateo C.",
-        "fuente": "MercadoLibre",
+        "nombre": "Mateo Augusto Corriani",
+        "fuente": [
+          "MercadoLibre"
+        ],
         "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-10-28",
         "feedback": ""
       },
       {
-        "nombre": "Álvaro V.",
-        "fuente": "MercadoLibre",
+        "nombre": "Alvaro Cornelio Vicente Vique",
+        "fuente": [
+          "MercadoLibre"
+        ],
         "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-10-26",
         "feedback": ""
       },
       {
-        "nombre": "Marcela A.",
-        "fuente": "MercadoLibre",
+        "nombre": "Marcela Adriana Alamo",
+        "fuente": [
+          "MercadoLibre"
+        ],
         "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-10-26",
@@ -435,8 +441,10 @@
       },
       {
         "nombre": "Melisa",
-        "fuente": "Zonaprop",
-        "etapa": "Calificar",
+        "fuente": [
+          "Zonaprop"
+        ],
+        "etapa": "Coordinar",
         "visito": false,
         "fecha": "2026-10-26",
         "feedback": ""
