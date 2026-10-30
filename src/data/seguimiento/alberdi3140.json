@@ -314,37 +314,37 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-10-28",
-    "actualizado": "28 de octubre",
+    "generado": "2026-10-30",
+    "actualizado": "30 de octubre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 31 oct",
+    "proximo_informe": "Viernes 6 nov",
     "destacado": {
       "titulo": "4 consultas y 2 visitas en agenda",
       "detalle": "Tres de Mercado Libre y una de Zonaprop"
     },
     "proximo": {
       "titulo": "Hacer las primeras visitas",
-      "detalle": "Primer informe semanal: 31 oct"
+      "detalle": "Próximo informe semanal: 6 nov"
     },
     "semana": {
-      "rango": "Primera semana · desde el 25 oct",
+      "rango": "Primera semana · 25 al 29 oct",
       "primera": true,
       "actual": {
-        "exposicion": 1350,
-        "clics": 60,
+        "exposicion": 2363,
+        "clics": 167,
         "consultas": 4,
         "visitas": 0,
         "descartaron": 0
       },
       "anterior": null
     },
-    "lectura": "El 25 el aviso recién se estaba posicionando: 795 vistas y 9 clics. El 26 subió a 51 clics, por encima de los 50 por día que marcan la validación. Ya hay 4 consultas y 2 visitas en agenda. Es temprano para sacar conclusiones. El viernes 31 te mando el primer corte semanal.",
+    "lectura": "El aviso arrancó con 795 vistas y 9 clics el 25. El 26 llegó a 64 clics, sobre los 50 por día que marcan la validación. El 27 y el 28 se mantuvo en 42 y 39. El 29 bajó a 13, con 209 vistas. Hay 4 consultas y 2 visitas en agenda. Seguimos la tendencia la semana próxima.",
     "totales": {
-      "exposicion": 1350,
-      "clics": 60,
+      "exposicion": 2363,
+      "clics": 167,
       "consultas": 4,
       "visitas": 0
     },
@@ -360,8 +360,23 @@
       },
       {
         "fecha": "2026-10-26",
-        "exposicion": 555,
-        "clics": 51
+        "exposicion": 755,
+        "clics": 64
+      },
+      {
+        "fecha": "2026-10-27",
+        "exposicion": 336,
+        "clics": 42
+      },
+      {
+        "fecha": "2026-10-28",
+        "exposicion": 268,
+        "clics": 39
+      },
+      {
+        "fecha": "2026-10-29",
+        "exposicion": 209,
+        "clics": 13
       }
     ],
     "semanas": [],
