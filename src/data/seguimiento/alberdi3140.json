@@ -330,7 +330,7 @@
       "detalle": "Próximo informe semanal: 6 nov"
     },
     "semana": {
-      "rango": "Primera semana · 25 al 29 oct",
+      "rango": "Primera semana · 25 oct al 29 oct",
       "primera": true,
       "actual": {
         "exposicion": 2363,
@@ -341,7 +341,7 @@
       },
       "anterior": null
     },
-    "lectura": "El aviso arrancó con 795 vistas y 9 clics el 25. El 26 llegó a 64 clics, sobre los 50 por día que marcan la validación. El 27 y el 28 se mantuvo en 42 y 39. El 29 bajó a 13, con 209 vistas. Hay 4 consultas y 2 visitas en agenda. Seguimos la tendencia la semana próxima.",
+    "lectura": "Promedio de 33 clics por día, en zona de prueba. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (29 oct) tuvo 13 clics y 209 de exposición. Hay 4 consultas y 0 visitas.",
     "totales": {
       "exposicion": 2363,
       "clics": 167,
