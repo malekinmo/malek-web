@@ -333,8 +333,8 @@
       "rango": "30 oct al 5 nov",
       "primera": false,
       "actual": {
-        "exposicion": 0,
-        "clics": 0,
+        "exposicion": 1156,
+        "clics": 124,
         "consultas": 2,
         "visitas": 2,
         "descartaron": 0
@@ -347,10 +347,10 @@
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 33 clics por día, en zona de prueba. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (29 oct) tuvo 13 clics y 209 de exposición. Hay 8 consultas y 2 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (5 nov) tuvo 11 clics y 142 de exposición. Hay 8 consultas y 2 visitas.",
     "totales": {
-      "exposicion": 2363,
-      "clics": 167,
+      "exposicion": 3519,
+      "clics": 291,
       "consultas": 8,
       "visitas": 2
     },
@@ -383,6 +383,41 @@
         "fecha": "2026-10-29",
         "exposicion": 209,
         "clics": 13
+      },
+      {
+        "fecha": "2026-10-30",
+        "exposicion": 199,
+        "clics": 14
+      },
+      {
+        "fecha": "2026-10-31",
+        "exposicion": 136,
+        "clics": 19
+      },
+      {
+        "fecha": "2026-11-01",
+        "exposicion": 186,
+        "clics": 12
+      },
+      {
+        "fecha": "2026-11-02",
+        "exposicion": 152,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-03",
+        "exposicion": 184,
+        "clics": 32
+      },
+      {
+        "fecha": "2026-11-04",
+        "exposicion": 157,
+        "clics": 16
+      },
+      {
+        "fecha": "2026-11-05",
+        "exposicion": 142,
+        "clics": 11
       }
     ],
     "semanas": [],
@@ -420,20 +455,20 @@
         "fuente": [
           "MercadoLibre"
         ],
-        "etapa": "Nuevo",
+        "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-11-06",
-        "feedback": ""
+        "feedback": "Agendado para el miercoles. Consulto si el alquier sigue en caso de compra. busca para vivir, compra con crédito "
       },
       {
         "nombre": "Ifrantageli",
         "fuente": [
           "Zonaprop"
         ],
-        "etapa": "Nuevo",
+        "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-11-06",
-        "feedback": ""
+        "feedback": "Compra con crédito, agendado para el miercoles"
       },
       {
         "nombre": "Melisa F.",
@@ -450,10 +485,10 @@
         "fuente": [
           "Zonaprop"
         ],
-        "etapa": "Nuevo",
+        "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-11-01",
-        "feedback": ""
+        "feedback": "Sin respuestas"
       },
       {
         "nombre": "Mateo Augusto Corriani",
@@ -463,7 +498,7 @@
         "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-10-28",
-        "feedback": ""
+        "feedback": "sin respuestas"
       },
       {
         "nombre": "Alvaro Cornelio Vicente Vique",
@@ -473,7 +508,7 @@
         "etapa": "Seguimiento",
         "visito": true,
         "fecha": "2026-10-26",
-        "feedback": ""
+        "feedback": "Le interesa, reservo otro que no prospera aún, puede que oferte si no avanza. \nMenciono que no incluye SUM. \nCompra con crédito"
       },
       {
         "nombre": "Marcela Adriana Alamo",
@@ -483,7 +518,7 @@
         "etapa": "Seguimiento",
         "visito": true,
         "fecha": "2026-10-26",
-        "feedback": ""
+        "feedback": "Les gusto, aún estan comenzado la busqueda. compran con crédito"
       },
       {
         "nombre": "Melisa",
@@ -493,7 +528,7 @@
         "etapa": "Coordinar",
         "visito": false,
         "fecha": "2026-10-26",
-        "feedback": ""
+        "feedback": "Compra con crédito, le da miedo que el banco lo rechace por estár alquilado"
       }
     ]
   }
