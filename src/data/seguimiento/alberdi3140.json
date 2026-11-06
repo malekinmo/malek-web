@@ -314,13 +314,13 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-10-30",
-    "actualizado": "30 de octubre",
+    "generado": "2026-11-06",
+    "actualizado": "6 de noviembre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 6 nov",
+    "proximo_informe": "Viernes 13 nov",
     "destacado": {
       "titulo": "4 consultas y 2 visitas en agenda",
       "detalle": "Tres de Mercado Libre y una de Zonaprop"
@@ -330,23 +330,29 @@
       "detalle": "Próximo informe semanal: 6 nov"
     },
     "semana": {
-      "rango": "Primera semana · 25 oct al 29 oct",
-      "primera": true,
+      "rango": "30 oct al 5 nov",
+      "primera": false,
       "actual": {
-        "exposicion": 2363,
-        "clics": 167,
-        "consultas": 4,
-        "visitas": 0,
+        "exposicion": 0,
+        "clics": 0,
+        "consultas": 2,
+        "visitas": 2,
         "descartaron": 0
       },
-      "anterior": null
+      "anterior": {
+        "exposicion": 2363,
+        "clics": 167,
+        "consultas": 0,
+        "visitas": 0,
+        "descartaron": 0
+      }
     },
-    "lectura": "Promedio de 33 clics por día, en zona de prueba. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (29 oct) tuvo 13 clics y 209 de exposición. Hay 4 consultas y 0 visitas.",
+    "lectura": "Promedio de 33 clics por día, en zona de prueba. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (29 oct) tuvo 13 clics y 209 de exposición. Hay 8 consultas y 2 visitas.",
     "totales": {
       "exposicion": 2363,
       "clics": 167,
-      "consultas": 4,
-      "visitas": 0
+      "consultas": 8,
+      "visitas": 2
     },
     "umbrales": {
       "especulacion": 25,
@@ -410,6 +416,46 @@
     },
     "consultas": [
       {
+        "nombre": "Nicolas Ezequiel Basile",
+        "fuente": [
+          "MercadoLibre"
+        ],
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-06",
+        "feedback": ""
+      },
+      {
+        "nombre": "Ifrantageli",
+        "fuente": [
+          "Zonaprop"
+        ],
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-06",
+        "feedback": ""
+      },
+      {
+        "nombre": "Melisa F.",
+        "fuente": [
+          "MercadoLibre"
+        ],
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-03",
+        "feedback": ""
+      },
+      {
+        "nombre": "Aguilera w.",
+        "fuente": [
+          "Zonaprop"
+        ],
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-01",
+        "feedback": ""
+      },
+      {
         "nombre": "Mateo Augusto Corriani",
         "fuente": [
           "MercadoLibre"
@@ -424,8 +470,8 @@
         "fuente": [
           "MercadoLibre"
         ],
-        "etapa": "Muestra",
-        "visito": false,
+        "etapa": "Seguimiento",
+        "visito": true,
         "fecha": "2026-10-26",
         "feedback": ""
       },
@@ -434,8 +480,8 @@
         "fuente": [
           "MercadoLibre"
         ],
-        "etapa": "Muestra",
-        "visito": false,
+        "etapa": "Seguimiento",
+        "visito": true,
         "fecha": "2026-10-26",
         "feedback": ""
       },
