@@ -335,7 +335,7 @@
       "actual": {
         "exposicion": 1156,
         "clics": 124,
-        "consultas": 2,
+        "consultas": 1,
         "visitas": 2,
         "descartaron": 0
       },
@@ -347,11 +347,11 @@
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (5 nov) tuvo 11 clics y 142 de exposición. Hay 8 consultas y 2 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (5 nov) tuvo 11 clics y 142 de exposición. Hay 7 consultas y 2 visitas.",
     "totales": {
       "exposicion": 3519,
       "clics": 291,
-      "consultas": 8,
+      "consultas": 7,
       "visitas": 2
     },
     "umbrales": {
@@ -425,12 +425,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 0
+        "consultas": 3
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 0
+        "consultas": 4
       },
       {
         "nombre": "Argenprop",
@@ -451,10 +451,8 @@
     },
     "consultas": [
       {
-        "nombre": "Nicolas Ezequiel Basile",
-        "fuente": [
-          "MercadoLibre"
-        ],
+        "nombre": "Nicolas B.",
+        "fuente": "MercadoLibre",
         "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-11-06",
@@ -462,73 +460,51 @@
       },
       {
         "nombre": "Ifrantageli",
-        "fuente": [
-          "Zonaprop"
-        ],
+        "fuente": "Zonaprop",
         "etapa": "Muestra",
         "visito": false,
         "fecha": "2026-11-06",
         "feedback": "Compra con crédito, agendado para el miercoles"
       },
       {
-        "nombre": "Melisa F.",
-        "fuente": [
-          "MercadoLibre"
-        ],
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-03",
-        "feedback": ""
-      },
-      {
-        "nombre": "Aguilera w.",
-        "fuente": [
-          "Zonaprop"
-        ],
+        "nombre": "Aguilera W.",
+        "fuente": "Zonaprop",
         "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-11-01",
         "feedback": "Sin respuestas"
       },
       {
-        "nombre": "Mateo Augusto Corriani",
-        "fuente": [
-          "MercadoLibre"
-        ],
+        "nombre": "Mateo C.",
+        "fuente": "MercadoLibre",
         "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-10-28",
         "feedback": "sin respuestas"
       },
       {
-        "nombre": "Alvaro Cornelio Vicente Vique",
-        "fuente": [
-          "MercadoLibre"
-        ],
-        "etapa": "Seguimiento",
-        "visito": true,
+        "nombre": "Melisa",
+        "fuente": "Zonaprop",
+        "etapa": "Coordinar",
+        "visito": false,
         "fecha": "2026-10-26",
-        "feedback": "Le interesa, reservo otro que no prospera aún, puede que oferte si no avanza. \nMenciono que no incluye SUM. \nCompra con crédito"
+        "feedback": "Compra con crédito, le da miedo que el banco lo rechace por estár alquilado"
       },
       {
-        "nombre": "Marcela Adriana Alamo",
-        "fuente": [
-          "MercadoLibre"
-        ],
+        "nombre": "Marcela A.",
+        "fuente": "MercadoLibre",
         "etapa": "Seguimiento",
         "visito": true,
         "fecha": "2026-10-26",
         "feedback": "Les gusto, aún estan comenzado la busqueda. compran con crédito"
       },
       {
-        "nombre": "Melisa",
-        "fuente": [
-          "Zonaprop"
-        ],
-        "etapa": "Coordinar",
-        "visito": false,
+        "nombre": "Alvaro V.",
+        "fuente": "MercadoLibre",
+        "etapa": "Seguimiento",
+        "visito": true,
         "fecha": "2026-10-26",
-        "feedback": "Compra con crédito, le da miedo que el banco lo rechace por estár alquilado"
+        "feedback": "Le interesa, reservo otro que no prospera aún, puede que oferte si no avanza. \nMenciono que no incluye SUM. \nCompra con crédito"
       }
     ]
   }
