@@ -314,13 +314,13 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-11-06",
-    "actualizado": "6 de noviembre",
+    "generado": "2026-11-13",
+    "actualizado": "13 de noviembre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 13 nov",
+    "proximo_informe": "Viernes 20 nov",
     "destacado": {
       "titulo": "4 consultas y 2 visitas en agenda",
       "detalle": "Tres de Mercado Libre y una de Zonaprop"
@@ -330,29 +330,29 @@
       "detalle": "Próximo informe semanal: 6 nov"
     },
     "semana": {
-      "rango": "30 oct al 5 nov",
+      "rango": "6 nov al 12 nov",
       "primera": false,
       "actual": {
-        "exposicion": 1156,
-        "clics": 124,
-        "consultas": 1,
-        "visitas": 2,
-        "descartaron": 0
+        "exposicion": 100,
+        "clics": 14,
+        "consultas": 6,
+        "visitas": 4,
+        "descartaron": 1
       },
       "anterior": {
-        "exposicion": 2363,
-        "clics": 167,
+        "exposicion": 1156,
+        "clics": 124,
         "consultas": 0,
         "visitas": 0,
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (5 nov) tuvo 11 clics y 142 de exposición. Hay 7 consultas y 2 visitas.",
+    "lectura": "Promedio de 23 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (6 nov) tuvo 14 clics y 100 de exposición. Hay 11 consultas y 4 visitas.",
     "totales": {
-      "exposicion": 3519,
-      "clics": 291,
-      "consultas": 7,
-      "visitas": 2
+      "exposicion": 3619,
+      "clics": 305,
+      "consultas": 11,
+      "visitas": 4
     },
     "umbrales": {
       "especulacion": 25,
@@ -418,6 +418,11 @@
         "fecha": "2026-11-05",
         "exposicion": 142,
         "clics": 11
+      },
+      {
+        "fecha": "2026-11-06",
+        "exposicion": 100,
+        "clics": 14
       }
     ],
     "semanas": [],
@@ -425,12 +430,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 3
+        "consultas": 4
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 4
+        "consultas": 7
       },
       {
         "nombre": "Argenprop",
@@ -451,20 +456,52 @@
     },
     "consultas": [
       {
-        "nombre": "Nicolas B.",
+        "nombre": "Nico N.",
         "fuente": "MercadoLibre",
-        "etapa": "Muestra",
+        "etapa": "Coordinar",
         "visito": false,
-        "fecha": "2026-11-06",
-        "feedback": "Agendado para el miercoles. Consulto si el alquier sigue en caso de compra. busca para vivir, compra con crédito "
+        "fecha": "2026-11-11",
+        "feedback": ""
       },
       {
-        "nombre": "Ifrantageli",
+        "nombre": "Vanesa B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Descarto",
+        "visito": false,
+        "fecha": "2026-11-09",
+        "feedback": "Permuta casa en Claromeco "
+      },
+      {
+        "nombre": "Monica",
         "fuente": "Zonaprop",
-        "etapa": "Muestra",
+        "etapa": "Coordinar",
+        "visito": false,
+        "fecha": "2026-11-07",
+        "feedback": "Falto a la visita, re cordinando"
+      },
+      {
+        "nombre": "Nicolas B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-11-06",
+        "feedback": "compra con crédito privado, le exigen que no esté alquilado para el otrogamiento, muy interesado"
+      },
+      {
+        "nombre": "Ifranta G.",
+        "fuente": "Zonaprop",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-11-06",
+        "feedback": "Compra con crédito, Le gusto mucho, está interesada, necesitaria ingresar en Abril"
+      },
+      {
+        "nombre": "Johana O.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
         "visito": false,
         "fecha": "2026-11-06",
-        "feedback": "Compra con crédito, agendado para el miercoles"
+        "feedback": ""
       },
       {
         "nombre": "Aguilera W.",
@@ -483,7 +520,7 @@
         "feedback": "sin respuestas"
       },
       {
-        "nombre": "Melisa",
+        "nombre": "Melisa F.",
         "fuente": "Zonaprop",
         "etapa": "Coordinar",
         "visito": false,
