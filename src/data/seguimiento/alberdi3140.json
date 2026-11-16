@@ -347,11 +347,11 @@
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (15 nov) tuvo 41 clics y 163 de exposición. Hay 19 consultas y 4 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (15 nov) tuvo 41 clics y 163 de exposición. Hay 12 consultas y 4 visitas.",
     "totales": {
       "exposicion": 4929,
       "clics": 528,
-      "consultas": 19,
+      "consultas": 12,
       "visitas": 4
     },
     "umbrales": {
@@ -475,12 +475,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 5
+        "consultas": 4
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 14
+        "consultas": 8
       },
       {
         "nombre": "Argenprop",
@@ -500,62 +500,6 @@
       "visitas": 6
     },
     "consultas": [
-      {
-        "nombre": "Patricio O.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-16",
-        "feedback": ""
-      },
-      {
-        "nombre": "Roger C.",
-        "fuente": "Zonaprop",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-14",
-        "feedback": ""
-      },
-      {
-        "nombre": "Cinthia M.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-14",
-        "feedback": ""
-      },
-      {
-        "nombre": "Gonzalo I.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-14",
-        "feedback": ""
-      },
-      {
-        "nombre": "Selva A.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-14",
-        "feedback": ""
-      },
-      {
-        "nombre": "Pablo I.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-14",
-        "feedback": ""
-      },
-      {
-        "nombre": "Daniel D.",
-        "fuente": "MercadoLibre",
-        "etapa": "Nuevo",
-        "visito": false,
-        "fecha": "2026-11-13",
-        "feedback": ""
-      },
       {
         "nombre": "Evelyn B.",
         "fuente": "MercadoLibre",
