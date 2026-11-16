@@ -347,10 +347,10 @@
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (12 nov) tuvo 34 clics y 131 de exposición. Hay 19 consultas y 4 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (15 nov) tuvo 41 clics y 163 de exposición. Hay 19 consultas y 4 visitas.",
     "totales": {
-      "exposicion": 4470,
-      "clics": 453,
+      "exposicion": 4929,
+      "clics": 528,
       "consultas": 19,
       "visitas": 4
     },
@@ -453,6 +453,21 @@
         "fecha": "2026-11-12",
         "exposicion": 131,
         "clics": 34
+      },
+      {
+        "fecha": "2026-11-13",
+        "exposicion": 138,
+        "clics": 18
+      },
+      {
+        "fecha": "2026-11-14",
+        "exposicion": 158,
+        "clics": 16
+      },
+      {
+        "fecha": "2026-11-15",
+        "exposicion": 163,
+        "clics": 41
       }
     ],
     "semanas": [],
