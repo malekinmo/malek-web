@@ -74,14 +74,14 @@ const conv = (i: number) => {
 
 // Gráfico de clics por día (SVG a escala)
 const U = inf.umbrales;
-const cW = 640, cH = 240, cL = 34, cR = 12, cT = 18, cB = 30;
+const nD = inf.dias.length, slots = Math.max(nD, 7);
+const cW = Math.max(640, 46 + slots * 30), cH = 250, cL = 34, cR = 12, cT = 18, cB = 44;
 const cMax = Math.max(U.prueba + 10, ...inf.dias.map((x: any) => x.clics)) * 1.12;
 const cy = (v: number) => cT + (cH - cT - cB) * (1 - v / cMax);
-const slots = Math.max(inf.dias.length, 7);
 const cw = (cW - cL - cR) / slots;
 const bw = Math.min(cw * 0.56, 46);
 const barras = inf.dias.map((x: any, i: number) => ({
-  x: cL + i * cw + (cw - bw) / 2, y: cy(x.clics), h: cy(0) - cy(x.clics), v: x.clics, f: fFecha(x.fecha), ult: i === inf.dias.length - 1,
+  x: cL + i * cw + (cw - bw) / 2, y: cy(x.clics), h: cy(0) - cy(x.clics), v: x.clics, dia: +x.fecha.slice(8, 10), mes: (i === 0 || x.fecha.slice(5, 7) !== inf.dias[i - 1].fecha.slice(5, 7)) ? meses[+x.fecha.slice(5, 7) - 1] : '', ult: i === inf.dias.length - 1,
 }));
 
 // Portales
@@ -272,8 +272,8 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
               </div>
             </header>
             <div class="sg-chart" data-rv="flip">
-              <div class="sg-chart-scroll">
-                <svg viewBox={`0 0 ${cW} ${cH}`} role="img" aria-label="Clics por día desde la publicación">
+              <div class="sg-chart-scroll" id="sgChartScroll">
+                <svg style={`min-width:${Math.max(440, Math.round(cW * 0.75))}px`} viewBox={`0 0 ${cW} ${cH}`} role="img" aria-label="Clics por día desde la publicación">
                   <rect class="z z1" x={cL} y={cy(U.especulacion)} width={cW - cL - cR} height={cy(0) - cy(U.especulacion)} />
                   <rect class="z z2" x={cL} y={cy(U.prueba)} width={cW - cL - cR} height={cy(U.especulacion) - cy(U.prueba)} />
                   <rect class="z z3" x={cL} y={cT} width={cW - cL - cR} height={cy(U.prueba) - cT} />
@@ -281,10 +281,11 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
                     <g><line x1={cL} x2={cW - cR} y1={cy(v)} y2={cy(v)} class="gl" /><text x={cL - 8} y={cy(v) + 4} text-anchor="end">{v}</text></g>
                   ))}
                   {barras.map((b: any, i: number) => (
-                    <g class="bar" style={`--i:${i}`}>
+                    <g class="bar" style={`--i:${i};--st:${Math.round(Math.min(140, 1800 / nD))}ms`}>
                       <rect x={b.x} y={b.y} width={bw} height={b.h} class={b.ult ? 'b ult' : 'b'} />
                       <text x={b.x + bw / 2} y={b.y - 8} text-anchor="middle" class={b.ult ? 'v ult' : 'v'}>{b.v}</text>
-                      <text x={b.x + bw / 2} y={cH - 9} text-anchor="middle">{b.f}</text>
+                      <text x={b.x + bw / 2} y={cH - 24} text-anchor="middle">{b.dia}</text>
+                      {b.mes && <text x={b.x + bw / 2} y={cH - 9} text-anchor="middle" class="mes">{b.mes}</text>}
                     </g>
                   ))}
                 </svg>
@@ -455,6 +456,7 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
       }
 
       // Pestañas de consultas
+      const cs = document.getElementById('sgChartScroll'); if (cs) cs.scrollLeft = cs.scrollWidth;
       const tabsBtns = [...document.querySelectorAll('.sg-tablist [role="tab"]')];
       function abrirTab(btn, foco) {
         tabsBtns.forEach((b) => {
@@ -739,12 +741,13 @@ const wa = 'https://wa.me/5491122540182?text=' + encodeURIComponent(`Hola Jaco! 
   .sg-chart-scroll { overflow-x: auto; }
   .sg-chart svg { display: block; width: 100%; min-width: 440px; height: auto; overflow: visible; }
   .sg-chart text { font-family: 'Gotham', sans-serif; font-size: 11px; fill: var(--g2); font-weight: 500; }
+  .sg-chart .mes { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; }
   .sg-chart .gl { stroke: var(--line); }
   .sg-chart .z1 { fill: rgba(140,138,133,.08); } .sg-chart .z2 { fill: rgba(107,174,219,.14); } .sg-chart .z3 { fill: rgba(0,151,217,.12); }
   .sg-chart .b { fill: #6BAEDB; } .sg-chart .b.ult { fill: var(--c); filter: drop-shadow(0 6px 14px rgba(0,151,217,.45)); }
   .sg-chart .v { font-weight: 700; fill: var(--g1); font-size: 13px; } .sg-chart .v.ult { fill: var(--bone); }
-  .sg-chart .bar rect { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * 140ms + 200ms); }
-  .sg-chart .bar .v { opacity: 0; transition: opacity .6s; transition-delay: calc(var(--i) * 140ms + 900ms); }
+  .sg-chart .bar rect { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * var(--st, 140ms) + 200ms); }
+  .sg-chart .bar .v { opacity: 0; transition: opacity .6s; transition-delay: calc(var(--i) * var(--st, 140ms) + 900ms); }
   .sg-chart.in .bar rect { transform: none; } .sg-chart.in .bar .v { opacity: 1; }
   .sg-zonas { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-size: 12px; color: var(--g2); font-weight: 500; }
   .sg-zonas span { display: inline-flex; align-items: center; gap: 8px; }
