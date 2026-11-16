@@ -314,13 +314,13 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-11-13",
-    "actualizado": "13 de noviembre",
+    "generado": "2026-11-16",
+    "actualizado": "16 de noviembre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 20 nov",
+    "proximo_informe": "Viernes 23 nov",
     "destacado": {
       "titulo": "4 consultas y 2 visitas en agenda",
       "detalle": "Tres de Mercado Libre y una de Zonaprop"
@@ -333,8 +333,8 @@
       "rango": "6 nov al 12 nov",
       "primera": false,
       "actual": {
-        "exposicion": 100,
-        "clics": 14,
+        "exposicion": 951,
+        "clics": 162,
         "consultas": 6,
         "visitas": 4,
         "descartaron": 1
@@ -347,11 +347,11 @@
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 23 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (6 nov) tuvo 14 clics y 100 de exposición. Hay 11 consultas y 4 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (12 nov) tuvo 34 clics y 131 de exposición. Hay 19 consultas y 4 visitas.",
     "totales": {
-      "exposicion": 3619,
-      "clics": 305,
-      "consultas": 11,
+      "exposicion": 4470,
+      "clics": 453,
+      "consultas": 19,
       "visitas": 4
     },
     "umbrales": {
@@ -421,8 +421,38 @@
       },
       {
         "fecha": "2026-11-06",
-        "exposicion": 100,
-        "clics": 14
+        "exposicion": 171,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-07",
+        "exposicion": 112,
+        "clics": 32
+      },
+      {
+        "fecha": "2026-11-08",
+        "exposicion": 114,
+        "clics": 18
+      },
+      {
+        "fecha": "2026-11-09",
+        "exposicion": 133,
+        "clics": 27
+      },
+      {
+        "fecha": "2026-11-10",
+        "exposicion": 126,
+        "clics": 11
+      },
+      {
+        "fecha": "2026-11-11",
+        "exposicion": 164,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-12",
+        "exposicion": 131,
+        "clics": 34
       }
     ],
     "semanas": [],
@@ -430,12 +460,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 4
+        "consultas": 5
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 7
+        "consultas": 14
       },
       {
         "nombre": "Argenprop",
@@ -455,6 +485,70 @@
       "visitas": 6
     },
     "consultas": [
+      {
+        "nombre": "Patricio O.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-16",
+        "feedback": ""
+      },
+      {
+        "nombre": "Roger C.",
+        "fuente": "Zonaprop",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Cinthia M.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Gonzalo I.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Selva A.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Pablo I.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Daniel D.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-13",
+        "feedback": ""
+      },
+      {
+        "nombre": "Evelyn B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-13",
+        "feedback": ""
+      },
       {
         "nombre": "Nico N.",
         "fuente": "MercadoLibre",
