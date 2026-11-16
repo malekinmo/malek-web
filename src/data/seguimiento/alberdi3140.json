@@ -314,13 +314,13 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-10-30",
-    "actualizado": "30 de octubre",
+    "generado": "2026-11-16",
+    "actualizado": "16 de noviembre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 6 nov",
+    "proximo_informe": "Viernes 23 nov",
     "destacado": {
       "titulo": "4 consultas y 2 visitas en agenda",
       "detalle": "Tres de Mercado Libre y una de Zonaprop"
@@ -330,23 +330,29 @@
       "detalle": "Próximo informe semanal: 6 nov"
     },
     "semana": {
-      "rango": "Primera semana · 25 oct al 29 oct",
-      "primera": true,
+      "rango": "6 nov al 12 nov",
+      "primera": false,
       "actual": {
-        "exposicion": 2363,
-        "clics": 167,
-        "consultas": 4,
+        "exposicion": 951,
+        "clics": 162,
+        "consultas": 6,
+        "visitas": 4,
+        "descartaron": 1
+      },
+      "anterior": {
+        "exposicion": 1156,
+        "clics": 124,
+        "consultas": 0,
         "visitas": 0,
         "descartaron": 0
-      },
-      "anterior": null
+      }
     },
-    "lectura": "Promedio de 33 clics por día, en zona de prueba. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (29 oct) tuvo 13 clics y 209 de exposición. Hay 4 consultas y 0 visitas.",
+    "lectura": "Promedio de 24 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (12 nov) tuvo 34 clics y 131 de exposición. Hay 19 consultas y 4 visitas.",
     "totales": {
-      "exposicion": 2363,
-      "clics": 167,
-      "consultas": 4,
-      "visitas": 0
+      "exposicion": 4470,
+      "clics": 453,
+      "consultas": 19,
+      "visitas": 4
     },
     "umbrales": {
       "especulacion": 25,
@@ -377,6 +383,76 @@
         "fecha": "2026-10-29",
         "exposicion": 209,
         "clics": 13
+      },
+      {
+        "fecha": "2026-10-30",
+        "exposicion": 199,
+        "clics": 14
+      },
+      {
+        "fecha": "2026-10-31",
+        "exposicion": 136,
+        "clics": 19
+      },
+      {
+        "fecha": "2026-11-01",
+        "exposicion": 186,
+        "clics": 12
+      },
+      {
+        "fecha": "2026-11-02",
+        "exposicion": 152,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-03",
+        "exposicion": 184,
+        "clics": 32
+      },
+      {
+        "fecha": "2026-11-04",
+        "exposicion": 157,
+        "clics": 16
+      },
+      {
+        "fecha": "2026-11-05",
+        "exposicion": 142,
+        "clics": 11
+      },
+      {
+        "fecha": "2026-11-06",
+        "exposicion": 171,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-07",
+        "exposicion": 112,
+        "clics": 32
+      },
+      {
+        "fecha": "2026-11-08",
+        "exposicion": 114,
+        "clics": 18
+      },
+      {
+        "fecha": "2026-11-09",
+        "exposicion": 133,
+        "clics": 27
+      },
+      {
+        "fecha": "2026-11-10",
+        "exposicion": 126,
+        "clics": 11
+      },
+      {
+        "fecha": "2026-11-11",
+        "exposicion": 164,
+        "clics": 20
+      },
+      {
+        "fecha": "2026-11-12",
+        "exposicion": 131,
+        "clics": 34
       }
     ],
     "semanas": [],
@@ -384,12 +460,12 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 0
+        "consultas": 5
       },
       {
         "nombre": "MercadoLibre",
         "color": "#ffd100",
-        "consultas": 0
+        "consultas": 14
       },
       {
         "nombre": "Argenprop",
@@ -410,44 +486,156 @@
     },
     "consultas": [
       {
-        "nombre": "Mateo Augusto Corriani",
-        "fuente": [
-          "MercadoLibre"
-        ],
+        "nombre": "Patricio O.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-16",
+        "feedback": ""
+      },
+      {
+        "nombre": "Roger C.",
+        "fuente": "Zonaprop",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Cinthia M.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Gonzalo I.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Selva A.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Pablo I.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-14",
+        "feedback": ""
+      },
+      {
+        "nombre": "Daniel D.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-13",
+        "feedback": ""
+      },
+      {
+        "nombre": "Evelyn B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-13",
+        "feedback": ""
+      },
+      {
+        "nombre": "Nico N.",
+        "fuente": "MercadoLibre",
+        "etapa": "Coordinar",
+        "visito": false,
+        "fecha": "2026-11-11",
+        "feedback": ""
+      },
+      {
+        "nombre": "Vanesa B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Descarto",
+        "visito": false,
+        "fecha": "2026-11-09",
+        "feedback": "Permuta casa en Claromeco "
+      },
+      {
+        "nombre": "Monica",
+        "fuente": "Zonaprop",
+        "etapa": "Coordinar",
+        "visito": false,
+        "fecha": "2026-11-07",
+        "feedback": "Falto a la visita, re cordinando"
+      },
+      {
+        "nombre": "Nicolas B.",
+        "fuente": "MercadoLibre",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-11-06",
+        "feedback": "compra con crédito privado, le exigen que no esté alquilado para el otrogamiento, muy interesado"
+      },
+      {
+        "nombre": "Ifranta G.",
+        "fuente": "Zonaprop",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-11-06",
+        "feedback": "Compra con crédito, Le gusto mucho, está interesada, necesitaria ingresar en Abril"
+      },
+      {
+        "nombre": "Johana O.",
+        "fuente": "MercadoLibre",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-06",
+        "feedback": ""
+      },
+      {
+        "nombre": "Aguilera W.",
+        "fuente": "Zonaprop",
+        "etapa": "Calificar",
+        "visito": false,
+        "fecha": "2026-11-01",
+        "feedback": "Sin respuestas"
+      },
+      {
+        "nombre": "Mateo C.",
+        "fuente": "MercadoLibre",
         "etapa": "Calificar",
         "visito": false,
         "fecha": "2026-10-28",
-        "feedback": ""
+        "feedback": "sin respuestas"
       },
       {
-        "nombre": "Alvaro Cornelio Vicente Vique",
-        "fuente": [
-          "MercadoLibre"
-        ],
-        "etapa": "Muestra",
-        "visito": false,
-        "fecha": "2026-10-26",
-        "feedback": ""
-      },
-      {
-        "nombre": "Marcela Adriana Alamo",
-        "fuente": [
-          "MercadoLibre"
-        ],
-        "etapa": "Muestra",
-        "visito": false,
-        "fecha": "2026-10-26",
-        "feedback": ""
-      },
-      {
-        "nombre": "Melisa",
-        "fuente": [
-          "Zonaprop"
-        ],
+        "nombre": "Melisa F.",
+        "fuente": "Zonaprop",
         "etapa": "Coordinar",
         "visito": false,
         "fecha": "2026-10-26",
-        "feedback": ""
+        "feedback": "Compra con crédito, le da miedo que el banco lo rechace por estár alquilado"
+      },
+      {
+        "nombre": "Marcela A.",
+        "fuente": "MercadoLibre",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-10-26",
+        "feedback": "Les gusto, aún estan comenzado la busqueda. compran con crédito"
+      },
+      {
+        "nombre": "Alvaro V.",
+        "fuente": "MercadoLibre",
+        "etapa": "Seguimiento",
+        "visito": true,
+        "fecha": "2026-10-26",
+        "feedback": "Le interesa, reservo otro que no prospera aún, puede que oferte si no avanza. \nMenciono que no incluye SUM. \nCompra con crédito"
       }
     ]
   }
