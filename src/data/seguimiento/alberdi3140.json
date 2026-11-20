@@ -314,44 +314,44 @@
   ],
   "informe": {
     "_nota": "Datos del informe semanal. Los completa n8n (o a mano) cada viernes. Fuente: Sheet maestro + Notion.",
-    "generado": "2026-11-17",
-    "actualizado": "17 de noviembre",
+    "generado": "2026-11-20",
+    "actualizado": "20 de noviembre",
     "estado": "Publicada",
     "fecha_publicacion": "2026-10-25",
     "dias_autorizacion": 120,
     "fin_autorizacion": "23 feb 2027",
-    "proximo_informe": "Viernes 24 nov",
+    "proximo_informe": "Viernes 27 nov",
     "destacado": {
-      "titulo": "2 visitas realizadas y 2 consultas nuevas esta semana",
-      "detalle": "Visitaron Ifranta G. y Nicolas B. Consultas nuevas: todas de Mercado Libre"
+      "titulo": "5 consultas nuevas esta semana",
+      "detalle": "4 de Zonaprop y 1 de Mercado Libre"
     },
     "proximo": {
       "titulo": "Coordinar nuevas visitas",
-      "detalle": "7 interesados para coordinar visita. 4 ya visitaron y siguen evaluando"
+      "detalle": "11 interesados para coordinar visita. 4 ya visitaron y siguen evaluando"
     },
     "semana": {
-      "rango": "6 nov al 12 nov",
+      "rango": "13 nov al 19 nov",
       "primera": false,
       "actual": {
-        "exposicion": 951,
-        "clics": 162,
-        "consultas": 6,
-        "visitas": 2,
+        "exposicion": 541,
+        "clics": 85,
+        "consultas": 5,
+        "visitas": 0,
         "descartaron": 1
       },
       "anterior": {
-        "exposicion": 1156,
-        "clics": 124,
+        "exposicion": 951,
+        "clics": 162,
         "consultas": 0,
         "visitas": 0,
         "descartaron": 0
       }
     },
-    "lectura": "Promedio de 23 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (16 nov) tuvo 10 clics y 82 de exposición. Hay 12 consultas y 4 visitas.",
+    "lectura": "Promedio de 23 clics por día, en zona de especulación. El mejor día fue el 26 oct, con 64 clics y 755 de exposición. El último día (16 nov) tuvo 10 clics y 82 de exposición. Hay 16 consultas y 4 visitas.",
     "totales": {
       "exposicion": 5011,
       "clics": 538,
-      "consultas": 12,
+      "consultas": 16,
       "visitas": 4
     },
     "umbrales": {
@@ -480,7 +480,7 @@
       {
         "nombre": "Zonaprop",
         "color": "#f57c1f",
-        "consultas": 4
+        "consultas": 8
       },
       {
         "nombre": "MercadoLibre",
@@ -505,6 +505,42 @@
       "visitas": 6
     },
     "consultas": [
+      {
+        "nombre": "Facundo S.",
+        "fuente": "Zonaprop",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-19",
+        "feedback": "",
+        "contacto": ""
+      },
+      {
+        "nombre": "Melisa F.",
+        "fuente": "Zonaprop",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-19",
+        "feedback": "",
+        "contacto": ""
+      },
+      {
+        "nombre": "Valeria",
+        "fuente": "Zonaprop",
+        "etapa": "Nuevo",
+        "visito": false,
+        "fecha": "2026-11-17",
+        "feedback": "",
+        "contacto": "2026-11-17"
+      },
+      {
+        "nombre": "Agustín",
+        "fuente": "Zonaprop",
+        "etapa": "Coordinar",
+        "visito": false,
+        "fecha": "2026-11-17",
+        "feedback": "",
+        "contacto": "2026-11-17"
+      },
       {
         "nombre": "Evelyn B.",
         "fuente": "MercadoLibre",
